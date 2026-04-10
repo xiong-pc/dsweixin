@@ -1,0 +1,31 @@
+$sidebar-width: 210px;
+$sidebar-collapsed-width: 54px;
+$navbar-height: 50px;
+$tags-view-height: 34px;
+$app-main-padding: 10px;
+
+:root {
+  --sidebar-width: #{$sidebar-width};
+  --sidebar-collapsed-width: #{$sidebar-collapsed-width};
+  --navbar-height: #{$navbar-height};
+  --tags-view-height: #{$tags-view-height};
+
+  --sidebar-bg: #001529;
+  --sidebar-text: #ffffffb3;
+  --sidebar-active-text: #fff;
+  --sidebar-active-bg: #0960bd;
+  --sidebar-hover-bg: rgba(255, 255, 255, 0.08);
+  --sidebar-submenu-bg: #000c17;
+  --sidebar-logo-bg: #001529;
+  --el-menu-active-color: #409eff;
+}
+
+html.dark {
+  --sidebar-bg: #141414;
+  --sidebar-text: #ffffffb3;
+  --sidebar-active-text: #fff;
+  --sidebar-active-bg: #0960bd;
+  --sidebar-hover-bg: rgba(255, 255, 255, 0.06);
+  --sidebar-submenu-bg: #0d0d0d;
+  --sidebar-logo-bg: #141414;
+}
