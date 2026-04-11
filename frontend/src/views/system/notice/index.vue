@@ -3,7 +3,7 @@
     <div class="search-container">
       <el-form :model="queryParams" :inline="true">
         <el-form-item label="公告标题">
-          <el-input v-model="queryParams.title" placeholder="请输入公告标题" clearable @keyup.enter="handleQuery" />
+          <el-input v-model="queryParams.keywords" placeholder="请输入公告标题" clearable @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item label="公告类型">
           <el-select v-model="queryParams.type" placeholder="全部" clearable>
@@ -30,7 +30,7 @@
         <el-table-column label="公告标题" prop="title" min-width="200" show-overflow-tooltip />
         <el-table-column label="公告类型" prop="type" width="100" align="center">
           <template #default="{ row }">
-            <el-tag :type="row.type === 1 ? '' : 'success'">
+            <el-tag :type="row.type === 1 ? undefined : 'success'">
               {{ row.type === 1 ? '通知' : '公告' }}
             </el-tag>
           </template>
@@ -56,7 +56,7 @@
 
       <div class="pagination-container">
         <el-pagination
-          v-model:current-page="queryParams.pageNum"
+          v-model:current-page="queryParams.page"
           v-model:page-size="queryParams.pageSize"
           :page-sizes="[10, 20, 50, 100]"
           :total="total"
@@ -107,9 +107,9 @@ const dialogTitle = ref('');
 const formRef = ref<FormInstance>();
 
 const queryParams = reactive({
-  pageNum: 1,
+  page: 1,
   pageSize: 10,
-  title: '',
+  keywords: '',
   type: undefined as number | undefined,
 });
 
@@ -143,8 +143,8 @@ async function handleQuery() {
 }
 
 function handleReset() {
-  queryParams.pageNum = 1;
-  queryParams.title = '';
+  queryParams.page = 1;
+  queryParams.keywords = '';
   queryParams.type = undefined;
   handleQuery();
 }

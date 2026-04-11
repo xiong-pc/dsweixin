@@ -1,5 +1,6 @@
 
 .DS_Store
+.mcp.json
 .idea/
 .vscode/
 *.log
@@ -7,3 +8,4 @@
 docs
 CLAUDE.md
 git-commands.md
+.claudeignore

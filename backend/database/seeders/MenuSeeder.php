@@ -88,6 +88,16 @@ class MenuSeeder extends Seeder
         Menu::create(['parent_id' => $notice->id, 'name' => '公告编辑', 'type' => 3, 'permission' => 'sys:notice:edit', 'sort' => 2]);
         Menu::create(['parent_id' => $notice->id, 'name' => '公告删除', 'type' => 3, 'permission' => 'sys:notice:delete', 'sort' => 3]);
 
+        // Area Management
+        $area = Menu::create([
+            'parent_id' => $system->id, 'name' => '地区管理', 'type' => 2,
+            'path' => 'area', 'component' => 'system/area/index', 'icon' => 'Location',
+            'sort' => 9, 'visible' => 1,
+        ]);
+        Menu::create(['parent_id' => $area->id, 'name' => '地区新增', 'type' => 3, 'permission' => 'sys:area:add', 'sort' => 1]);
+        Menu::create(['parent_id' => $area->id, 'name' => '地区编辑', 'type' => 3, 'permission' => 'sys:area:edit', 'sort' => 2]);
+        Menu::create(['parent_id' => $area->id, 'name' => '地区删除', 'type' => 3, 'permission' => 'sys:area:delete', 'sort' => 3]);
+
         // Tenant Management
         $tenant = Menu::create([
             'parent_id' => $system->id, 'name' => '租户管理', 'type' => 2,

@@ -3,7 +3,7 @@
     <div class="search-container">
       <el-form :model="queryParams" :inline="true">
         <el-form-item label="用户名">
-          <el-input v-model="queryParams.username" placeholder="请输入用户名" clearable @keyup.enter="handleQuery" />
+          <el-input v-model="queryParams.keywords" placeholder="请输入用户名" clearable @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item label="状态">
           <el-select v-model="queryParams.status" placeholder="全部" clearable>
@@ -61,7 +61,7 @@
 
       <div class="pagination-container">
         <el-pagination
-          v-model:current-page="queryParams.pageNum"
+          v-model:current-page="queryParams.page"
           v-model:page-size="queryParams.pageSize"
           :page-sizes="[10, 20, 50, 100]"
           :total="total"
@@ -133,9 +133,9 @@ const formRef = ref<FormInstance>();
 const roleOptions = ref<OptionType[]>([]);
 
 const queryParams = reactive({
-  pageNum: 1,
+  page: 1,
   pageSize: 10,
-  username: '',
+  keywords: '',
   status: undefined as number | undefined,
 });
 
@@ -175,14 +175,14 @@ async function handleQuery() {
 }
 
 function handleReset() {
-  queryParams.pageNum = 1;
-  queryParams.username = '';
+  queryParams.page = 1;
+  queryParams.keywords = '';
   queryParams.status = undefined;
   handleQuery();
 }
 
 async function loadRoleOptions() {
-  const res = await getRoleList({ pageNum: 1, pageSize: 100 });
+  const res = await getRoleList({ page: 1, pageSize: 100 });
   roleOptions.value = (res.data.list || []).map((r: any) => ({ label: r.name, value: r.id }));
 }
 

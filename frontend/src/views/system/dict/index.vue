@@ -3,7 +3,7 @@
     <div class="search-container">
       <el-form :model="queryParams" :inline="true">
         <el-form-item label="字典名称">
-          <el-input v-model="queryParams.name" placeholder="请输入字典名称" clearable @keyup.enter="handleQuery" />
+          <el-input v-model="queryParams.keywords" placeholder="请输入字典名称" clearable @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
@@ -42,7 +42,7 @@
 
           <div class="pagination-container">
             <el-pagination
-              v-model:current-page="queryParams.pageNum"
+              v-model:current-page="queryParams.page"
               v-model:page-size="queryParams.pageSize"
               :page-sizes="[10, 20, 50]"
               :total="total"
@@ -155,7 +155,7 @@ const itemDialogTitle = ref('');
 const dictFormRef = ref<FormInstance>();
 const itemFormRef = ref<FormInstance>();
 
-const queryParams = reactive({ pageNum: 1, pageSize: 10, name: '' });
+const queryParams = reactive({ page: 1, pageSize: 10, keywords: '' });
 
 const dictForm = reactive({
   id: undefined as number | undefined,
@@ -172,7 +172,7 @@ const dictFormRules = {
 
 const itemForm = reactive({
   id: undefined as number | undefined,
-  dict_id: undefined as number | undefined,
+  dict_id: 0,
   label: '',
   value: '',
   sort: 0,
@@ -200,8 +200,8 @@ async function handleQuery() {
 }
 
 function handleReset() {
-  queryParams.pageNum = 1;
-  queryParams.name = '';
+  queryParams.page = 1;
+  queryParams.keywords = '';
   handleQuery();
 }
 

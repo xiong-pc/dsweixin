@@ -27,19 +27,19 @@ class UserFactory extends Factory
         $nickname = fake()->name();
 
         return [
-            'tenant_id'          => 0,
-            'dept_id'            => null,
-            'username'           => fake()->unique()->userName(),
-            'name'               => $nickname,
-            'nickname'           => $nickname,
-            'email'              => fake()->unique()->safeEmail(),
-            'email_verified_at'  => now(),
-            'password'           => static::$password ??= Hash::make('password'),
-            'phone'              => fake()->phoneNumber(),
-            'avatar'             => '',
-            'gender'             => 0,
-            'status'             => 1,
-            'remember_token'     => Str::random(10),
+            'tenant_id' => 0,
+            'dept_id' => 0,
+            'username' => fake()->unique()->userName(),
+            'name' => $nickname,
+            'nickname' => $nickname,
+            'email' => fake()->unique()->safeEmail(),
+            'email_verified_at' => now(),
+            'password' => static::$password ??= Hash::make('password'),
+            'phone' => fake()->phoneNumber(),
+            'avatar' => '',
+            'gender' => 0,
+            'status' => 1,
+            'remember_token' => Str::random(10),
         ];
     }
 

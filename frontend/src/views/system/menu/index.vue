@@ -3,7 +3,7 @@
     <div class="search-container">
       <el-form :model="queryParams" :inline="true">
         <el-form-item label="菜单名称">
-          <el-input v-model="queryParams.name" placeholder="请输入菜单名称" clearable />
+          <el-input v-model="queryParams.keywords" placeholder="请输入菜单名称" clearable />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
@@ -72,7 +72,8 @@
           <el-tree-select
             v-model="formData.parent_id"
             :data="menuOptions"
-            :props="{ label: 'name', value: 'id', children: 'children' }"
+            :props="{ label: 'name', children: 'children' }"
+            value-key="id"
             placeholder="选择上级菜单"
             check-strictly
             clearable
@@ -147,12 +148,12 @@ const menuOptions = ref<any[]>([]);
 const isExpandAll = ref(true);
 const refreshTable = ref(true);
 
-const queryParams = reactive({ name: '' });
+const queryParams = reactive({ keywords: '' });
 
 const formData = reactive({
   id: undefined as number | undefined,
   parent_id: 0,
-  type: 1,
+  type: 1 as 1 | 2 | 3 | 4,
   name: '',
   icon: '',
   path: '',
@@ -184,9 +185,9 @@ async function handleQuery() {
   }
 }
 
-function handleReset() {
-  queryParams.name = '';
-  handleQuery();
+async function handleReset() {
+  queryParams.keywords = '';
+  await handleQuery();
 }
 
 function toggleExpandAll() {
@@ -255,6 +256,6 @@ async function handleDelete(id: number) {
   await ElMessageBox.confirm('确认删除该菜单？', '提示', { type: 'warning' });
   await deleteMenu(id);
   ElMessage.success('删除成功');
-  handleQuery();
+  await handleQuery();
 }
 </script>

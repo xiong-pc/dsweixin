@@ -58,7 +58,8 @@
           <el-tree-select
             v-model="formData.parent_id"
             :data="categoryOptions"
-            :props="{ label: 'name', value: 'id', children: 'children' }"
+            :props="{ label: 'name', children: 'children' }"
+            value-key="id"
             placeholder="选择上级分类"
             check-strictly
             clearable

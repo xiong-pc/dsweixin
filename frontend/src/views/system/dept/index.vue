@@ -3,7 +3,7 @@
     <div class="search-container">
       <el-form :model="queryParams" :inline="true">
         <el-form-item label="部门名称">
-          <el-input v-model="queryParams.name" placeholder="请输入部门名称" clearable />
+          <el-input v-model="queryParams.keywords" placeholder="请输入部门名称" clearable />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
@@ -59,7 +59,8 @@
           <el-tree-select
             v-model="formData.parent_id"
             :data="deptOptions"
-            :props="{ label: 'name', value: 'id', children: 'children' }"
+            :props="{ label: 'name', children: 'children' }"
+            value-key="id"
             placeholder="选择上级部门"
             check-strictly
             clearable
@@ -117,7 +118,7 @@ const deptOptions = ref<any[]>([]);
 const isExpandAll = ref(true);
 const refreshTable = ref(true);
 
-const queryParams = reactive({ name: '' });
+const queryParams = reactive({ keywords: '' });
 
 const formData = reactive({
   id: undefined as number | undefined,
@@ -150,7 +151,7 @@ async function handleQuery() {
 }
 
 function handleReset() {
-  queryParams.name = '';
+  queryParams.keywords = '';
   handleQuery();
 }
 

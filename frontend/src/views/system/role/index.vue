@@ -3,7 +3,7 @@
     <div class="search-container">
       <el-form :model="queryParams" :inline="true">
         <el-form-item label="角色名称">
-          <el-input v-model="queryParams.name" placeholder="请输入角色名称" clearable @keyup.enter="handleQuery" />
+          <el-input v-model="queryParams.keywords" placeholder="请输入角色名称" clearable @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
@@ -43,7 +43,7 @@
 
       <div class="pagination-container">
         <el-pagination
-          v-model:current-page="queryParams.pageNum"
+          v-model:current-page="queryParams.page"
           v-model:page-size="queryParams.pageSize"
           :page-sizes="[10, 20, 50, 100]"
           :total="total"
@@ -120,9 +120,9 @@ const menuTreeData = ref<any[]>([]);
 const currentRoleId = ref(0);
 
 const queryParams = reactive({
-  pageNum: 1,
+  page: 1,
   pageSize: 10,
-  name: '',
+  keywords: '',
 });
 
 const formData = reactive({
@@ -155,8 +155,8 @@ async function handleQuery() {
 }
 
 function handleReset() {
-  queryParams.pageNum = 1;
-  queryParams.name = '';
+  queryParams.page = 1;
+  queryParams.keywords = '';
   handleQuery();
 }
 

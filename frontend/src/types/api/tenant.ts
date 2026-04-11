@@ -7,11 +7,12 @@ export interface TenantListQuery {
 
 export interface StoreTenantRequest {
   name: string
-  code: string
-  status?: number
   contact_name?: string
   contact_phone?: string
-  expired_at?: string
+  domain?: string
+  account_limit?: number
+  expire_time?: string
+  status?: number
   remark?: string
 }
 
@@ -20,11 +21,13 @@ export interface UpdateTenantRequest extends Partial<StoreTenantRequest> {}
 export interface TenantItem {
   id: number
   name: string
-  code: string
   status: number
   contact_name: string
   contact_phone: string
-  expired_at: string
+  domain: string
+  package_name: string
+  account_limit: number
+  expire_time: string
   remark: string
   created_at: string
 }
