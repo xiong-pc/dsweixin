@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\NoticeController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\TenantController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\UserLogController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -57,6 +58,9 @@ Route::prefix('v1')->group(function () {
 
             // 地区管理
             Route::apiResource('areas', AreaController::class);
+
+            // 用户操作日志
+            Route::apiResource('user-logs', UserLogController::class);
 
             // 租户：超管全量；租户管理员仅本租户（接口内校验）
             Route::apiResource('tenants', TenantController::class);

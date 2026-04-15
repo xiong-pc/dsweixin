@@ -38,7 +38,7 @@
         </el-form-item>
       </el-form>
       <div class="login-footer">
-        <span>默认账号: admin / 123456</span>
+        <span>默认账号: superadmin / 123456</span>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@ const loginFormRef = ref<FormInstance>();
 const loading = ref(false);
 
 const loginForm = reactive({
-  username: 'admin',
+  username: 'superadmin',
   password: '123456',
 });
 
