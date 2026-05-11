@@ -20,7 +20,7 @@ class TenantTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/tenants  —— 超级管理员视角
+    // GET /api/v1/system/tenants  —— 超级管理员视角
     // -------------------------------------------------------
 
     public function test_super_admin_can_list_all_tenants(): void
@@ -29,7 +29,7 @@ class TenantTest extends TestCase
         $this->createTenant();
         $this->createTenant();
 
-        $response = $this->getJson('/api/v1/tenants');
+        $response = $this->getJson('/api/v1/system/tenants');
 
         $response->assertOk()
             ->assertJsonPath('code', 200)
@@ -42,7 +42,7 @@ class TenantTest extends TestCase
         $this->createTenant(['name' => '独特租户名称', 'code' => 'UNIQUE_T']);
         $this->createTenant(['name' => '其他租户']);
 
-        $response = $this->getJson('/api/v1/tenants?keywords=独特');
+        $response = $this->getJson('/api/v1/system/tenants?keywords=独特');
 
         $response->assertOk();
         $list = $response->json('data.list');
@@ -50,14 +50,14 @@ class TenantTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // POST /api/v1/tenants  —— 仅超管可建
+    // POST /api/v1/system/tenants  —— 仅超管可建
     // -------------------------------------------------------
 
     public function test_super_admin_can_create_tenant(): void
     {
         $this->actingAsSuperAdmin();
 
-        $response = $this->postJson('/api/v1/tenants', [
+        $response = $this->postJson('/api/v1/system/tenants', [
             'name'          => '新租户',
             'code'          => 'NEW_TENANT',
             'status'        => 1,
@@ -77,7 +77,7 @@ class TenantTest extends TestCase
         $this->ensureDefaultTenant();
         $this->actingAsAdmin();
 
-        $response = $this->postJson('/api/v1/tenants', [
+        $response = $this->postJson('/api/v1/system/tenants', [
             'name' => '非法创建',
             'code' => 'ILLEGAL',
         ]);
@@ -90,7 +90,7 @@ class TenantTest extends TestCase
     {
         $this->actingAsSuperAdmin();
 
-        $response = $this->postJson('/api/v1/tenants', []);
+        $response = $this->postJson('/api/v1/system/tenants', []);
 
         $response->assertStatus(422)
             ->assertJsonPath('code', 422);
@@ -101,7 +101,7 @@ class TenantTest extends TestCase
         $this->actingAsSuperAdmin();
         $this->createTenant(['code' => 'DUP_TENANT']);
 
-        $response = $this->postJson('/api/v1/tenants', [
+        $response = $this->postJson('/api/v1/system/tenants', [
             'name' => '重复编码',
             'code' => 'DUP_TENANT',
         ]);
@@ -111,7 +111,7 @@ class TenantTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/tenants/{id}
+    // GET /api/v1/system/tenants/{id}
     // -------------------------------------------------------
 
     public function test_super_admin_can_view_any_tenant(): void
@@ -119,14 +119,14 @@ class TenantTest extends TestCase
         $this->actingAsSuperAdmin();
         $tenant = $this->createTenant(['name' => '被查租户', 'code' => 'VIEW_T']);
 
-        $response = $this->getJson("/api/v1/tenants/{$tenant->id}");
+        $response = $this->getJson("/api/v1/system/tenants/{$tenant->id}");
 
         $response->assertOk()
             ->assertJsonPath('data.code', 'VIEW_T');
     }
 
     // -------------------------------------------------------
-    // PUT /api/v1/tenants/{id}
+    // PUT /api/v1/system/tenants/{id}
     // -------------------------------------------------------
 
     public function test_super_admin_can_update_tenant(): void
@@ -134,7 +134,7 @@ class TenantTest extends TestCase
         $this->actingAsSuperAdmin();
         $tenant = $this->createTenant();
 
-        $response = $this->putJson("/api/v1/tenants/{$tenant->id}", [
+        $response = $this->putJson("/api/v1/system/tenants/{$tenant->id}", [
             'name' => '修改后名称',
         ]);
 
@@ -143,7 +143,7 @@ class TenantTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // DELETE /api/v1/tenants/{id}  —— 仅超管可删
+    // DELETE /api/v1/system/tenants/{id}  —— 仅超管可删
     // -------------------------------------------------------
 
     public function test_super_admin_can_delete_tenant(): void
@@ -151,7 +151,7 @@ class TenantTest extends TestCase
         $this->actingAsSuperAdmin();
         $tenant = $this->createTenant();
 
-        $response = $this->deleteJson("/api/v1/tenants/{$tenant->id}");
+        $response = $this->deleteJson("/api/v1/system/tenants/{$tenant->id}");
 
         $response->assertOk()->assertJsonPath('code', 200);
         $this->assertSoftDeleted('tenants', ['id' => $tenant->id]);
@@ -162,7 +162,7 @@ class TenantTest extends TestCase
         $defaultTenant = $this->ensureDefaultTenant();
         $this->actingAsAdmin();
 
-        $response = $this->deleteJson("/api/v1/tenants/{$defaultTenant->id}");
+        $response = $this->deleteJson("/api/v1/system/tenants/{$defaultTenant->id}");
 
         $response->assertStatus(403);
     }

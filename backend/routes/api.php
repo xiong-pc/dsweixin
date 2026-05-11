@@ -2,16 +2,16 @@
 
 use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\ConfigController;
-use App\Http\Controllers\Api\DeptController;
-use App\Http\Controllers\Api\DictController;
-use App\Http\Controllers\Api\DictItemController;
-use App\Http\Controllers\Api\MenuController;
-use App\Http\Controllers\Api\NoticeController;
-use App\Http\Controllers\Api\RoleController;
-use App\Http\Controllers\Api\TenantController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\UserLogController;
+use App\Http\Controllers\Api\System\ConfigController;
+use App\Http\Controllers\Api\System\DeptController;
+use App\Http\Controllers\Api\System\DictController;
+use App\Http\Controllers\Api\System\DictItemController;
+use App\Http\Controllers\Api\System\MenuController;
+use App\Http\Controllers\Api\System\NoticeController;
+use App\Http\Controllers\Api\System\RoleController;
+use App\Http\Controllers\Api\System\TenantController;
+use App\Http\Controllers\Api\System\UserController;
+use App\Http\Controllers\Api\System\UserLogController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -27,43 +27,46 @@ Route::prefix('v1')->group(function () {
 
         // System management (with tenant middleware)
         Route::middleware('tenant')->group(function () {
-            // Users
-            Route::apiResource('users', UserController::class);
-            Route::patch('users/{user}/status', [UserController::class, 'updateStatus']);
-            Route::post('users/{user}/reset-password', [UserController::class, 'resetPassword']);
+            // 系统管理模块（统一挂到 /api/v1/system/* 前缀下，与 Api\System\ 命名空间对称）
+            Route::prefix('system')->group(function () {
+                // Users
+                Route::apiResource('users', UserController::class);
+                Route::patch('users/{user}/status', [UserController::class, 'updateStatus']);
+                Route::post('users/{user}/reset-password', [UserController::class, 'resetPassword']);
 
-            // Roles
-            Route::apiResource('roles', RoleController::class);
-            Route::get('roles/{role}/menus', [RoleController::class, 'menus']);
-            Route::put('roles/{role}/menus', [RoleController::class, 'updateMenus']);
+                // Roles
+                Route::apiResource('roles', RoleController::class);
+                Route::get('roles/{role}/menus', [RoleController::class, 'menus']);
+                Route::put('roles/{role}/menus', [RoleController::class, 'updateMenus']);
 
-            // Menus
-            Route::apiResource('menus', MenuController::class);
+                // Menus
+                Route::apiResource('menus', MenuController::class);
 
-            // Departments
-            Route::apiResource('depts', DeptController::class);
+                // Departments
+                Route::apiResource('depts', DeptController::class);
 
-            // Dictionaries
-            Route::apiResource('dicts', DictController::class);
-            Route::get('dicts/{dict}/items', [DictController::class, 'items']);
-            Route::apiResource('dict-items', DictItemController::class)->except(['index']);
+                // Dictionaries
+                Route::apiResource('dicts', DictController::class);
+                Route::get('dicts/{dict}/items', [DictController::class, 'items']);
+                Route::apiResource('dict-items', DictItemController::class)->except(['index']);
 
-            // System Config
-            Route::apiResource('configs', ConfigController::class);
+                // System Config
+                Route::apiResource('configs', ConfigController::class);
 
-            // Notices
-            Route::apiResource('notices', NoticeController::class);
-            Route::patch('notices/{notice}/publish', [NoticeController::class, 'publish']);
-            Route::patch('notices/{notice}/revoke', [NoticeController::class, 'revoke']);
+                // Notices
+                Route::apiResource('notices', NoticeController::class);
+                Route::patch('notices/{notice}/publish', [NoticeController::class, 'publish']);
+                Route::patch('notices/{notice}/revoke', [NoticeController::class, 'revoke']);
 
-            // 地区管理
+                // 用户操作日志
+                Route::apiResource('user-logs', UserLogController::class);
+
+                // 租户：超管全量；租户管理员仅本租户（接口内校验）
+                Route::apiResource('tenants', TenantController::class);
+            });
+
+            // 地区管理（公共地理数据，不属于 system 命名空间）
             Route::apiResource('areas', AreaController::class);
-
-            // 用户操作日志
-            Route::apiResource('user-logs', UserLogController::class);
-
-            // 租户：超管全量；租户管理员仅本租户（接口内校验）
-            Route::apiResource('tenants', TenantController::class);
         });
     });
 });

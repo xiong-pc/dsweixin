@@ -10,7 +10,9 @@
  * @Version: 1.0.0
  */
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\System;
+
+use App\Http\Controllers\Api\Controller;
 
 use App\Http\Requests\Api\UserLog\StoreUserLogRequest;
 use App\Http\Requests\Api\UserLog\UpdateUserLogRequest;

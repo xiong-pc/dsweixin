@@ -30,14 +30,14 @@ class NoticeTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/notices
+    // GET /api/v1/system/notices
     // -------------------------------------------------------
 
     public function test_index_returns_paginated_notices(): void
     {
         $this->createNotice();
 
-        $response = $this->getJson('/api/v1/notices');
+        $response = $this->getJson('/api/v1/system/notices');
 
         $response->assertOk()
             ->assertJsonPath('code', 200)
@@ -49,7 +49,7 @@ class NoticeTest extends TestCase
         $this->createNotice(['title' => '草稿公告', 'status' => 0]);
         $this->createNotice(['title' => '发布公告', 'status' => 1]);
 
-        $response = $this->getJson('/api/v1/notices?status=1');
+        $response = $this->getJson('/api/v1/system/notices?status=1');
 
         $response->assertOk();
         foreach ($response->json('data.list') as $notice) {
@@ -62,7 +62,7 @@ class NoticeTest extends TestCase
         $this->createNotice(['type' => 1]);
         $this->createNotice(['type' => 2]);
 
-        $response = $this->getJson('/api/v1/notices?type=2');
+        $response = $this->getJson('/api/v1/system/notices?type=2');
 
         $response->assertOk();
         foreach ($response->json('data.list') as $notice) {
@@ -71,12 +71,12 @@ class NoticeTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // POST /api/v1/notices
+    // POST /api/v1/system/notices
     // -------------------------------------------------------
 
     public function test_store_creates_draft_notice(): void
     {
-        $response = $this->postJson('/api/v1/notices', [
+        $response = $this->postJson('/api/v1/system/notices', [
             'title'   => '新公告',
             'type'    => 1,
             'level'   => 0,
@@ -94,7 +94,7 @@ class NoticeTest extends TestCase
 
     public function test_store_creates_published_notice_with_publish_time(): void
     {
-        $response = $this->postJson('/api/v1/notices', [
+        $response = $this->postJson('/api/v1/system/notices', [
             'title'  => '直接发布',
             'status' => 1,
         ]);
@@ -107,35 +107,35 @@ class NoticeTest extends TestCase
 
     public function test_store_validates_required_title(): void
     {
-        $response = $this->postJson('/api/v1/notices', []);
+        $response = $this->postJson('/api/v1/system/notices', []);
 
         $response->assertStatus(422)
             ->assertJsonPath('code', 422);
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/notices/{id}
+    // GET /api/v1/system/notices/{id}
     // -------------------------------------------------------
 
     public function test_show_returns_notice_detail(): void
     {
         $notice = $this->createNotice(['title' => '详情公告']);
 
-        $response = $this->getJson("/api/v1/notices/{$notice->id}");
+        $response = $this->getJson("/api/v1/system/notices/{$notice->id}");
 
         $response->assertOk()
             ->assertJsonPath('data.title', '详情公告');
     }
 
     // -------------------------------------------------------
-    // PUT /api/v1/notices/{id}
+    // PUT /api/v1/system/notices/{id}
     // -------------------------------------------------------
 
     public function test_update_modifies_notice(): void
     {
         $notice = $this->createNotice();
 
-        $response = $this->putJson("/api/v1/notices/{$notice->id}", [
+        $response = $this->putJson("/api/v1/system/notices/{$notice->id}", [
             'title' => '修改后标题',
         ]);
 
@@ -144,28 +144,28 @@ class NoticeTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // DELETE /api/v1/notices/{id}
+    // DELETE /api/v1/system/notices/{id}
     // -------------------------------------------------------
 
     public function test_destroy_deletes_notice(): void
     {
         $notice = $this->createNotice();
 
-        $response = $this->deleteJson("/api/v1/notices/{$notice->id}");
+        $response = $this->deleteJson("/api/v1/system/notices/{$notice->id}");
 
         $response->assertOk()->assertJsonPath('code', 200);
         $this->assertDatabaseMissing('notices', ['id' => $notice->id]);
     }
 
     // -------------------------------------------------------
-    // PATCH /api/v1/notices/{id}/publish
+    // PATCH /api/v1/system/notices/{id}/publish
     // -------------------------------------------------------
 
     public function test_publish_changes_status_to_published(): void
     {
         $notice = $this->createNotice(['status' => 0]);
 
-        $response = $this->patchJson("/api/v1/notices/{$notice->id}/publish");
+        $response = $this->patchJson("/api/v1/system/notices/{$notice->id}/publish");
 
         $response->assertOk()->assertJsonPath('code', 200);
         $notice->refresh();
@@ -174,14 +174,14 @@ class NoticeTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // PATCH /api/v1/notices/{id}/revoke
+    // PATCH /api/v1/system/notices/{id}/revoke
     // -------------------------------------------------------
 
     public function test_revoke_changes_status_to_revoked(): void
     {
         $notice = $this->createNotice(['status' => 1]);
 
-        $response = $this->patchJson("/api/v1/notices/{$notice->id}/revoke");
+        $response = $this->patchJson("/api/v1/system/notices/{$notice->id}/revoke");
 
         $response->assertOk()->assertJsonPath('code', 200);
         $notice->refresh();

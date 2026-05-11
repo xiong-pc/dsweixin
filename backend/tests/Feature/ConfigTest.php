@@ -29,14 +29,14 @@ class ConfigTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/configs
+    // GET /api/v1/system/configs
     // -------------------------------------------------------
 
     public function test_index_returns_paginated_configs(): void
     {
         $this->createConfig();
 
-        $response = $this->getJson('/api/v1/configs');
+        $response = $this->getJson('/api/v1/system/configs');
 
         $response->assertOk()
             ->assertJsonPath('code', 200)
@@ -48,7 +48,7 @@ class ConfigTest extends TestCase
         $this->createConfig(['name' => '站点标题配置', 'key' => 'site_title_unique']);
         $this->createConfig(['name' => '其他配置']);
 
-        $response = $this->getJson('/api/v1/configs?keywords=站点标题');
+        $response = $this->getJson('/api/v1/system/configs?keywords=站点标题');
 
         $response->assertOk();
         $list = $response->json('data.list');
@@ -57,12 +57,12 @@ class ConfigTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // POST /api/v1/configs
+    // POST /api/v1/system/configs
     // -------------------------------------------------------
 
     public function test_store_creates_config(): void
     {
-        $response = $this->postJson('/api/v1/configs', [
+        $response = $this->postJson('/api/v1/system/configs', [
             'name'  => '新配置',
             'key'   => 'new_config_key',
             'value' => 'hello',
@@ -77,7 +77,7 @@ class ConfigTest extends TestCase
 
     public function test_store_validates_required_fields(): void
     {
-        $response = $this->postJson('/api/v1/configs', []);
+        $response = $this->postJson('/api/v1/system/configs', []);
 
         $response->assertStatus(422)
             ->assertJsonPath('code', 422);
@@ -87,7 +87,7 @@ class ConfigTest extends TestCase
     {
         $this->createConfig(['key' => 'dup_config_key']);
 
-        $response = $this->postJson('/api/v1/configs', [
+        $response = $this->postJson('/api/v1/system/configs', [
             'name' => '重复',
             'key'  => 'dup_config_key',
         ]);
@@ -97,28 +97,28 @@ class ConfigTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/configs/{id}
+    // GET /api/v1/system/configs/{id}
     // -------------------------------------------------------
 
     public function test_show_returns_config_detail(): void
     {
         $config = $this->createConfig(['name' => '详情配置', 'key' => 'detail_key']);
 
-        $response = $this->getJson("/api/v1/configs/{$config->id}");
+        $response = $this->getJson("/api/v1/system/configs/{$config->id}");
 
         $response->assertOk()
             ->assertJsonPath('data.key', 'detail_key');
     }
 
     // -------------------------------------------------------
-    // PUT /api/v1/configs/{id}
+    // PUT /api/v1/system/configs/{id}
     // -------------------------------------------------------
 
     public function test_update_modifies_config(): void
     {
         $config = $this->createConfig();
 
-        $response = $this->putJson("/api/v1/configs/{$config->id}", [
+        $response = $this->putJson("/api/v1/system/configs/{$config->id}", [
             'value' => 'updated_value',
         ]);
 
@@ -131,7 +131,7 @@ class ConfigTest extends TestCase
         $config = $this->createConfig(['key' => 'my_unique_key']);
 
         // 用同 key 更新自己，应该通过
-        $response = $this->putJson("/api/v1/configs/{$config->id}", [
+        $response = $this->putJson("/api/v1/system/configs/{$config->id}", [
             'key' => 'my_unique_key',
         ]);
 
@@ -139,14 +139,14 @@ class ConfigTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // DELETE /api/v1/configs/{id}
+    // DELETE /api/v1/system/configs/{id}
     // -------------------------------------------------------
 
     public function test_destroy_deletes_config(): void
     {
         $config = $this->createConfig();
 
-        $response = $this->deleteJson("/api/v1/configs/{$config->id}");
+        $response = $this->deleteJson("/api/v1/system/configs/{$config->id}");
 
         $response->assertOk()->assertJsonPath('code', 200);
         $this->assertDatabaseMissing('configs', ['id' => $config->id]);
