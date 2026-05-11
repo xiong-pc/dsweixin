@@ -2,16 +2,16 @@
 
 use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\ConfigController;
-use App\Http\Controllers\Api\DeptController;
-use App\Http\Controllers\Api\DictController;
-use App\Http\Controllers\Api\DictItemController;
-use App\Http\Controllers\Api\MenuController;
-use App\Http\Controllers\Api\NoticeController;
-use App\Http\Controllers\Api\RoleController;
-use App\Http\Controllers\Api\TenantController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\UserLogController;
+use App\Http\Controllers\Api\System\ConfigController;
+use App\Http\Controllers\Api\System\DeptController;
+use App\Http\Controllers\Api\System\DictController;
+use App\Http\Controllers\Api\System\DictItemController;
+use App\Http\Controllers\Api\System\MenuController;
+use App\Http\Controllers\Api\System\NoticeController;
+use App\Http\Controllers\Api\System\RoleController;
+use App\Http\Controllers\Api\System\TenantController;
+use App\Http\Controllers\Api\System\UserController;
+use App\Http\Controllers\Api\System\UserLogController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {

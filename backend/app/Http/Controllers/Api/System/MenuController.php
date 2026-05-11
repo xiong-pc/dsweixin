@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\System;
+
+use App\Http\Controllers\Api\Controller;
 
 use App\Http\Requests\Api\Menu\StoreMenuRequest;
 use App\Http\Requests\Api\Menu\UpdateMenuRequest;
