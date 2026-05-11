@@ -31,14 +31,14 @@ class UserLogTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/user-logs
+    // GET /api/v1/system/user-logs
     // -------------------------------------------------------
 
     public function test_index_returns_paginated_logs(): void
     {
         $this->createUserLog();
 
-        $response = $this->getJson('/api/v1/user-logs');
+        $response = $this->getJson('/api/v1/system/user-logs');
 
         $response->assertOk()
             ->assertJsonPath('code', 200)
@@ -50,7 +50,7 @@ class UserLogTest extends TestCase
         $this->createUserLog(['username' => 'admin']);
         $this->createUserLog(['username' => '张三']);
 
-        $response = $this->getJson('/api/v1/user-logs?keywords=admin');
+        $response = $this->getJson('/api/v1/system/user-logs?keywords=admin');
 
         $response->assertOk();
         $list = $response->json('data.list');
@@ -63,7 +63,7 @@ class UserLogTest extends TestCase
         $this->createUserLog(['action_name' => '创建用户']);
         $this->createUserLog(['action_name' => '删除角色']);
 
-        $response = $this->getJson('/api/v1/user-logs?keywords=创建');
+        $response = $this->getJson('/api/v1/system/user-logs?keywords=创建');
 
         $response->assertOk();
         $list = $response->json('data.list');
@@ -76,7 +76,7 @@ class UserLogTest extends TestCase
         $this->createUserLog(['ip' => '192.168.1.1']);
         $this->createUserLog(['ip' => '10.0.0.1']);
 
-        $response = $this->getJson('/api/v1/user-logs?keywords=192.168');
+        $response = $this->getJson('/api/v1/system/user-logs?keywords=192.168');
 
         $response->assertOk();
         $list = $response->json('data.list');
@@ -90,7 +90,7 @@ class UserLogTest extends TestCase
         $this->createUserLog(['uid' => 2]);
         $this->createUserLog(['uid' => 2]);
 
-        $response = $this->getJson('/api/v1/user-logs?uid=2');
+        $response = $this->getJson('/api/v1/system/user-logs?uid=2');
 
         $response->assertOk();
         $this->assertEquals(2, $response->json('data.total'));
@@ -101,7 +101,7 @@ class UserLogTest extends TestCase
         $this->createUserLog(['site_id' => 1]);
         $this->createUserLog(['site_id' => 2]);
 
-        $response = $this->getJson('/api/v1/user-logs?site_id=2');
+        $response = $this->getJson('/api/v1/system/user-logs?site_id=2');
 
         $response->assertOk();
         $this->assertEquals(1, $response->json('data.total'));
@@ -112,7 +112,7 @@ class UserLogTest extends TestCase
         $this->createUserLog(['action_name' => '创建用户']);
         $this->createUserLog(['action_name' => '删除用户']);
 
-        $response = $this->getJson('/api/v1/user-logs?action_name=创建用户');
+        $response = $this->getJson('/api/v1/system/user-logs?action_name=创建用户');
 
         $response->assertOk();
         $list = $response->json('data.list');
@@ -125,7 +125,7 @@ class UserLogTest extends TestCase
             $this->createUserLog(['action_name' => "操作{$i}"]);
         }
 
-        $response = $this->getJson('/api/v1/user-logs?pageSize=2&pageNum=1');
+        $response = $this->getJson('/api/v1/system/user-logs?pageSize=2&pageNum=1');
 
         $response->assertOk();
         $this->assertEquals(5, $response->json('data.total'));
@@ -133,12 +133,12 @@ class UserLogTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // POST /api/v1/user-logs
+    // POST /api/v1/system/user-logs
     // -------------------------------------------------------
 
     public function test_store_creates_log(): void
     {
-        $response = $this->postJson('/api/v1/user-logs', [
+        $response = $this->postJson('/api/v1/system/user-logs', [
             'uid' => 1,
             'username' => 'admin',
             'site_id' => 1,
@@ -157,7 +157,7 @@ class UserLogTest extends TestCase
 
     public function test_store_allows_null_data_field(): void
     {
-        $response = $this->postJson('/api/v1/user-logs', [
+        $response = $this->postJson('/api/v1/system/user-logs', [
             'uid' => 1,
             'username' => 'admin',
             'site_id' => 1,
@@ -171,14 +171,14 @@ class UserLogTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/user-logs/{id}
+    // GET /api/v1/system/user-logs/{id}
     // -------------------------------------------------------
 
     public function test_show_returns_log(): void
     {
         $log = $this->createUserLog(['action_name' => '查询测试']);
 
-        $response = $this->getJson("/api/v1/user-logs/{$log->id}");
+        $response = $this->getJson("/api/v1/system/user-logs/{$log->id}");
 
         $response->assertOk()
             ->assertJsonPath('code', 200)
@@ -187,20 +187,20 @@ class UserLogTest extends TestCase
 
     public function test_show_returns_404_for_missing_log(): void
     {
-        $response = $this->getJson('/api/v1/user-logs/99999');
+        $response = $this->getJson('/api/v1/system/user-logs/99999');
 
         $response->assertStatus(404);
     }
 
     // -------------------------------------------------------
-    // PUT /api/v1/user-logs/{id}
+    // PUT /api/v1/system/user-logs/{id}
     // -------------------------------------------------------
 
     public function test_update_modifies_log(): void
     {
         $log = $this->createUserLog(['action_name' => '原始操作']);
 
-        $response = $this->putJson("/api/v1/user-logs/{$log->id}", [
+        $response = $this->putJson("/api/v1/system/user-logs/{$log->id}", [
             'action_name' => '修改后操作',
         ]);
 
@@ -210,20 +210,20 @@ class UserLogTest extends TestCase
 
     public function test_update_returns_404_for_missing_log(): void
     {
-        $response = $this->putJson('/api/v1/user-logs/99999', ['action_name' => 'x']);
+        $response = $this->putJson('/api/v1/system/user-logs/99999', ['action_name' => 'x']);
 
         $response->assertStatus(404);
     }
 
     // -------------------------------------------------------
-    // DELETE /api/v1/user-logs/{id}
+    // DELETE /api/v1/system/user-logs/{id}
     // -------------------------------------------------------
 
     public function test_destroy_deletes_log(): void
     {
         $log = $this->createUserLog();
 
-        $response = $this->deleteJson("/api/v1/user-logs/{$log->id}");
+        $response = $this->deleteJson("/api/v1/system/user-logs/{$log->id}");
 
         $response->assertOk()->assertJsonPath('code', 200);
         $this->assertDatabaseMissing('user_logs', ['id' => $log->id]);
@@ -231,7 +231,7 @@ class UserLogTest extends TestCase
 
     public function test_destroy_returns_404_for_missing_log(): void
     {
-        $response = $this->deleteJson('/api/v1/user-logs/99999');
+        $response = $this->deleteJson('/api/v1/system/user-logs/99999');
 
         $response->assertStatus(404);
     }

@@ -29,7 +29,7 @@ class DeptTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/depts
+    // GET /api/v1/system/depts
     // -------------------------------------------------------
 
     public function test_index_returns_dept_tree(): void
@@ -37,7 +37,7 @@ class DeptTest extends TestCase
         $parent = $this->createDept(['name' => '总部']);
         $this->createDept(['parent_id' => $parent->id, 'name' => '技术部']);
 
-        $response = $this->getJson('/api/v1/depts');
+        $response = $this->getJson('/api/v1/system/depts');
 
         $response->assertOk()
             ->assertJsonPath('code', 200);
@@ -50,7 +50,7 @@ class DeptTest extends TestCase
         $this->createDept(['name' => '搜索专属部门']);
         $this->createDept(['name' => '其他部门']);
 
-        $response = $this->getJson('/api/v1/depts?keywords=搜索专属');
+        $response = $this->getJson('/api/v1/system/depts?keywords=搜索专属');
 
         $response->assertOk();
         $names = array_column($response->json('data'), 'name');
@@ -58,12 +58,12 @@ class DeptTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // POST /api/v1/depts
+    // POST /api/v1/system/depts
     // -------------------------------------------------------
 
     public function test_store_creates_dept(): void
     {
-        $response = $this->postJson('/api/v1/depts', [
+        $response = $this->postJson('/api/v1/system/depts', [
             'name'   => '新建部门',
             'sort'   => 5,
             'status' => 1,
@@ -78,7 +78,7 @@ class DeptTest extends TestCase
 
     public function test_store_validates_required_name(): void
     {
-        $response = $this->postJson('/api/v1/depts', ['sort' => 1]);
+        $response = $this->postJson('/api/v1/system/depts', ['sort' => 1]);
 
         $response->assertStatus(422)
             ->assertJsonPath('code', 422);
@@ -86,7 +86,7 @@ class DeptTest extends TestCase
 
     public function test_store_validates_parent_exists(): void
     {
-        $response = $this->postJson('/api/v1/depts', [
+        $response = $this->postJson('/api/v1/system/depts', [
             'name'      => '子部门',
             'parent_id' => 99999,
         ]);
@@ -96,28 +96,28 @@ class DeptTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/depts/{id}
+    // GET /api/v1/system/depts/{id}
     // -------------------------------------------------------
 
     public function test_show_returns_dept_detail(): void
     {
         $dept = $this->createDept(['name' => '详情部门']);
 
-        $response = $this->getJson("/api/v1/depts/{$dept->id}");
+        $response = $this->getJson("/api/v1/system/depts/{$dept->id}");
 
         $response->assertOk()
             ->assertJsonPath('data.name', '详情部门');
     }
 
     // -------------------------------------------------------
-    // PUT /api/v1/depts/{id}
+    // PUT /api/v1/system/depts/{id}
     // -------------------------------------------------------
 
     public function test_update_modifies_dept(): void
     {
         $dept = $this->createDept();
 
-        $response = $this->putJson("/api/v1/depts/{$dept->id}", [
+        $response = $this->putJson("/api/v1/system/depts/{$dept->id}", [
             'name' => '修改后部门名',
         ]);
 
@@ -126,14 +126,14 @@ class DeptTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // DELETE /api/v1/depts/{id}
+    // DELETE /api/v1/system/depts/{id}
     // -------------------------------------------------------
 
     public function test_destroy_deletes_dept(): void
     {
         $dept = $this->createDept();
 
-        $response = $this->deleteJson("/api/v1/depts/{$dept->id}");
+        $response = $this->deleteJson("/api/v1/system/depts/{$dept->id}");
 
         $response->assertOk()->assertJsonPath('code', 200);
         $this->assertDatabaseMissing('depts', ['id' => $dept->id]);
@@ -144,7 +144,7 @@ class DeptTest extends TestCase
         $parent = $this->createDept(['name' => '父部门']);
         $this->createDept(['parent_id' => $parent->id, 'name' => '子部门']);
 
-        $response = $this->deleteJson("/api/v1/depts/{$parent->id}");
+        $response = $this->deleteJson("/api/v1/system/depts/{$parent->id}");
 
         $response->assertStatus(400);
         $this->assertDatabaseHas('depts', ['id' => $parent->id]);

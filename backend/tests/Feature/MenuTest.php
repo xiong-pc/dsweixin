@@ -31,7 +31,7 @@ class MenuTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/menus
+    // GET /api/v1/system/menus
     // -------------------------------------------------------
 
     public function test_index_returns_menu_tree(): void
@@ -39,7 +39,7 @@ class MenuTest extends TestCase
         $parent = $this->createMenu(['type' => 1, 'name' => '父目录']);
         $this->createMenu(['parent_id' => $parent->id, 'name' => '子菜单']);
 
-        $response = $this->getJson('/api/v1/menus');
+        $response = $this->getJson('/api/v1/system/menus');
 
         $response->assertOk()
             ->assertJsonPath('code', 200);
@@ -53,7 +53,7 @@ class MenuTest extends TestCase
         $this->createMenu(['name' => '专属搜索菜单']);
         $this->createMenu(['name' => '其他菜单']);
 
-        $response = $this->getJson('/api/v1/menus?keywords=专属搜索');
+        $response = $this->getJson('/api/v1/system/menus?keywords=专属搜索');
 
         $response->assertOk();
         $names = array_column($response->json('data'), 'name');
@@ -62,12 +62,12 @@ class MenuTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // POST /api/v1/menus
+    // POST /api/v1/system/menus
     // -------------------------------------------------------
 
     public function test_store_creates_directory_menu(): void
     {
-        $response = $this->postJson('/api/v1/menus', [
+        $response = $this->postJson('/api/v1/system/menus', [
             'name'      => '新目录',
             'type'      => 1,
             'path'      => '/new',
@@ -85,7 +85,7 @@ class MenuTest extends TestCase
 
     public function test_store_creates_button_permission(): void
     {
-        $response = $this->postJson('/api/v1/menus', [
+        $response = $this->postJson('/api/v1/system/menus', [
             'name'       => '新增用户按钮',
             'type'       => 3,
             'permission' => 'sys:user:add',
@@ -97,7 +97,7 @@ class MenuTest extends TestCase
 
     public function test_store_validates_required_fields(): void
     {
-        $response = $this->postJson('/api/v1/menus', []);
+        $response = $this->postJson('/api/v1/system/menus', []);
 
         $response->assertStatus(422)
             ->assertJsonPath('code', 422);
@@ -105,7 +105,7 @@ class MenuTest extends TestCase
 
     public function test_store_validates_type_enum(): void
     {
-        $response = $this->postJson('/api/v1/menus', [
+        $response = $this->postJson('/api/v1/system/menus', [
             'name' => '类型错误',
             'type' => 99,
         ]);
@@ -115,28 +115,28 @@ class MenuTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/menus/{id}
+    // GET /api/v1/system/menus/{id}
     // -------------------------------------------------------
 
     public function test_show_returns_menu_detail(): void
     {
         $menu = $this->createMenu(['name' => '详情菜单']);
 
-        $response = $this->getJson("/api/v1/menus/{$menu->id}");
+        $response = $this->getJson("/api/v1/system/menus/{$menu->id}");
 
         $response->assertOk()
             ->assertJsonPath('data.name', '详情菜单');
     }
 
     // -------------------------------------------------------
-    // PUT /api/v1/menus/{id}
+    // PUT /api/v1/system/menus/{id}
     // -------------------------------------------------------
 
     public function test_update_modifies_menu(): void
     {
         $menu = $this->createMenu();
 
-        $response = $this->putJson("/api/v1/menus/{$menu->id}", [
+        $response = $this->putJson("/api/v1/system/menus/{$menu->id}", [
             'name' => '修改后菜单名',
         ]);
 
@@ -145,14 +145,14 @@ class MenuTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // DELETE /api/v1/menus/{id}
+    // DELETE /api/v1/system/menus/{id}
     // -------------------------------------------------------
 
     public function test_destroy_deletes_menu(): void
     {
         $menu = $this->createMenu();
 
-        $response = $this->deleteJson("/api/v1/menus/{$menu->id}");
+        $response = $this->deleteJson("/api/v1/system/menus/{$menu->id}");
 
         $response->assertOk()->assertJsonPath('code', 200);
         $this->assertDatabaseMissing('menus', ['id' => $menu->id]);
@@ -163,7 +163,7 @@ class MenuTest extends TestCase
         $parent = $this->createMenu(['type' => 1]);
         $this->createMenu(['parent_id' => $parent->id]);
 
-        $response = $this->deleteJson("/api/v1/menus/{$parent->id}");
+        $response = $this->deleteJson("/api/v1/system/menus/{$parent->id}");
 
         $response->assertStatus(400);
         $this->assertDatabaseHas('menus', ['id' => $parent->id]);

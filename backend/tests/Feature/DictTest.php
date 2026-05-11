@@ -39,14 +39,14 @@ class DictTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/dicts
+    // GET /api/v1/system/dicts
     // -------------------------------------------------------
 
     public function test_index_returns_paginated_dicts(): void
     {
         $this->createDict();
 
-        $response = $this->getJson('/api/v1/dicts');
+        $response = $this->getJson('/api/v1/system/dicts');
 
         $response->assertOk()
             ->assertJsonPath('code', 200)
@@ -58,7 +58,7 @@ class DictTest extends TestCase
         $this->createDict(['name' => '独特字典名', 'code' => 'unique_dict']);
         $this->createDict(['name' => '普通字典']);
 
-        $response = $this->getJson('/api/v1/dicts?keywords=独特');
+        $response = $this->getJson('/api/v1/system/dicts?keywords=独特');
 
         $response->assertOk();
         $list = $response->json('data.list');
@@ -67,12 +67,12 @@ class DictTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // POST /api/v1/dicts
+    // POST /api/v1/system/dicts
     // -------------------------------------------------------
 
     public function test_store_creates_dict(): void
     {
-        $response = $this->postJson('/api/v1/dicts', [
+        $response = $this->postJson('/api/v1/system/dicts', [
             'name'   => '新字典',
             'code'   => 'new_dict',
             'status' => 1,
@@ -87,7 +87,7 @@ class DictTest extends TestCase
 
     public function test_store_validates_required_fields(): void
     {
-        $response = $this->postJson('/api/v1/dicts', []);
+        $response = $this->postJson('/api/v1/system/dicts', []);
 
         $response->assertStatus(422)
             ->assertJsonPath('code', 422);
@@ -97,7 +97,7 @@ class DictTest extends TestCase
     {
         $this->createDict(['code' => 'dup_dict']);
 
-        $response = $this->postJson('/api/v1/dicts', [
+        $response = $this->postJson('/api/v1/system/dicts', [
             'name' => '重复',
             'code' => 'dup_dict',
         ]);
@@ -107,7 +107,7 @@ class DictTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/dicts/{id}
+    // GET /api/v1/system/dicts/{id}
     // -------------------------------------------------------
 
     public function test_show_returns_dict_with_items(): void
@@ -115,21 +115,21 @@ class DictTest extends TestCase
         $dict = $this->createDict();
         $this->createDictItem($dict, ['label' => '选项A', 'value' => 'a']);
 
-        $response = $this->getJson("/api/v1/dicts/{$dict->id}");
+        $response = $this->getJson("/api/v1/system/dicts/{$dict->id}");
 
         $response->assertOk();
         $this->assertNotEmpty($response->json('data.items'));
     }
 
     // -------------------------------------------------------
-    // PUT /api/v1/dicts/{id}
+    // PUT /api/v1/system/dicts/{id}
     // -------------------------------------------------------
 
     public function test_update_modifies_dict(): void
     {
         $dict = $this->createDict();
 
-        $response = $this->putJson("/api/v1/dicts/{$dict->id}", [
+        $response = $this->putJson("/api/v1/system/dicts/{$dict->id}", [
             'name' => '修改后名称',
         ]);
 
@@ -138,7 +138,7 @@ class DictTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // DELETE /api/v1/dicts/{id}
+    // DELETE /api/v1/system/dicts/{id}
     // -------------------------------------------------------
 
     public function test_destroy_deletes_dict_and_items(): void
@@ -146,7 +146,7 @@ class DictTest extends TestCase
         $dict = $this->createDict();
         $item = $this->createDictItem($dict);
 
-        $response = $this->deleteJson("/api/v1/dicts/{$dict->id}");
+        $response = $this->deleteJson("/api/v1/system/dicts/{$dict->id}");
 
         $response->assertOk()->assertJsonPath('code', 200);
         $this->assertDatabaseMissing('dicts', ['id' => $dict->id]);
@@ -154,7 +154,7 @@ class DictTest extends TestCase
     }
 
     // -------------------------------------------------------
-    // GET /api/v1/dicts/{id}/items
+    // GET /api/v1/system/dicts/{id}/items
     // -------------------------------------------------------
 
     public function test_items_returns_dict_items(): void
@@ -163,7 +163,7 @@ class DictTest extends TestCase
         $this->createDictItem($dict, ['label' => '男', 'value' => '1']);
         $this->createDictItem($dict, ['label' => '女', 'value' => '2']);
 
-        $response = $this->getJson("/api/v1/dicts/{$dict->id}/items");
+        $response = $this->getJson("/api/v1/system/dicts/{$dict->id}/items");
 
         $response->assertOk();
         $this->assertCount(2, $response->json('data'));
@@ -177,7 +177,7 @@ class DictTest extends TestCase
     {
         $dict = $this->createDict();
 
-        $response = $this->postJson('/api/v1/dict-items', [
+        $response = $this->postJson('/api/v1/system/dict-items', [
             'dict_id' => $dict->id,
             'label'   => '新标签',
             'value'   => 'new_val',
@@ -190,7 +190,7 @@ class DictTest extends TestCase
 
     public function test_dict_item_store_validates_dict_exists(): void
     {
-        $response = $this->postJson('/api/v1/dict-items', [
+        $response = $this->postJson('/api/v1/system/dict-items', [
             'dict_id' => 99999,
             'label'   => '标签',
             'value'   => 'val',
@@ -205,7 +205,7 @@ class DictTest extends TestCase
         $dict = $this->createDict();
         $item = $this->createDictItem($dict);
 
-        $response = $this->putJson("/api/v1/dict-items/{$item->id}", [
+        $response = $this->putJson("/api/v1/system/dict-items/{$item->id}", [
             'label' => '修改标签',
         ]);
 
@@ -218,7 +218,7 @@ class DictTest extends TestCase
         $dict = $this->createDict();
         $item = $this->createDictItem($dict);
 
-        $response = $this->deleteJson("/api/v1/dict-items/{$item->id}");
+        $response = $this->deleteJson("/api/v1/system/dict-items/{$item->id}");
 
         $response->assertOk()->assertJsonPath('code', 200);
         $this->assertDatabaseMissing('dict_items', ['id' => $item->id]);
