@@ -18,6 +18,13 @@ class MenuSeeder extends Seeder
             'sort' => 1, 'visible' => 1, 'redirect' => '/system/user',
         ]);
 
+        // Common / Base Data Catalog（公共基础数据：地区等，与租户/系统无关）
+        $common = Menu::create([
+            'parent_id' => 0, 'name' => '基础数据', 'type' => 1,
+            'path' => '/common', 'component' => 'Layout', 'icon' => 'DataLine',
+            'sort' => 2, 'visible' => 1, 'redirect' => '/common/area',
+        ]);
+
         // User Management
         $user = Menu::create([
             'parent_id' => $system->id, 'name' => '用户管理', 'type' => 2,
@@ -88,11 +95,11 @@ class MenuSeeder extends Seeder
         Menu::create(['parent_id' => $notice->id, 'name' => '公告编辑', 'type' => 3, 'permission' => 'sys:notice:edit', 'sort' => 2]);
         Menu::create(['parent_id' => $notice->id, 'name' => '公告删除', 'type' => 3, 'permission' => 'sys:notice:delete', 'sort' => 3]);
 
-        // Area Management
+        // Area Management（公共地理数据，挂到 common 目录下）
         $area = Menu::create([
-            'parent_id' => $system->id, 'name' => '地区管理', 'type' => 2,
-            'path' => 'area', 'component' => 'system/area/index', 'icon' => 'Location',
-            'sort' => 9, 'visible' => 1,
+            'parent_id' => $common->id, 'name' => '地区管理', 'type' => 2,
+            'path' => 'area', 'component' => 'common/area/index', 'icon' => 'Location',
+            'sort' => 1, 'visible' => 1,
         ]);
         Menu::create(['parent_id' => $area->id, 'name' => '地区新增', 'type' => 3, 'permission' => 'sys:area:add', 'sort' => 1]);
         Menu::create(['parent_id' => $area->id, 'name' => '地区编辑', 'type' => 3, 'permission' => 'sys:area:edit', 'sort' => 2]);
