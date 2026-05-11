@@ -22,6 +22,7 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-CLAUDE.md
-/tests
-/database
+
+# 仅忽略本地 SQLite 文件，迁移/种子/工厂/测试/CLAUDE.md 必须进 git
+/database/database.sqlite
+/database/database.sqlite-journal
