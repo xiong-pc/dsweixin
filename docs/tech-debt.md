@@ -176,27 +176,53 @@ npm run lint -- --fix  # 一次性 fix 全部
 
 ---
 
-### TD-03 补 Unit 测试
+### TD-03 补 Unit 测试（持续进行中）
 
 **现状**：只有 1 个 `Tests\Unit\ExampleTest`，所有业务逻辑都靠 Feature test。
 
 **痛点**：
 - Feature test 慢（每个 5s 跑完 130 个，平均 38ms/test，但都要走 HTTP + DB）
-- 纯逻辑（如 `AuthService::filterMenusByRole`、密码哈希、租户隔离规则）应该单元测试
+- 纯逻辑（如菜单树构建、路由过滤）应该单元测试
 - 重构 Service 时无 lockdown，回归靠 Feature test 间接覆盖
 
-**落地步骤**：
+**落地模式（本次起步建立）**：
 
-1. 优先给以下纯逻辑层补 Unit test：
-   - `App\Services\Api\AuthService::getRouteTree` 的菜单树过滤
-   - `App\Services\Api\UserService` 的密码哈希、状态校验
-   - 任何 `App\Models\*` 的访问器 / 修改器 / scope
-2. 测试目标：`php artisan test --testsuite=Unit` 至少 30 个 case
-3. 配置 `phpunit.xml` 让 Unit 测试用内存 SQLite 跑（无 DB 依赖更好）
+1. 识别 Service 中的**纯函数**（不依赖 $this 状态，不依赖 DB/auth/HTTP）
+2. 重构为 `public static`（0 对外调用方的情况下，侵入最小）
+3. 在 `tests/Unit/Services/` 下建同名测试，用 `PHPUnit\Framework\TestCase`（不加载 Laravel app）
+4. 每个 public 方法至少覆盖：空输入、单项、边界条件、嵌套/递归（若适用）
 
-**工作量**：2-3 天（按 Service 数量分批）
+**已完成起步（2026-05-12）**：
+
+| 测试文件 | 被测目标 | cases | 范式 |
+|---|---|---|---|
+| `tests/Unit/Services/MenuServiceTest.php` | `MenuService::buildTree` | 8 | 纯数组递归构建树 |
+| `tests/Unit/Services/AuthServiceTest.php` | `AuthService::buildMenuTree` | 8 | 对象路由树（stdClass 模拟） |
+| `tests/Unit/Exceptions/BusinessExceptionTest.php` | `BusinessException` | 4 | 异常值对象 |
+
+**Unit test 性能验证**：
+- Unit: 21 tests / 0.58s = ~28ms/test（不加载 Laravel app）
+- Feature: 130 tests / 5.69s = ~44ms/test（建 DB schema + HTTP round-trip）
+- Unit 比 Feature 快约 40%，主要节省是 Laravel 启动 + DB 迁移
+
+**配套小重构（为可测性）**：
+- `MenuService::buildTree`：`private` → `public static`
+- `AuthService::buildMenuTree`：`private` → `public static`
+- 两者都是无状态纯函数，静态化更准确表达语义，且 Unit test 可以直接调用
+- 调用方改 `$this->` → `self::`（0 个外部调用方，零风险）
+
+**后续持续补**（不必立刻做完，业务新增时同步加）：
+
+- [ ] `AuthService::attemptLogin`：密码校验正负路径（用 User mock）
+- [ ] `AuthService::resolvePermissions`：SUPER_ADMIN 权限 + 按钮权限收集
+- [ ] `UserService::hashPassword`（如果有）
+- [ ] 任何未来新增的纯逻辑 Service 方法
+
+**工作量**：持续投入，每周 1-2 小时同步补
 **风险**：低
 **前置依赖**：无
+
+**已起步**：2026-05-12（+ 20 cases / +45 assertions，建立范式）
 
 ---
 
@@ -484,8 +510,8 @@ composer require dedoc/scramble
 3. ✅ **TD-01 加 CI/CD**（2h，护栏价值高）
 4. ✅ **TD-02 加 lint/format**（半天，配合 CI）
 5. ✅ **TD-05 补测试覆盖率**（半天，配合 CI）
-6. **TD-03 补 Unit 测试**（持续投入，可在补业务时同步加）← 推荐下一项
-7. **TD-02b larastan 静态分析**（PHP 类型/逻辑 lint，半天到 1 天）
+6. 🟨 **TD-03 补 Unit 测试**（已起步，20 cases；持续在新业务时同步补）
+7. **TD-02b larastan 静态分析**（PHP 类型/逻辑 lint，半天到 1 天）← 推荐下一项
 8. **TD-06 Service interface**（按需）
 9. **TD-07 commit 规范**（1h，团队 >2 人时再做）
 10. **TD-08 OpenAPI**（开始多人协作或多端调用时再做）
