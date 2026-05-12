@@ -32,44 +32,59 @@
 
 ```yaml
 name: CI
-on: [push, pull_request]
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   backend:
+    name: Backend (PHP 8.3 + Laravel)
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_DATABASE: dsweixin_test
-          MYSQL_ROOT_PASSWORD: root
-        ports: ['3306:3306']
-        options: --health-cmd="mysqladmin ping" --health-interval=5s
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
+          extensions: pdo_sqlite, sqlite3, mbstring, openssl, fileinfo
           coverage: none
+          tools: composer:v2
       - working-directory: backend
-        run: |
-          composer install --prefer-dist --no-progress
-          cp .env.example .env
-          php artisan key:generate
-          php artisan test
+        run: composer install --prefer-dist --no-progress --no-interaction
+      - working-directory: backend
+        run: cp .env.example .env && php artisan key:generate
+      - working-directory: backend
+        run: php artisan test
 
   frontend:
+    name: Frontend (Node 20 + Vue 3)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: '20' }
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
       - working-directory: frontend
-        run: |
-          npm ci
-          npm run type-check
-          npm run build
+        run: npm ci
+      - working-directory: frontend
+        run: npm run type-check
+      - working-directory: frontend
+        run: npm run build
 ```
+
+**关键设计**：
+- 测试用内存 SQLite（`phpunit.xml` 强制 `DB_CONNECTION=sqlite` + `DB_DATABASE=:memory:`），
+  **不需要起 MySQL 服务**
+- backend / frontend 两个 job **并行**跑，缩短反馈时间
+- `concurrency` 控制：同一 PR 多次推送时取消旧 run，节省 GitHub Actions minutes
+- frontend 配 `cache: 'npm'`，二次跑 install 走缓存
 
 2. 验证：开个空 PR，看 Actions tab 是否亮绿
 3. 给主分支加保护规则：Settings → Branches → main → Require status checks
@@ -77,6 +92,8 @@ jobs:
 **工作量**：1-2 小时
 **风险**：低（只是新增文件）
 **前置依赖**：无
+
+**已完成**：2026-05-12（实际无需 MySQL 服务，比原模板更简洁）
 
 ---
 
