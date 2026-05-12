@@ -247,11 +247,31 @@ plugins: [
 删除 `frontend/src/plugins/index.ts` 里的全量 `import ElementPlus`（组件）和 
 `import * as ElementPlusIconsVue`（图标按需单独处理）。
 
-**预期**：element-vendor 从 1MB 降到 300-500 kB（按实际使用组件）。
+**预期 vs 实测**：
+
+| 维度 | 预期 | 实测 |
+|---|---|---|
+| `element-vendor.js` | 1MB → 300-500 kB | **1,030 → 1,029 kB（几乎无变化）** |
+| element-plus CSS | 全量 ~350 kB | **38 个按需 CSS 文件，单页只加载用到的（首屏 ~15 kB gzip）** |
+| 工具链 | - | 模板写 `<el-button>` 自动 import + 按需 CSS |
+
+**JS 未减小的根本原因**：项目实际使用了 39 个 el-* 组件（见 `frontend/src/types/components.d.ts`），
+包含 `ElTable` / `ElDatePicker` / `ElSelect` / `ElTree` / `ElPagination` 等"大组件"，39 个加起来 1MB 合理。
+构建层面已经只打这 39 个，要继续瘦身只能业务层减少组件使用，不是构建优化能解决。
+
+**真实收益**：
+- 首屏 CSS 由全量 ~110 kB gzip → ~15 kB gzip，**减约 95 kB gzip**
+- 路由切换时再加载对应页面的 el-* CSS，提升整体响应感
+- 开发心智简化：模板里 `<el-button>` 即可，无需在 plugins/ 维护全量 import
+
+**进阶方向（未做，可作 TD-04c）**：把 `element-vendor` 拆为多 chunk，按路由 lazy load 组件级 JS，
+首屏 JS 才能真减；改动复杂、维护成本高、收益要做实验验证
 
 **工作量**：30min - 1h（含验证所有页面组件渲染正常）
 **风险**：中（需全页面回归，确保没有遗漏 `ElMessage` / `ElLoading` 等编程式组件）
 **前置依赖**：建议在 TD-04 完成后做
+
+**已完成**：2026-05-12（CSS 按需生效，JS 维度受业务组件使用数限制）
 
 ---
 
