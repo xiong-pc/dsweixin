@@ -23,7 +23,8 @@ jobs:
         with:
           php-version: '8.3'
           extensions: pdo_sqlite, sqlite3, mbstring, openssl, fileinfo
-          coverage: none
+          # 用 PCOV 比 Xdebug 快 10x，仅用于覆盖率收集
+          coverage: pcov
           tools: composer:v2
 
       - name: Install Composer dependencies
@@ -40,9 +41,11 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
-      - name: Run tests
+      - name: Run tests with coverage
         working-directory: backend
-        run: php artisan test
+        # --min=30 是保守起步值（项目 130 个 Feature test 实际覆盖率应远高于此）。
+        # 首次 CI 跑出真实 baseline 后建议上调至 baseline-5%，作为护栏防止覆盖率倒退。
+        run: php artisan test --coverage --min=30
 
   frontend:
     name: Frontend (Node 20 + Vue 3)
