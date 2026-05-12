@@ -75,8 +75,20 @@ export const useAppStore = defineStore('app', () => {
   }
 
   return {
-    sidebarOpened, layout, isDark, isFullscreen,
-    watermarkEnabled, watermarkText, language, size, activeTopMenu,
-    toggleSidebar, setLayout, setIsDark, setLanguage, setSize, setWatermark,
+    sidebarOpened,
+    layout,
+    isDark,
+    isFullscreen,
+    watermarkEnabled,
+    watermarkText,
+    language,
+    size,
+    activeTopMenu,
+    toggleSidebar,
+    setLayout,
+    setIsDark,
+    setLanguage,
+    setSize,
+    setWatermark,
   };
 });

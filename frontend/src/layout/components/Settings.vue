@@ -112,7 +112,7 @@ const sidebarThemes = [
   { name: 'blue', bg: '#003a8c', text: 'rgba(255,255,255,0.7)', active: '#1677ff', sub: '#002c6e' },
 ];
 
-function applySidebarTheme(theme: typeof sidebarThemes[0]) {
+function applySidebarTheme(theme: (typeof sidebarThemes)[0]) {
   currentSidebarTheme.value = theme.name;
   const root = document.documentElement;
   root.style.setProperty('--sidebar-bg', theme.bg);
@@ -218,13 +218,22 @@ function applySidebarTheme(theme: typeof sidebarThemes[0]) {
 }
 
 .preview-left {
-  .preview-sidebar { display: block; }
-  .preview-header { left: 22px; width: calc(100% - 22px); }
-  .preview-content { left: 26px; }
+  .preview-sidebar {
+    display: block;
+  }
+  .preview-header {
+    left: 22px;
+    width: calc(100% - 22px);
+  }
+  .preview-content {
+    left: 26px;
+  }
 }
 
 .preview-top {
-  .preview-sidebar { display: none; }
+  .preview-sidebar {
+    display: none;
+  }
   .preview-header {
     left: 0;
     width: 100%;
@@ -233,7 +242,10 @@ function applySidebarTheme(theme: typeof sidebarThemes[0]) {
     border-radius: 6px 6px 0 0;
     border: none;
   }
-  .preview-content { left: 4px; width: calc(100% - 8px); }
+  .preview-content {
+    left: 4px;
+    width: calc(100% - 8px);
+  }
 }
 
 .preview-mix {
@@ -253,7 +265,9 @@ function applySidebarTheme(theme: typeof sidebarThemes[0]) {
     border-radius: 0;
     border-right: 1px solid #eee;
   }
-  .preview-content { left: 22px; }
+  .preview-content {
+    left: 22px;
+  }
 }
 
 .theme-list {

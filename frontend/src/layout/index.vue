@@ -56,7 +56,7 @@ const classObj = computed(() => ({
 }));
 
 const sidebarWidth = computed(() =>
-  appStore.sidebarOpened ? 'var(--sidebar-width)' : 'var(--sidebar-collapsed-width)'
+  appStore.sidebarOpened ? 'var(--sidebar-width)' : 'var(--sidebar-collapsed-width)',
 );
 </script>
 

@@ -80,8 +80,16 @@ const shortcuts = reactive([
     .stat-info {
       display: flex;
       flex-direction: column;
-      .stat-title { font-size: 14px; color: #999; }
-      .stat-value { font-size: 28px; font-weight: 700; color: #333; margin-top: 8px; }
+      .stat-title {
+        font-size: 14px;
+        color: #999;
+      }
+      .stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: #333;
+        margin-top: 8px;
+      }
     }
   }
 }
@@ -94,7 +102,13 @@ const shortcuts = reactive([
   cursor: pointer;
   border-radius: 8px;
   transition: background 0.3s;
-  &:hover { background: var(--el-fill-color-lighter); }
-  span { margin-top: 8px; font-size: 13px; color: #666; }
+  &:hover {
+    background: var(--el-fill-color-lighter);
+  }
+  span {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #666;
+  }
 }
 </style>

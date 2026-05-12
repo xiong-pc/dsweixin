@@ -50,7 +50,7 @@ export function useWatermark() {
         removeWatermark();
       }
     },
-    { immediate: true }
+    { immediate: true },
   );
 
   onBeforeUnmount(() => {

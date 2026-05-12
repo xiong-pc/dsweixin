@@ -5,13 +5,7 @@
         <img src="@/assets/logo.svg" alt="Logo" style="width: 28px; height: 28px" />
         <span class="logo-title">Vue3 Admin</span>
       </div>
-      <el-menu
-        mode="horizontal"
-        :default-active="activeMenu"
-        :ellipsis="false"
-        router
-        class="top-menu"
-      >
+      <el-menu mode="horizontal" :default-active="activeMenu" :ellipsis="false" router class="top-menu">
         <template v-for="route in menuRoutes" :key="route.path">
           <el-menu-item v-if="!route.meta?.hidden" :index="route.path">
             <el-icon v-if="route.meta?.icon"><component :is="route.meta.icon" /></el-icon>
@@ -89,7 +83,7 @@ const menuRoutes = computed(() => {
       (r.children || []).map((child) => ({
         path: '/' + child.path,
         meta: child.meta || {},
-      }))
+      })),
     );
   return [...staticRoutes, ...dynamicRoutes];
 });
@@ -140,14 +134,18 @@ const menuRoutes = computed(() => {
     cursor: pointer;
     padding: 6px;
     border-radius: 4px;
-    &:hover { background: var(--el-fill-color-light); }
+    &:hover {
+      background: var(--el-fill-color-light);
+    }
   }
   .avatar-wrapper {
     display: flex;
     align-items: center;
     cursor: pointer;
     gap: 6px;
-    .username { font-size: 14px; }
+    .username {
+      font-size: 14px;
+    }
   }
 }
 </style>

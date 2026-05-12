@@ -6,8 +6,12 @@
           <el-input v-model="queryParams.keywords" placeholder="请输入角色名称" clearable @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
-          <el-button @click="handleReset"><el-icon><Refresh /></el-icon>重置</el-button>
+          <el-button type="primary" @click="handleQuery"
+            ><el-icon><Search /></el-icon>搜索</el-button
+          >
+          <el-button @click="handleReset"
+            ><el-icon><Refresh /></el-icon>重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -35,7 +39,9 @@
         <el-table-column label="操作" width="260" align="center" fixed="right">
           <template #default="{ row }">
             <el-button type="primary" link v-hasPerm="['sys:role:edit']" @click="openDialog(row.id)">编辑</el-button>
-            <el-button type="success" link v-hasPerm="['sys:role:menu']" @click="openMenuDialog(row.id)">分配菜单</el-button>
+            <el-button type="success" link v-hasPerm="['sys:role:menu']" @click="openMenuDialog(row.id)"
+              >分配菜单</el-button
+            >
             <el-button type="danger" link v-hasPerm="['sys:role:delete']" @click="handleDelete(row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -103,7 +109,15 @@
 import { ref, reactive, onMounted } from 'vue';
 import { ElMessage, ElMessageBox, type FormInstance } from 'element-plus';
 import type { ElTree } from 'element-plus';
-import { getRoleList, getRoleDetail, createRole, updateRole, deleteRole, getRoleMenus, updateRoleMenus } from '@/api/role';
+import {
+  getRoleList,
+  getRoleDetail,
+  createRole,
+  updateRole,
+  deleteRole,
+  getRoleMenus,
+  updateRoleMenus,
+} from '@/api/role';
 import { getMenuList } from '@/api/menu';
 
 const loading = ref(false);
@@ -216,10 +230,7 @@ async function handleDelete(id: number) {
 
 async function openMenuDialog(roleId: number) {
   currentRoleId.value = roleId;
-  const [menuRes, roleMenuRes] = await Promise.all([
-    getMenuList(),
-    getRoleMenus(roleId),
-  ]);
+  const [menuRes, roleMenuRes] = await Promise.all([getMenuList(), getRoleMenus(roleId)]);
   menuTreeData.value = menuRes.data || [];
   menuDialogVisible.value = true;
   setTimeout(() => {

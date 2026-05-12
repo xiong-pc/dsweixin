@@ -12,8 +12,12 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
-          <el-button @click="handleReset"><el-icon><Refresh /></el-icon>重置</el-button>
+          <el-button type="primary" @click="handleQuery"
+            ><el-icon><Search /></el-icon>搜索</el-button
+          >
+          <el-button @click="handleReset"
+            ><el-icon><Refresh /></el-icon>重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -23,7 +27,12 @@
         <el-button type="primary" v-hasPerm="['sys:user:add']" @click="openDialog()">
           <el-icon><Plus /></el-icon>新增
         </el-button>
-        <el-button type="danger" :disabled="!selectedIds.length" v-hasPerm="['sys:user:delete']" @click="handleBatchDelete">
+        <el-button
+          type="danger"
+          :disabled="!selectedIds.length"
+          v-hasPerm="['sys:user:delete']"
+          @click="handleBatchDelete"
+        >
           <el-icon><Delete /></el-icon>删除
         </el-button>
       </div>
@@ -41,19 +50,16 @@
         <el-table-column label="部门" prop="dept_name" min-width="120" />
         <el-table-column label="状态" prop="status" width="80" align="center">
           <template #default="{ row }">
-            <el-switch
-              v-model="row.status"
-              :active-value="1"
-              :inactive-value="0"
-              @change="handleStatusChange(row)"
-            />
+            <el-switch v-model="row.status" :active-value="1" :inactive-value="0" @change="handleStatusChange(row)" />
           </template>
         </el-table-column>
         <el-table-column label="创建时间" prop="created_at" min-width="160" />
         <el-table-column label="操作" width="220" align="center" fixed="right">
           <template #default="{ row }">
             <el-button type="primary" link v-hasPerm="['sys:user:edit']" @click="openDialog(row.id)">编辑</el-button>
-            <el-button type="warning" link v-hasPerm="['sys:user:reset-pwd']" @click="handleResetPassword(row.id)">重置密码</el-button>
+            <el-button type="warning" link v-hasPerm="['sys:user:reset-pwd']" @click="handleResetPassword(row.id)"
+              >重置密码</el-button
+            >
             <el-button type="danger" link v-hasPerm="['sys:user:delete']" @click="handleDelete(row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -119,7 +125,15 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue';
 import { ElMessage, ElMessageBox, type FormInstance } from 'element-plus';
-import { getUserList, getUserDetail, createUser, updateUser, deleteUser, updateUserStatus, resetPassword } from '@/api/user';
+import {
+  getUserList,
+  getUserDetail,
+  createUser,
+  updateUser,
+  deleteUser,
+  updateUserStatus,
+  resetPassword,
+} from '@/api/user';
 import { getRoleList } from '@/api/role';
 
 const loading = ref(false);
@@ -196,15 +210,15 @@ async function openDialog(id?: number) {
     dialogTitle.value = '编辑用户';
     const res = await getUserDetail(id);
     const d = res.data;
-    formData.id       = d.id;
+    formData.id = d.id;
     formData.username = d.username;
     formData.nickname = d.nickname;
-    formData.phone    = d.phone ?? '';
-    formData.email    = d.email ?? '';
-    formData.gender   = d.gender ?? 1;
-    formData.status   = d.status ?? 1;
+    formData.phone = d.phone ?? '';
+    formData.email = d.email ?? '';
+    formData.gender = d.gender ?? 1;
+    formData.status = d.status ?? 1;
     // dept_id=0 视为无部门，不传给后端
-    formData.dept_id  = d.dept_id || undefined;
+    formData.dept_id = d.dept_id || undefined;
     // roles 是对象数组，取出 id 列表
     formData.role_ids = (d.roles ?? []).map((r: any) => r.id);
   } else {
@@ -219,16 +233,16 @@ function closeDialog() {
 }
 
 function resetForm() {
-  formData.id       = undefined;
+  formData.id = undefined;
   formData.username = '';
   formData.nickname = '';
   formData.password = '';
-  formData.phone    = '';
-  formData.email    = '';
-  formData.gender   = 1;
-  formData.dept_id  = undefined;
+  formData.phone = '';
+  formData.email = '';
+  formData.gender = 1;
+  formData.dept_id = undefined;
   formData.role_ids = [];
-  formData.status   = 1;
+  formData.status = 1;
   formRef.value?.resetFields();
 }
 

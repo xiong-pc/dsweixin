@@ -6,8 +6,12 @@
           <el-input v-model="queryParams.keywords" placeholder="请输入菜单名称" clearable />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
-          <el-button @click="handleReset"><el-icon><Refresh /></el-icon>重置</el-button>
+          <el-button type="primary" @click="handleQuery"
+            ><el-icon><Search /></el-icon>搜索</el-button
+          >
+          <el-button @click="handleReset"
+            ><el-icon><Refresh /></el-icon>重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -58,7 +62,9 @@
         </el-table-column>
         <el-table-column label="操作" width="200" align="center" fixed="right">
           <template #default="{ row }">
-            <el-button type="primary" link v-hasPerm="['sys:menu:add']" @click="openDialog(undefined, row.id)">新增</el-button>
+            <el-button type="primary" link v-hasPerm="['sys:menu:add']" @click="openDialog(undefined, row.id)"
+              >新增</el-button
+            >
             <el-button type="primary" link v-hasPerm="['sys:menu:edit']" @click="openDialog(row.id)">编辑</el-button>
             <el-button type="danger" link v-hasPerm="['sys:menu:delete']" @click="handleDelete(row.id)">删除</el-button>
           </template>
@@ -193,7 +199,9 @@ async function handleReset() {
 function toggleExpandAll() {
   refreshTable.value = false;
   isExpandAll.value = !isExpandAll.value;
-  nextTick(() => { refreshTable.value = true; });
+  nextTick(() => {
+    refreshTable.value = true;
+  });
 }
 
 async function openDialog(id?: number, parentId?: number) {
