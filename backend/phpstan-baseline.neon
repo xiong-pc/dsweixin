@@ -1,0 +1,259 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to an undefined method Laravel\\Passport\\Contracts\\ScopeAuthorizable\:\:revoke\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Controllers/Api/AuthController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$tenant\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Middleware/TenantMiddleware.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: app/Http/Resources/Api/DeptResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\DictResource\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/DictResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\DictResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/DictResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\DictResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/DictResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\DictResource\:\:\$items\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/DictResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\DictResource\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/DictResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\DictResource\:\:\$remark\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/DictResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\DictResource\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/DictResource.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: app/Http/Resources/Api/MenuResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\RoleResource\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/RoleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\RoleResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/RoleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\RoleResource\:\:\$data_scope\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/RoleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\RoleResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/RoleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\RoleResource\:\:\$menus\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/RoleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\RoleResource\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/RoleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\RoleResource\:\:\$remark\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/RoleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\RoleResource\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/RoleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\RoleResource\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/RoleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$avatar\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$dept\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$dept_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$gender\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$nickname\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$roles\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\Api\\UserResource\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/Api/UserResource.php
+
+		-
+			message: '#^Trait Laravel\\Passport\\HasApiTokens requires using class to implement Laravel\\Passport\\Contracts\\OAuthenticatable, but App\\Models\\User does not\.$#'
+			identifier: class.missingImplements
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Call to an undefined static method TModel of Illuminate\\Database\\Eloquent\\Model\:\:includeNullTenantInScope\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Scopes/TenantScope.php
+
+		-
+			message: '#^Call to an undefined static method TModel of Illuminate\\Database\\Eloquent\\Model\:\:includeZeroTenantInScope\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Scopes/TenantScope.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$dept\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/Api/AuthService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$roles\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/Api/AuthService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Dict\:\:\$items\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/Api/DictService.php
+
+		-
+			message: '#^Relation ''publisher'' is not found in App\\Models\\Notice model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/Api/NoticeService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Role\:\:\$menus\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/Api/RoleService.php
+
+		-
+			message: '#^Relation ''dept'' is not found in App\\Models\\User model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/Api/UserService.php
+
+		-
+			message: '#^Relation ''roles'' is not found in App\\Models\\User model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/Api/UserService.php

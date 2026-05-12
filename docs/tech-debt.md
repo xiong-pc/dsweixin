@@ -168,11 +168,82 @@ npm run lint -- --fix  # 一次性 fix 全部
   - backend job 加 `vendor/bin/pint --test`（在跑测试前）
   - frontend job 加 `npm run format:check` + `npm run lint:check`（在 type-check 前）
 
-未做（留给后续）：
-- **TD-02b larastan 静态分析**（PHP 类型/逻辑层面 lint）
-  - 初次跑 level 5+ 在 Laravel 项目会刷出大量 baseline 错误，需专门时间消化
-  - 不在 lint/format 范畴（lint 偏风格，larastan 偏类型推断）
-  - 推荐做完 TD-03 / TD-05 后再做
+配套子项见 TD-02b（已独立成章节）。
+
+---
+
+### TD-02b larastan 静态分析
+
+**现状**：PHP 代码没有静态类型分析。`pint` 只管风格，无法发现 null safety、类型错误、
+未定义属性等类型层面问题。
+
+**痛点**：
+- Laravel Resource、Eloquent Relation 等魔术属性写错也不报错（只能等运行时）
+- 类型签名不一致只能靠人肉 review
+
+**落地步骤**：
+
+1. 安装 larastan（PHPStan + Laravel 扩展）：
+
+```bash
+composer require --dev larastan/larastan
+```
+
+> **注意**：项目当前 `laravel/passport ^13.7` 有 PKSA-wc55-9qj2-7v4h 等 3 个 audit 公告，
+> 装 larastan 会被阻挡。已在 `composer.json` 的 `config.audit.ignore` 加豁免（待官方
+> 发版后移除）。
+
+2. 创建 `backend/phpstan.neon`（level 5 起步）：
+
+```neon
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - phpstan-baseline.neon
+
+parameters:
+    level: 5
+    paths: [app/]
+    excludePaths:
+        - app/Console/Commands/CodeGenerator.php
+```
+
+3. 首次跑生成 baseline（锁定历史错误）：
+
+```bash
+./vendor/bin/phpstan analyse --memory-limit=2G --generate-baseline=phpstan-baseline.neon
+```
+
+4. CI workflow backend job 加 phpstan 步骤（位于 pint 之后、test 之前）
+
+5. composer.json 加 scripts：
+   - `composer stan` 跑分析
+   - `composer stan:baseline` 修一批错后重新生成 baseline
+
+**实测**：
+- level 5 跑出 **46 errors**，主要类别：
+  - Laravel Resource 子类访问未声明属性（`$this->id`/`$this->name` 等）——最多
+  - `Passport ScopeAuthorizable::revoke()` 类型不识别
+  - `User::$tenant` 等 relation 没 phpdoc
+  - 部分 `new static()` 不安全用法
+- 全部锁入 baseline，CI 立即可过；新增代码错误仍会被报告
+
+**渐进消化策略**：
+- 每个 PR 顺便修 1-2 个 baseline 错误（重新跑 `composer stan:baseline`）
+- 主要修法：给 Resource 加 `@property-read` phpdoc，或改 `$this->resource->xxx`
+- 等所有 Resource 修完再考虑提到 level 6/7
+
+**已完成**：2026-05-12
+
+实施记录：
+- 安装：larastan ^3.9（含 phpstan ^2.x）
+- 配置：phpstan.neon level 5 + phpstan-baseline.neon（46 errors 锁定）
+- CI 集成：backend job 加 phpstan analyse 步骤
+- composer.json：加 `stan` / `stan:baseline` scripts + 3 个 audit ignore（passport/phpseclib 间接依赖）
+- 验证：`./vendor/bin/phpstan analyse` → OK No errors（baseline 锁住后）
+
+**工作量**：半天（含装 + 生成 baseline + CI 接入）
+**风险**：低（baseline 模式）
+**前置依赖**：TD-01（CI 集成）
 
 ---
 
@@ -511,8 +582,8 @@ composer require dedoc/scramble
 4. ✅ **TD-02 加 lint/format**（半天，配合 CI）
 5. ✅ **TD-05 补测试覆盖率**（半天，配合 CI）
 6. 🟨 **TD-03 补 Unit 测试**（已起步，20 cases；持续在新业务时同步补）
-7. **TD-02b larastan 静态分析**（PHP 类型/逻辑 lint，半天到 1 天）← 推荐下一项
-8. **TD-06 Service interface**（按需）
+7. ✅ **TD-02b larastan 静态分析**（半天，baseline 锁 46 errors，渐进消化）
+8. **TD-06 Service interface**（按需）← 业务侧没遇到痛点前可延后
 9. **TD-07 commit 规范**（1h，团队 >2 人时再做）
 10. **TD-08 OpenAPI**（开始多人协作或多端调用时再做）
 11. **TD-09 监控**（上生产前必做）

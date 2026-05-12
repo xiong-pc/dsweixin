@@ -35,6 +35,12 @@ jobs:
         working-directory: backend
         run: ./vendor/bin/pint --test
 
+      - name: PHPStan static analysis (larastan)
+        working-directory: backend
+        # baseline 锁定了 46 个历史错误，CI 只检测新增错误。
+        # 渐进消化 baseline：每修一个 Resource/Service 的类型问题后跑 composer stan:baseline 重新生成
+        run: ./vendor/bin/phpstan analyse --memory-limit=2G --no-progress
+
       - name: Prepare Laravel environment
         working-directory: backend
         run: |

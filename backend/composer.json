@@ -14,6 +14,7 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^3.9",
         "laravel/pail": "^1.2.5",
         "laravel/pint": "^1.27",
         "mockery/mockery": "^1.6",
@@ -51,6 +52,12 @@
             "@php artisan config:clear --ansi",
             "@php artisan test --coverage"
         ],
+        "stan": [
+            "phpstan analyse --memory-limit=2G"
+        ],
+        "stan:baseline": [
+            "phpstan analyse --memory-limit=2G --generate-baseline=phpstan-baseline.neon"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
@@ -82,6 +89,13 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
+        },
+        "audit": {
+            "ignore": {
+                "PKSA-wc55-9qj2-7v4h": "laravel/passport CVE 暂未释出修复版本，待官方升级后移除此忽略",
+                "PKSA-smrh-yx37-92ws": "phpseclib/phpseclib（passport 间接依赖）CVE 暂无修复版本",
+                "PKSA-zh4j-by9m-7mz8": "phpseclib/phpseclib（passport 间接依赖）CVE 暂无修复版本"
+            }
         }
     },
     "minimum-stability": "stable",
