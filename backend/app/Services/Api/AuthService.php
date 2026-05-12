@@ -60,7 +60,7 @@ class AuthService
             ? Menu::whereIn('type', [1, 2, 4])->orderBy('sort')->get()
             : $this->getMenusByRoles($user)->whereIn('type', [1, 2, 4]);
 
-        return $this->buildMenuTree($menus, 0);
+        return self::buildMenuTree($menus, 0);
     }
 
     private function resolvePermissions(User $user, array $roles): array
@@ -88,7 +88,15 @@ class AuthService
         return Menu::whereIn('id', $menuIds)->orderBy('sort')->get();
     }
 
-    private function buildMenuTree(iterable $menus, int $parentId): array
+    /**
+     * 把菜单集合按 parent_id 构建成前端路由树。
+     *
+     * 纯函数 (无 $this 状态，便于 Unit test)：输入 iterable of objects 拥有
+     * id/parent_id/path/component/name/redirect/icon/visible 属性，返回前端路由结构。
+     *
+     * @param  iterable<object>  $menus
+     */
+    public static function buildMenuTree(iterable $menus, int $parentId): array
     {
         $tree = [];
         foreach ($menus as $menu) {
@@ -104,7 +112,7 @@ class AuthService
                         'hidden' => ! $menu->visible,
                     ],
                 ];
-                $children = $this->buildMenuTree($menus, $menu->id);
+                $children = self::buildMenuTree($menus, $menu->id);
                 if (! empty($children)) {
                     $node['children'] = $children;
                 }
