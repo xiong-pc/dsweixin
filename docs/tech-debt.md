@@ -101,7 +101,8 @@ jobs:
 
 **现状**：
 - 前端 `package.json` 只有 `vue-tsc`，没 `eslint`/`prettier`
-- 后端 `composer.json` 没 `pint`（Laravel 官方格式化）/ `larastan`
+- 后端 `composer.json` 已装 `laravel/pint`（默认 Laravel preset），但**没接入 CI**；
+  `larastan`（静态分析）未装
 
 **痛点**：
 - 代码风格全靠自觉，commit diff 噪音多（空格、引号、缩进）
@@ -152,6 +153,26 @@ npm run lint -- --fix  # 一次性 fix 全部
 **工作量**：半天（含一次性格式化全代码 + 修少量 lint 报错）
 **风险**：中（一次性 format 会改大量文件，需单独 commit + 团队 rebase）
 **前置依赖**：建议先 TD-01
+
+**已完成**：2026-05-12
+
+实施记录：
+- 后端：`pint` 一次性 format 70 文件（440 lines diff，纯样式），单独 commit 隔离 git blame
+- 前端：装 `eslint@10` flat config + `prettier@3` + Vue/TS 预设
+  - `npm run format` 修 52 文件（840 lines diff）
+  - 修 11 个 ESLint errors：9 个 empty interface 改 type alias、`el.parentNode?.removeChild`、
+    `catch {}` 无参数化
+  - 自定义规则：`vue/multi-word-component-names: off`（项目 views/feature/index.vue 结构决定）、
+    `@typescript-eslint/no-explicit-any: warn`（存量 99 处 any 渐进改进，不阻塞 CI）
+- CI 集成：
+  - backend job 加 `vendor/bin/pint --test`（在跑测试前）
+  - frontend job 加 `npm run format:check` + `npm run lint:check`（在 type-check 前）
+
+未做（留给后续）：
+- **TD-02b larastan 静态分析**（PHP 类型/逻辑层面 lint）
+  - 初次跑 level 5+ 在 Laravel 项目会刷出大量 baseline 错误，需专门时间消化
+  - 不在 lint/format 范畴（lint 偏风格，larastan 偏类型推断）
+  - 推荐做完 TD-03 / TD-05 后再做
 
 ---
 
@@ -429,16 +450,17 @@ composer require dedoc/scramble
 
 按"价值密度 / 工作量"排序：
 
-1. **TD-04 拆前端 bundle**（1h，缓存策略立刻见效）
-2. **TD-04b element-plus 按需引入**（30min-1h，首屏体积真减）
-3. **TD-01 加 CI/CD**（2h，护栏价值高）
-4. **TD-02 加 lint/format**（半天，配合 CI）
-5. **TD-05 补测试覆盖率**（半天，配合 CI）
+1. ✅ **TD-04 拆前端 bundle**（1h，缓存策略立刻见效）
+2. ✅ **TD-04b element-plus 按需引入**（30min-1h，CSS 首屏减 95KB gzip）
+3. ✅ **TD-01 加 CI/CD**（2h，护栏价值高）
+4. ✅ **TD-02 加 lint/format**（半天，配合 CI）
+5. **TD-05 补测试覆盖率**（半天，配合 CI）← 推荐下一项
 6. **TD-03 补 Unit 测试**（持续投入，可在补业务时同步加）
-7. **TD-06 Service interface**（按需）
-8. **TD-07 commit 规范**（1h，团队 >2 人时再做）
-9. **TD-08 OpenAPI**（开始多人协作或多端调用时再做）
-10. **TD-09 监控**（上生产前必做）
+7. **TD-02b larastan 静态分析**（PHP 类型/逻辑 lint，半天到 1 天）
+8. **TD-06 Service interface**（按需）
+9. **TD-07 commit 规范**（1h，团队 >2 人时再做）
+10. **TD-08 OpenAPI**（开始多人协作或多端调用时再做）
+11. **TD-09 监控**（上生产前必做）
 
 ## 更新本文档
 
