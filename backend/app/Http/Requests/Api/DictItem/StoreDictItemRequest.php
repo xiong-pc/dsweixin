@@ -15,11 +15,11 @@ class StoreDictItemRequest extends ApiFormRequest
     {
         return [
             'dict_id' => 'required|exists:dicts,id',
-            'label'   => 'required|string',
-            'value'   => 'required|string',
-            'sort'    => 'nullable|integer',
-            'status'  => 'nullable|in:0,1',
-            'remark'  => 'nullable|string',
+            'label' => 'required|string',
+            'value' => 'required|string',
+            'sort' => 'nullable|integer',
+            'status' => 'nullable|in:0,1',
+            'remark' => 'nullable|string',
         ];
     }
 }

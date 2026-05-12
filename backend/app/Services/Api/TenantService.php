@@ -12,7 +12,7 @@ class TenantService
     {
         $query = Tenant::query();
 
-        if (!$user->isSuperAdmin()) {
+        if (! $user->isSuperAdmin()) {
             if ($user->tenant_id) {
                 $query->where('id', $user->tenant_id);
             } else {
@@ -20,13 +20,13 @@ class TenantService
             }
         }
 
-        if (!empty($filters['keywords'])) {
+        if (! empty($filters['keywords'])) {
             $kw = $filters['keywords'];
             $query->where(function ($q) use ($kw) {
                 $q->where('name', 'like', "%{$kw}%")
-                  ->orWhere('code', 'like', "%{$kw}%");
+                    ->orWhere('code', 'like', "%{$kw}%");
             });
-        } elseif (!empty($filters['name'])) {
+        } elseif (! empty($filters['name'])) {
             $query->where('name', 'like', '%'.$filters['name'].'%');
         }
 

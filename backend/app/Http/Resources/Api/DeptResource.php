@@ -18,17 +18,17 @@ class DeptResource extends JsonResource
         $parentId = data_get($r, 'parent_id');
 
         return [
-            'id'         => data_get($r, 'id'),
-            'parentId'   => $parentId,
-            'parent_id'  => $parentId,
-            'name'       => data_get($r, 'name'),
-            'sort'       => data_get($r, 'sort'),
-            'status'     => data_get($r, 'status'),
-            'leader'     => data_get($r, 'leader'),
-            'phone'      => data_get($r, 'phone'),
-            'email'      => data_get($r, 'email'),
+            'id' => data_get($r, 'id'),
+            'parentId' => $parentId,
+            'parent_id' => $parentId,
+            'name' => data_get($r, 'name'),
+            'sort' => data_get($r, 'sort'),
+            'status' => data_get($r, 'status'),
+            'leader' => data_get($r, 'leader'),
+            'phone' => data_get($r, 'phone'),
+            'email' => data_get($r, 'email'),
             'created_at' => data_get($r, 'created_at'),
-            'children'   => $this->when($children !== null, $children ?? []),
+            'children' => $this->when($children !== null, $children ?? []),
         ];
     }
 }

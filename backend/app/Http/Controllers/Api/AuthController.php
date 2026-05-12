@@ -15,7 +15,7 @@ class AuthController extends Controller
     {
         $user = $this->service->attemptLogin($request->username, $request->password);
 
-        if (!$user) {
+        if (! $user) {
             return $this->error('api.invalid_credentials', 400);
         }
 
@@ -48,7 +48,7 @@ class AuthController extends Controller
         // 通过 Bearer Token 获取当前用户（路由无 auth 中间件，手动解析）
         $user = auth('api')->user();
 
-        if (!$user) {
+        if (! $user) {
             return $this->error('api.unauthorized', 401);
         }
 

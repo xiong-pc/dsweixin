@@ -14,9 +14,9 @@ class UpdateNoticeRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'title'   => 'sometimes|string',
-            'type'    => 'nullable|integer',
-            'level'   => 'nullable|integer',
+            'title' => 'sometimes|string',
+            'type' => 'nullable|integer',
+            'level' => 'nullable|integer',
             'content' => 'nullable|string',
         ];
     }

@@ -12,7 +12,7 @@ class AuthService
     {
         $user = User::withoutGlobalScopes()->where('username', $username)->first();
 
-        if (!$user || !password_verify($password, $user->password)) {
+        if (! $user || ! password_verify($password, $user->password)) {
             return null;
         }
 
@@ -25,8 +25,8 @@ class AuthService
 
         return [
             'accessToken' => $token->accessToken,
-            'tokenType'   => 'Bearer',
-            'expiresIn'   => config('passport.token_expire_days', 15) * 86400,
+            'tokenType' => 'Bearer',
+            'expiresIn' => config('passport.token_expire_days', 15) * 86400,
         ];
     }
 
@@ -38,16 +38,16 @@ class AuthService
         $permissions = $this->resolvePermissions($user, $roles);
 
         return [
-            'userId'      => $user->id,
-            'username'    => $user->username,
-            'nickname'    => $user->nickname,
-            'avatar'      => $user->avatar,
-            'email'       => $user->email,
-            'phone'       => $user->phone,
-            'gender'      => $user->gender,
-            'status'      => $user->status,
-            'deptName'    => $user->dept?->name,
-            'roles'       => $roles,
+            'userId' => $user->id,
+            'username' => $user->username,
+            'nickname' => $user->nickname,
+            'avatar' => $user->avatar,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'gender' => $user->gender,
+            'status' => $user->status,
+            'deptName' => $user->dept?->name,
+            'roles' => $roles,
             'permissions' => $permissions,
         ];
     }
@@ -94,23 +94,24 @@ class AuthService
         foreach ($menus as $menu) {
             if ($menu->parent_id == $parentId) {
                 $node = [
-                    'path'      => $menu->path,
+                    'path' => $menu->path,
                     'component' => $menu->component,
-                    'name'      => $menu->name,
-                    'redirect'  => $menu->redirect ?: null,
-                    'meta'      => [
-                        'title'  => $menu->name,
-                        'icon'   => $menu->icon,
-                        'hidden' => !$menu->visible,
+                    'name' => $menu->name,
+                    'redirect' => $menu->redirect ?: null,
+                    'meta' => [
+                        'title' => $menu->name,
+                        'icon' => $menu->icon,
+                        'hidden' => ! $menu->visible,
                     ],
                 ];
                 $children = $this->buildMenuTree($menus, $menu->id);
-                if (!empty($children)) {
+                if (! empty($children)) {
                     $node['children'] = $children;
                 }
                 $tree[] = $node;
             }
         }
+
         return $tree;
     }
 }

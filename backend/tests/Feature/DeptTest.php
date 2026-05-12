@@ -22,9 +22,9 @@ class DeptTest extends TestCase
         return Dept::create(array_merge([
             'tenant_id' => 1,
             'parent_id' => 0,
-            'name'      => '测试部门',
-            'sort'      => 1,
-            'status'    => 1,
+            'name' => '测试部门',
+            'sort' => 1,
+            'status' => 1,
         ], $attrs));
     }
 
@@ -64,8 +64,8 @@ class DeptTest extends TestCase
     public function test_store_creates_dept(): void
     {
         $response = $this->postJson('/api/v1/system/depts', [
-            'name'   => '新建部门',
-            'sort'   => 5,
+            'name' => '新建部门',
+            'sort' => 5,
             'status' => 1,
         ]);
 
@@ -87,7 +87,7 @@ class DeptTest extends TestCase
     public function test_store_validates_parent_exists(): void
     {
         $response = $this->postJson('/api/v1/system/depts', [
-            'name'      => '子部门',
+            'name' => '子部门',
             'parent_id' => 99999,
         ]);
 

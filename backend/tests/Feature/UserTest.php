@@ -68,8 +68,8 @@ class UserTest extends TestCase
             'username' => 'newuser',
             'nickname' => '新用户',
             'password' => '123456',
-            'email'    => 'newuser@example.com',
-            'status'   => 1,
+            'email' => 'newuser@example.com',
+            'status' => 1,
         ]);
 
         $response->assertOk()

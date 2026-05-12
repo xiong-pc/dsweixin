@@ -11,15 +11,15 @@ class NoticeService
     {
         $query = Notice::with('publisher');
 
-        if (!empty($filters['keywords'])) {
-            $query->where('title', 'like', '%' . $filters['keywords'] . '%');
+        if (! empty($filters['keywords'])) {
+            $query->where('title', 'like', '%'.$filters['keywords'].'%');
         }
 
-        if (!empty($filters['title'])) {
-            $query->where('title', 'like', '%' . $filters['title'] . '%');
+        if (! empty($filters['title'])) {
+            $query->where('title', 'like', '%'.$filters['title'].'%');
         }
 
-        if (!empty($filters['type'])) {
+        if (! empty($filters['type'])) {
             $query->where('type', $filters['type']);
         }
 

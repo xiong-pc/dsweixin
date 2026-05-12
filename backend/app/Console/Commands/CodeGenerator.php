@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 class CodeGenerator extends Command
 {
     protected $signature = 'gen:code {table : 数据库表名} {--module=system : 前端模块目录}';
+
     protected $description = '根据数据库表自动生成前后端CRUD代码';
 
     public function handle(): int
@@ -20,6 +21,7 @@ class CodeGenerator extends Command
 
         if (empty($columns)) {
             $this->error("表 {$table} 不存在或没有字段");
+
             return 1;
         }
 
@@ -40,7 +42,7 @@ class CodeGenerator extends Command
         $this->info("前端 API: 请手动添加到 frontend/src/api/{$routeName}.ts");
         $this->info("前端页面: 请查看 frontend/src/views/{$module}/{$routeName}/index.vue");
         $this->newLine();
-        $this->warn("请手动在 routes/api.php 中添加路由:");
+        $this->warn('请手动在 routes/api.php 中添加路由:');
         $this->line("Route::apiResource('{$routeName}', \\App\\Http\\Controllers\\Api\\{$controllerName}::class);");
 
         return 0;
@@ -53,7 +55,9 @@ class CodeGenerator extends Command
 
         foreach ($columns as $col) {
             $field = $col->Field;
-            if (in_array($field, ['id', 'created_at', 'updated_at', 'deleted_at'])) continue;
+            if (in_array($field, ['id', 'created_at', 'updated_at', 'deleted_at'])) {
+                continue;
+            }
             $fillable[] = "'{$field}'";
 
             if (Str::contains($col->Type, 'json')) {
@@ -65,15 +69,15 @@ class CodeGenerator extends Command
 
         $fillableStr = implode(', ', $fillable);
         $castsStr = '';
-        if (!empty($casts)) {
+        if (! empty($casts)) {
             $castLines = [];
             foreach ($casts as $k => $v) {
                 $castLines[] = "            '{$k}' => '{$v}'";
             }
-            $castsStr = "\n\n    protected function casts(): array\n    {\n        return [\n" . implode(",\n", $castLines) . ",\n        ];\n    }";
+            $castsStr = "\n\n    protected function casts(): array\n    {\n        return [\n".implode(",\n", $castLines).",\n        ];\n    }";
         }
 
-        $hasTenant = collect($columns)->contains(fn($c) => $c->Field === 'tenant_id');
+        $hasTenant = collect($columns)->contains(fn ($c) => $c->Field === 'tenant_id');
         $useTraits = $hasTenant ? "\n    use \\App\\Models\\Traits\\BelongsToTenant;\n" : '';
         $imports = $hasTenant ? "use App\\Models\\Traits\\BelongsToTenant;\n" : '';
 
@@ -100,20 +104,20 @@ PHP;
     private function generateController(string $controllerName, string $modelName, string $variableName, array $columns): void
     {
         $searchableFields = collect($columns)
-            ->filter(fn($c) => Str::contains($c->Type, ['varchar', 'char', 'text']))
-            ->filter(fn($c) => !in_array($c->Field, ['password', 'remember_token', 'deleted_at']))
+            ->filter(fn ($c) => Str::contains($c->Type, ['varchar', 'char', 'text']))
+            ->filter(fn ($c) => ! in_array($c->Field, ['password', 'remember_token', 'deleted_at']))
             ->take(3)
             ->pluck('Field')
             ->toArray();
 
         $searchLogic = '';
-        if (!empty($searchableFields)) {
+        if (! empty($searchableFields)) {
             $conditions = array_map(
-                fn($f) => "\$q->orWhere('{$f}', 'like', \"%{\$kw}%\")",
+                fn ($f) => "\$q->orWhere('{$f}', 'like', \"%{\$kw}%\")",
                 $searchableFields
             );
             $first = array_shift($conditions);
-            $rest = !empty($conditions) ? "\n                      ->" . implode("\n                      ->", $conditions) : '';
+            $rest = ! empty($conditions) ? "\n                      ->".implode("\n                      ->", $conditions) : '';
             $searchLogic = <<<PHP
 
         if (\$request->filled('keywords')) {
@@ -126,9 +130,9 @@ PHP;
         }
 
         $fillableFields = collect($columns)
-            ->filter(fn($c) => !in_array($c->Field, ['id', 'created_at', 'updated_at', 'deleted_at']))
+            ->filter(fn ($c) => ! in_array($c->Field, ['id', 'created_at', 'updated_at', 'deleted_at']))
             ->pluck('Field')
-            ->map(fn($f) => "'{$f}'")
+            ->map(fn ($f) => "'{$f}'")
             ->implode(', ');
 
         $content = <<<PHP
@@ -216,7 +220,7 @@ TS;
     private function generateFrontendView(string $module, string $routeName, string $modelName, array $columns): void
     {
         $tableColumns = collect($columns)
-            ->filter(fn($c) => !in_array($c->Field, ['password', 'remember_token', 'deleted_at']))
+            ->filter(fn ($c) => ! in_array($c->Field, ['password', 'remember_token', 'deleted_at']))
             ->take(8);
 
         $elColumns = '';

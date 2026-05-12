@@ -22,23 +22,23 @@ class RoleTest extends TestCase
     {
         return Role::create(array_merge([
             'tenant_id' => 1,
-            'name'      => '测试角色',
-            'code'      => 'TEST_' . uniqid(),
-            'sort'      => 1,
-            'status'    => 1,
+            'name' => '测试角色',
+            'code' => 'TEST_'.uniqid(),
+            'sort' => 1,
+            'status' => 1,
         ], $attrs));
     }
 
     private function createMenu(): Menu
     {
         return Menu::create([
-            'parent_id'  => 0,
-            'name'       => '测试菜单',
-            'type'       => 2,
-            'path'       => '/test',
-            'component'  => 'test/index',
-            'sort'       => 1,
-            'visible'    => 1,
+            'parent_id' => 0,
+            'name' => '测试菜单',
+            'type' => 2,
+            'path' => '/test',
+            'component' => 'test/index',
+            'sort' => 1,
+            'visible' => 1,
         ]);
     }
 
@@ -76,9 +76,9 @@ class RoleTest extends TestCase
     public function test_store_creates_role(): void
     {
         $response = $this->postJson('/api/v1/system/roles', [
-            'name'   => '新角色',
-            'code'   => 'NEW_ROLE',
-            'sort'   => 5,
+            'name' => '新角色',
+            'code' => 'NEW_ROLE',
+            'sort' => 5,
             'status' => 1,
         ]);
 
@@ -94,8 +94,8 @@ class RoleTest extends TestCase
         $menu = $this->createMenu();
 
         $response = $this->postJson('/api/v1/system/roles', [
-            'name'    => '带菜单角色',
-            'code'    => 'ROLE_WITH_MENU',
+            'name' => '带菜单角色',
+            'code' => 'ROLE_WITH_MENU',
             'menuIds' => [$menu->id],
         ]);
 
@@ -193,7 +193,7 @@ class RoleTest extends TestCase
     {
         $menu1 = $this->createMenu();
         $menu2 = $this->createMenu();
-        $role  = $this->createRole();
+        $role = $this->createRole();
         $role->menus()->sync([$menu1->id]);
 
         $response = $this->putJson("/api/v1/system/roles/{$role->id}/menus", [

@@ -12,7 +12,7 @@ class TenantMiddleware
     {
         $user = $request->user();
 
-        if (!$user) {
+        if (! $user) {
             return response()->json(['code' => 401, 'msg' => __('api.unauthorized')], 401);
         }
 

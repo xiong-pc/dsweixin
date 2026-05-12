@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\System;
 
 use App\Http\Controllers\Api\Controller;
-
 use App\Http\Requests\Api\Dept\StoreDeptRequest;
 use App\Http\Requests\Api\Dept\UpdateDeptRequest;
 use App\Http\Resources\Api\DeptResource;
@@ -20,7 +19,7 @@ class DeptController extends Controller
     {
         $tree = $this->service->tree($request->only(['keywords', 'status']));
 
-        return $this->success(array_map(fn($item) => (new DeptResource($item))->resolve(), $tree));
+        return $this->success(array_map(fn ($item) => (new DeptResource($item))->resolve(), $tree));
     }
 
     public function store(StoreDeptRequest $request): JsonResponse

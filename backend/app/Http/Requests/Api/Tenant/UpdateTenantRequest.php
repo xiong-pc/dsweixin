@@ -15,7 +15,7 @@ class UpdateTenantRequest extends ApiFormRequest
         $user = $this->user();
         $tenant = $this->route('tenant');
 
-        if (!$user || !$tenant || !$user->hasPermissionKey('sys:tenant:edit')) {
+        if (! $user || ! $tenant || ! $user->hasPermissionKey('sys:tenant:edit')) {
             return false;
         }
 
@@ -25,7 +25,7 @@ class UpdateTenantRequest extends ApiFormRequest
 
     protected function prepareForValidation(): void
     {
-        if ($this->has('expire_time') && !$this->has('expired_at')) {
+        if ($this->has('expire_time') && ! $this->has('expired_at')) {
             $this->merge(['expired_at' => $this->input('expire_time')]);
         }
     }
@@ -35,13 +35,13 @@ class UpdateTenantRequest extends ApiFormRequest
         $tenantId = $this->route('tenant')?->id;
 
         return [
-            'name'          => 'sometimes|string',
-            'code'          => "sometimes|string|unique:tenants,code,{$tenantId}",
-            'status'        => 'nullable|in:0,1',
-            'contact_name'  => 'nullable|string',
+            'name' => 'sometimes|string',
+            'code' => "sometimes|string|unique:tenants,code,{$tenantId}",
+            'status' => 'nullable|in:0,1',
+            'contact_name' => 'nullable|string',
             'contact_phone' => 'nullable|string',
-            'expired_at'    => 'nullable|date',
-            'remark'        => 'nullable|string',
+            'expired_at' => 'nullable|date',
+            'remark' => 'nullable|string',
         ];
     }
 }

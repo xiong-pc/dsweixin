@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\System;
 
 use App\Http\Controllers\Api\Controller;
-
 use App\Http\Requests\Api\Menu\StoreMenuRequest;
 use App\Http\Requests\Api\Menu\UpdateMenuRequest;
 use App\Http\Resources\Api\MenuResource;
@@ -20,7 +19,7 @@ class MenuController extends Controller
     {
         $tree = $this->service->tree($request->only(['keywords']));
 
-        return $this->success(array_map(fn($item) => (new MenuResource($item))->resolve(), $tree));
+        return $this->success(array_map(fn ($item) => (new MenuResource($item))->resolve(), $tree));
     }
 
     public function store(StoreMenuRequest $request): JsonResponse

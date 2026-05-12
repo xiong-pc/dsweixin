@@ -16,8 +16,8 @@ class UpdateDictRequest extends ApiFormRequest
         $dictId = $this->route('dict')?->id;
 
         return [
-            'name'   => 'sometimes|string',
-            'code'   => "sometimes|string|unique:dicts,code,{$dictId}",
+            'name' => 'sometimes|string',
+            'code' => "sometimes|string|unique:dicts,code,{$dictId}",
             'status' => 'nullable|in:0,1',
             'remark' => 'nullable|string',
         ];

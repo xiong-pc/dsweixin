@@ -11,8 +11,8 @@ class MenuService
     {
         $query = Menu::orderBy('sort');
 
-        if (!empty($filters['keywords'])) {
-            $query->where('name', 'like', '%' . $filters['keywords'] . '%');
+        if (! empty($filters['keywords'])) {
+            $query->where('name', 'like', '%'.$filters['keywords'].'%');
         }
 
         return $this->buildTree($query->get()->toArray(), 0);
@@ -50,6 +50,7 @@ class MenuService
                 $tree[] = $item;
             }
         }
+
         return $tree;
     }
 }

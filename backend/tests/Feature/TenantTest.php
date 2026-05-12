@@ -13,8 +13,8 @@ class TenantTest extends TestCase
     private function createTenant(array $attrs = []): Tenant
     {
         return Tenant::create(array_merge([
-            'name'   => '测试租户',
-            'code'   => 'TEST_' . uniqid(),
+            'name' => '测试租户',
+            'code' => 'TEST_'.uniqid(),
             'status' => 1,
         ], $attrs));
     }
@@ -58,10 +58,10 @@ class TenantTest extends TestCase
         $this->actingAsSuperAdmin();
 
         $response = $this->postJson('/api/v1/system/tenants', [
-            'name'          => '新租户',
-            'code'          => 'NEW_TENANT',
-            'status'        => 1,
-            'contact_name'  => '联系人',
+            'name' => '新租户',
+            'code' => 'NEW_TENANT',
+            'status' => 1,
+            'contact_name' => '联系人',
             'contact_phone' => '13900000000',
         ]);
 

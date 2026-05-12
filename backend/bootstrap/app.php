@@ -1,8 +1,17 @@
 <?php
 
+use App\Exceptions\BusinessException;
+use App\Http\Middleware\EnsureSuperAdmin;
+use App\Http\Middleware\TenantMiddleware;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,38 +23,38 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'tenant'      => \App\Http\Middleware\TenantMiddleware::class,
-            'super-admin' => \App\Http\Middleware\EnsureSuperAdmin::class,
+            'tenant' => TenantMiddleware::class,
+            'super-admin' => EnsureSuperAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(function (\Throwable $e, $request) {
+        $exceptions->render(function (Throwable $e, $request) {
             if ($request->expectsJson() || $request->is('api/*')) {
                 $status = 500;
                 $msg = __('api.error');
 
-                if ($e instanceof \App\Exceptions\BusinessException) {
+                if ($e instanceof BusinessException) {
                     $status = $e->getStatusCode();
                     // message 支持语言包 key 或直接字符串
                     $msg = __($e->getMessage()) !== $e->getMessage()
                         ? __($e->getMessage())
                         : $e->getMessage();
-                } elseif ($e instanceof \Illuminate\Validation\ValidationException) {
+                } elseif ($e instanceof ValidationException) {
                     $status = 422;
                     $msg = $e->validator->errors()->first();
-                } elseif ($e instanceof \Illuminate\Auth\AuthenticationException) {
+                } elseif ($e instanceof AuthenticationException) {
                     $status = 401;
                     $msg = __('api.unauthorized');
-                } elseif ($e instanceof \Illuminate\Auth\Access\AuthorizationException) {
+                } elseif ($e instanceof AuthorizationException) {
                     $status = 403;
                     $msg = __('api.forbidden');
-                } elseif ($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+                } elseif ($e instanceof NotFoundHttpException) {
                     $status = 404;
                     $msg = __('api.not_found');
-                } elseif ($e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+                } elseif ($e instanceof MethodNotAllowedHttpException) {
                     $status = 405;
                     $msg = __('api.method_not_allowed');
-                } elseif ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
+                } elseif ($e instanceof HttpException) {
                     $status = $e->getStatusCode();
                     $msg = $e->getMessage() ?: $msg;
                 }
