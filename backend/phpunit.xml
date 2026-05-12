@@ -16,6 +16,10 @@
         <include>
             <directory>app</directory>
         </include>
+        <exclude>
+            <!-- Console 命令（如 CodeGenerator.php）是开发工具，不在 Feature test 范围 -->
+            <directory>app/Console</directory>
+        </exclude>
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
