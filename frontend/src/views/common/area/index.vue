@@ -25,8 +25,12 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
-          <el-button @click="handleReset"><el-icon><Refresh /></el-icon>重置</el-button>
+          <el-button type="primary" @click="handleQuery"
+            ><el-icon><Search /></el-icon>搜索</el-button
+          >
+          <el-button @click="handleReset"
+            ><el-icon><Refresh /></el-icon>重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -62,9 +66,7 @@
         </el-table-column>
         <el-table-column label="操作" width="140" align="center" fixed="right">
           <template #default="{ row }">
-            <el-button type="primary" link v-hasPerm="['sys:area:edit']" @click="openDialog(row.id)">
-              编辑
-            </el-button>
+            <el-button type="primary" link v-hasPerm="['sys:area:edit']" @click="openDialog(row.id)"> 编辑 </el-button>
             <el-button type="danger" link v-hasPerm="['sys:area:delete']" @click="handleDelete(row.id)">
               删除
             </el-button>
@@ -128,18 +130,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
-import { ElMessage, ElMessageBox, type FormInstance } from 'element-plus'
-import { getAreaList, getAreaDetail, createArea, updateArea, deleteArea } from '@/api/area'
-import type { AreaItem } from '@/types/api/area'
+import { ref, reactive, onMounted } from 'vue';
+import { ElMessage, ElMessageBox, type FormInstance } from 'element-plus';
+import { getAreaList, getAreaDetail, createArea, updateArea, deleteArea } from '@/api/area';
+import type { AreaItem } from '@/types/api/area';
 
-const loading = ref(false)
-const submitLoading = ref(false)
-const areaList = ref<AreaItem[]>([])
-const total = ref(0)
-const dialogVisible = ref(false)
-const dialogTitle = ref('')
-const formRef = ref<FormInstance>()
+const loading = ref(false);
+const submitLoading = ref(false);
+const areaList = ref<AreaItem[]>([]);
+const total = ref(0);
+const dialogVisible = ref(false);
+const dialogTitle = ref('');
+const formRef = ref<FormInstance>();
 
 const queryParams = reactive({
   keywords: '',
@@ -147,7 +149,7 @@ const queryParams = reactive({
   status: '' as number | '',
   pageNum: 1,
   pageSize: 15,
-})
+});
 
 const form = reactive({
   id: undefined as number | undefined,
@@ -159,101 +161,101 @@ const form = reactive({
   level: undefined as number | undefined,
   sort: 0,
   status: 1,
-})
+});
 
 const formRules = {
   name: [{ required: true, message: '请输入地区名称', trigger: 'blur' }],
   level: [{ required: true, message: '请选择级别', trigger: 'change' }],
-}
+};
 
 function levelLabel(level: number): string {
-  const map: Record<number, string> = { 1: '省/直辖市', 2: '市', 3: '区/县' }
-  return map[level] ?? `L${level}`
+  const map: Record<number, string> = { 1: '省/直辖市', 2: '市', 3: '区/县' };
+  return map[level] ?? `L${level}`;
 }
 
 function levelTagType(level: number): undefined | 'success' | 'warning' {
-  const map: Record<number, undefined | 'success' | 'warning'> = { 1: undefined, 2: 'success', 3: 'warning' }
-  return map[level]
+  const map: Record<number, undefined | 'success' | 'warning'> = { 1: undefined, 2: 'success', 3: 'warning' };
+  return map[level];
 }
 
 onMounted(() => {
-  handleQuery()
-})
+  handleQuery();
+});
 
 async function handleQuery() {
-  loading.value = true
+  loading.value = true;
   try {
-    const res = await getAreaList(queryParams)
-    areaList.value = res.data.list
-    total.value = res.data.total
+    const res = await getAreaList(queryParams);
+    areaList.value = res.data.list;
+    total.value = res.data.total;
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
 
 function handleReset() {
-  queryParams.keywords = ''
-  queryParams.level = ''
-  queryParams.status = ''
-  queryParams.pageNum = 1
-  handleQuery()
+  queryParams.keywords = '';
+  queryParams.level = '';
+  queryParams.status = '';
+  queryParams.pageNum = 1;
+  handleQuery();
 }
 
 function resetForm() {
-  form.id = undefined
-  form.pid = 0
-  form.name = ''
-  form.shortname = ''
-  form.longitude = ''
-  form.latitude = ''
-  form.level = undefined
-  form.sort = 0
-  form.status = 1
+  form.id = undefined;
+  form.pid = 0;
+  form.name = '';
+  form.shortname = '';
+  form.longitude = '';
+  form.latitude = '';
+  form.level = undefined;
+  form.sort = 0;
+  form.status = 1;
 }
 
 async function openDialog(id?: number) {
-  resetForm()
+  resetForm();
   if (id) {
-    dialogTitle.value = '编辑地区'
-    const res = await getAreaDetail(id)
-    Object.assign(form, res.data)
+    dialogTitle.value = '编辑地区';
+    const res = await getAreaDetail(id);
+    Object.assign(form, res.data);
   } else {
-    dialogTitle.value = '新增地区'
+    dialogTitle.value = '新增地区';
   }
-  dialogVisible.value = true
+  dialogVisible.value = true;
 }
 
 function closeDialog() {
-  dialogVisible.value = false
-  formRef.value?.resetFields()
+  dialogVisible.value = false;
+  formRef.value?.resetFields();
 }
 
 async function handleSubmit() {
-  const valid = await formRef.value?.validate().catch(() => false)
-  if (!valid) return
+  const valid = await formRef.value?.validate().catch(() => false);
+  if (!valid) return;
 
-  submitLoading.value = true
+  submitLoading.value = true;
   try {
     if (form.id) {
-      await updateArea(form.id, form)
-      ElMessage.success('修改成功')
+      await updateArea(form.id, form);
+      ElMessage.success('修改成功');
     } else {
-      await createArea(form)
-      ElMessage.success('新增成功')
+      await createArea(form);
+      ElMessage.success('新增成功');
     }
-    closeDialog()
-    handleQuery()
+    closeDialog();
+    handleQuery();
   } finally {
-    submitLoading.value = false
+    submitLoading.value = false;
   }
 }
 
 async function handleDelete(id: number) {
-  await ElMessageBox.confirm('确认删除该地区？若存在子级将无法删除。', '提示', { type: 'warning' })
+  await ElMessageBox.confirm('确认删除该地区？若存在子级将无法删除。', '提示', { type: 'warning' });
   try {
-    await deleteArea(id)
-    ElMessage.success('删除成功')
-    handleQuery()
+    await deleteArea(id);
+    ElMessage.success('删除成功');
+    handleQuery();
   } catch {
     // 错误已由 request 拦截器统一弹出
   }

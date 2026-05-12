@@ -9,12 +9,7 @@
       </div>
       <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" size="large">
         <el-form-item prop="username">
-          <el-input
-            v-model="loginForm.username"
-            :placeholder="t('login.username')"
-            :prefix-icon="User"
-            clearable
-          />
+          <el-input v-model="loginForm.username" :placeholder="t('login.username')" :prefix-icon="User" clearable />
         </el-form-item>
         <el-form-item prop="password">
           <el-input
@@ -27,12 +22,7 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-button
-            type="primary"
-            :loading="loading"
-            class="login-btn"
-            @click="handleLogin"
-          >
+          <el-button type="primary" :loading="loading" class="login-btn" @click="handleLogin">
             {{ t('login.login') }}
           </el-button>
         </el-form-item>
@@ -117,7 +107,9 @@ async function handleLogin() {
   :deep(.el-input__wrapper) {
     border-radius: 8px;
     box-shadow: 0 0 0 1px var(--el-border-color) inset;
-    &:hover { box-shadow: 0 0 0 1px var(--el-color-primary) inset; }
+    &:hover {
+      box-shadow: 0 0 0 1px var(--el-color-primary) inset;
+    }
   }
 }
 

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Traits\BelongsToTenant;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +10,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, BelongsToTenant;
+    use BelongsToTenant, HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
         'tenant_id', 'dept_id', 'username', 'name', 'nickname', 'email', 'phone',

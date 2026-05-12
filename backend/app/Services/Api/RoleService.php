@@ -12,11 +12,11 @@ class RoleService
     {
         $query = Role::query();
 
-        if (!empty($filters['keywords'])) {
+        if (! empty($filters['keywords'])) {
             $kw = $filters['keywords'];
             $query->where(function ($q) use ($kw) {
                 $q->where('name', 'like', "%{$kw}%")
-                  ->orWhere('code', 'like', "%{$kw}%");
+                    ->orWhere('code', 'like', "%{$kw}%");
             });
         }
 
@@ -27,7 +27,7 @@ class RoleService
     {
         $role = Role::create($data);
 
-        if (!empty($menuIds)) {
+        if (! empty($menuIds)) {
             $role->menus()->sync($menuIds);
         }
 

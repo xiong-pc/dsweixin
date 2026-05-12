@@ -51,7 +51,7 @@ class RoleSeeder extends Seeder
     private function menuIdsExcludingTenantModule(): array
     {
         $tenantPageId = Menu::where('component', 'system/tenant/index')->value('id');
-        if (!$tenantPageId) {
+        if (! $tenantPageId) {
             return Menu::pluck('id')->all();
         }
 

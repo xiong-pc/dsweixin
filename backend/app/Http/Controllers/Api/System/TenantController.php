@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\System;
 
 use App\Http\Controllers\Api\Controller;
-
 use App\Http\Requests\Api\Tenant\StoreTenantRequest;
 use App\Http\Requests\Api\Tenant\UpdateTenantRequest;
 use App\Http\Resources\Api\TenantResource;
@@ -18,7 +17,7 @@ class TenantController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        if (!$request->user()->hasTenantManagementMenu()) {
+        if (! $request->user()->hasTenantManagementMenu()) {
             return $this->error('api.forbidden', 403);
         }
 
@@ -44,11 +43,11 @@ class TenantController extends Controller
 
     public function show(Request $request, Tenant $tenant): JsonResponse
     {
-        if (!$request->user()->hasTenantManagementMenu()) {
+        if (! $request->user()->hasTenantManagementMenu()) {
             return $this->error('api.forbidden', 403);
         }
 
-        if (!$request->user()->isSuperAdmin()
+        if (! $request->user()->isSuperAdmin()
             && (int) $tenant->id !== (int) $request->user()->tenant_id) {
             return $this->error('api.forbidden', 403);
         }
@@ -68,7 +67,7 @@ class TenantController extends Controller
 
     public function destroy(Request $request, Tenant $tenant): JsonResponse
     {
-        if (!$request->user()->isSuperAdmin()) {
+        if (! $request->user()->isSuperAdmin()) {
             return $this->error('api.forbidden', 403);
         }
 

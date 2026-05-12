@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\System;
 
 use App\Http\Controllers\Api\Controller;
-
 use App\Http\Requests\Api\Config\StoreConfigRequest;
 use App\Http\Requests\Api\Config\UpdateConfigRequest;
 use App\Http\Resources\Api\ConfigResource;

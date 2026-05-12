@@ -21,10 +21,10 @@ class ConfigTest extends TestCase
     {
         return SysConfig::create(array_merge([
             'tenant_id' => 1,
-            'name'      => '测试配置',
-            'key'       => 'test_key_' . uniqid(),
-            'value'     => 'test_value',
-            'type'      => 0,
+            'name' => '测试配置',
+            'key' => 'test_key_'.uniqid(),
+            'value' => 'test_value',
+            'type' => 0,
         ], $attrs));
     }
 
@@ -63,8 +63,8 @@ class ConfigTest extends TestCase
     public function test_store_creates_config(): void
     {
         $response = $this->postJson('/api/v1/system/configs', [
-            'name'  => '新配置',
-            'key'   => 'new_config_key',
+            'name' => '新配置',
+            'key' => 'new_config_key',
             'value' => 'hello',
         ]);
 
@@ -89,7 +89,7 @@ class ConfigTest extends TestCase
 
         $response = $this->postJson('/api/v1/system/configs', [
             'name' => '重复',
-            'key'  => 'dup_config_key',
+            'key' => 'dup_config_key',
         ]);
 
         $response->assertStatus(422)

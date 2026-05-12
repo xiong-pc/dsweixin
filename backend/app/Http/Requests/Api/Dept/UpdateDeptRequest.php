@@ -14,10 +14,10 @@ class UpdateDeptRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'name'      => 'sometimes|string',
+            'name' => 'sometimes|string',
             'parent_id' => 'nullable|exists:depts,id',
-            'sort'      => 'nullable|integer',
-            'status'    => 'nullable|in:0,1',
+            'sort' => 'nullable|integer',
+            'status' => 'nullable|in:0,1',
         ];
     }
 }

@@ -21,12 +21,12 @@ class MenuTest extends TestCase
     {
         return Menu::create(array_merge([
             'parent_id' => 0,
-            'name'      => '测试菜单',
-            'type'      => 2,
-            'path'      => '/test_' . uniqid(),
+            'name' => '测试菜单',
+            'type' => 2,
+            'path' => '/test_'.uniqid(),
             'component' => 'test/index',
-            'sort'      => 1,
-            'visible'   => 1,
+            'sort' => 1,
+            'visible' => 1,
         ], $attrs));
     }
 
@@ -68,12 +68,12 @@ class MenuTest extends TestCase
     public function test_store_creates_directory_menu(): void
     {
         $response = $this->postJson('/api/v1/system/menus', [
-            'name'      => '新目录',
-            'type'      => 1,
-            'path'      => '/new',
+            'name' => '新目录',
+            'type' => 1,
+            'path' => '/new',
             'component' => 'Layout',
-            'sort'      => 10,
-            'visible'   => true,
+            'sort' => 10,
+            'visible' => true,
         ]);
 
         $response->assertOk()
@@ -86,8 +86,8 @@ class MenuTest extends TestCase
     public function test_store_creates_button_permission(): void
     {
         $response = $this->postJson('/api/v1/system/menus', [
-            'name'       => '新增用户按钮',
-            'type'       => 3,
+            'name' => '新增用户按钮',
+            'type' => 3,
             'permission' => 'sys:user:add',
         ]);
 

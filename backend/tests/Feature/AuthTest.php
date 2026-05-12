@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
+use Laravel\Passport\Client;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
@@ -15,13 +17,13 @@ class AuthTest extends TestCase
     {
         parent::setUp();
         // 测试环境手动创建 Passport Personal Access Client
-        \Laravel\Passport\Client::create([
-            'id'            => \Illuminate\Support\Str::uuid(),
-            'name'          => 'Test Personal Access Client',
-            'secret'        => null,
+        Client::create([
+            'id' => Str::uuid(),
+            'name' => 'Test Personal Access Client',
+            'secret' => null,
             'redirect_uris' => ['http://localhost'],
-            'grant_types'   => ['personal_access'],
-            'revoked'       => false,
+            'grant_types' => ['personal_access'],
+            'revoked' => false,
         ]);
     }
 
@@ -29,9 +31,9 @@ class AuthTest extends TestCase
     {
         return User::factory()->create(array_merge([
             'tenant_id' => 0,
-            'username'  => 'testuser',
-            'password'  => '123456',
-            'status'    => 1,
+            'username' => 'testuser',
+            'password' => '123456',
+            'status' => 1,
         ], $attrs));
     }
 

@@ -1,22 +1,22 @@
-import request from '@/utils/request'
-import type { DeptListQuery, StoreDeptRequest, UpdateDeptRequest, DeptItem } from '@/types/api/dept'
+import request from '@/utils/request';
+import type { DeptListQuery, StoreDeptRequest, UpdateDeptRequest, DeptItem } from '@/types/api/dept';
 
 export function getDeptList(params?: DeptListQuery) {
-  return request<any, ApiResponse<DeptItem[]>>({ url: '/system/depts', method: 'get', params })
+  return request<any, ApiResponse<DeptItem[]>>({ url: '/system/depts', method: 'get', params });
 }
 
 export function getDeptDetail(id: number) {
-  return request<any, ApiResponse<DeptItem>>({ url: `/system/depts/${id}`, method: 'get' })
+  return request<any, ApiResponse<DeptItem>>({ url: `/system/depts/${id}`, method: 'get' });
 }
 
 export function createDept(data: StoreDeptRequest) {
-  return request<any, ApiResponse<DeptItem>>({ url: '/system/depts', method: 'post', data })
+  return request<any, ApiResponse<DeptItem>>({ url: '/system/depts', method: 'post', data });
 }
 
 export function updateDept(id: number, data: UpdateDeptRequest) {
-  return request<any, ApiResponse<null>>({ url: `/system/depts/${id}`, method: 'put', data })
+  return request<any, ApiResponse<null>>({ url: `/system/depts/${id}`, method: 'put', data });
 }
 
 export function deleteDept(id: number) {
-  return request<any, ApiResponse<null>>({ url: `/system/depts/${id}`, method: 'delete' })
+  return request<any, ApiResponse<null>>({ url: `/system/depts/${id}`, method: 'delete' });
 }

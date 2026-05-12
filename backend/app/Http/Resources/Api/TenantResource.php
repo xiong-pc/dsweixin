@@ -14,18 +14,18 @@ class TenantResource extends JsonResource
         $expiredAt = data_get($r, 'expired_at');
 
         return [
-            'id'            => data_get($r, 'id'),
-            'name'          => data_get($r, 'name'),
-            'code'          => data_get($r, 'code'),
-            'status'        => data_get($r, 'status'),
-            'contact_name'  => data_get($r, 'contact_name'),
+            'id' => data_get($r, 'id'),
+            'name' => data_get($r, 'name'),
+            'code' => data_get($r, 'code'),
+            'status' => data_get($r, 'status'),
+            'contact_name' => data_get($r, 'contact_name'),
             'contact_phone' => data_get($r, 'contact_phone'),
-            'remark'        => data_get($r, 'remark'),
-            'expired_at'    => $this->formatDateTime($expiredAt),
-            'expire_time'   => $this->formatDateTime($expiredAt),
-            'created_at'    => $this->formatDateTime(data_get($r, 'created_at')),
-            'domain'        => data_get($r, 'domain'),
-            'package_name'  => data_get($r, 'package_name'),
+            'remark' => data_get($r, 'remark'),
+            'expired_at' => $this->formatDateTime($expiredAt),
+            'expire_time' => $this->formatDateTime($expiredAt),
+            'created_at' => $this->formatDateTime(data_get($r, 'created_at')),
+            'domain' => data_get($r, 'domain'),
+            'package_name' => data_get($r, 'package_name'),
             'account_limit' => data_get($r, 'account_limit'),
         ];
     }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\System;
 
 use App\Http\Controllers\Api\Controller;
-
 use App\Http\Requests\Api\DictItem\StoreDictItemRequest;
 use App\Http\Requests\Api\DictItem\UpdateDictItemRequest;
 use App\Models\DictItem;

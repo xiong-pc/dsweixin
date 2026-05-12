@@ -21,11 +21,11 @@ class NoticeTest extends TestCase
     {
         return Notice::create(array_merge([
             'tenant_id' => 1,
-            'title'     => '测试公告',
-            'type'      => 1,
-            'level'     => 0,
-            'content'   => '公告内容',
-            'status'    => 0,
+            'title' => '测试公告',
+            'type' => 1,
+            'level' => 0,
+            'content' => '公告内容',
+            'status' => 0,
         ], $attrs));
     }
 
@@ -77,11 +77,11 @@ class NoticeTest extends TestCase
     public function test_store_creates_draft_notice(): void
     {
         $response = $this->postJson('/api/v1/system/notices', [
-            'title'   => '新公告',
-            'type'    => 1,
-            'level'   => 0,
+            'title' => '新公告',
+            'type' => 1,
+            'level' => 0,
             'content' => '内容',
-            'status'  => 0,
+            'status' => 0,
         ]);
 
         $response->assertOk()
@@ -95,7 +95,7 @@ class NoticeTest extends TestCase
     public function test_store_creates_published_notice_with_publish_time(): void
     {
         $response = $this->postJson('/api/v1/system/notices', [
-            'title'  => '直接发布',
+            'title' => '直接发布',
             'status' => 1,
         ]);
 

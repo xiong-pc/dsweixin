@@ -22,7 +22,7 @@ router.beforeEach(async (to, _from, next) => {
           await userStore.getUserInfo();
           await permissionStore.generateRoutes();
           next({ ...to, replace: true });
-        } catch (error) {
+        } catch {
           userStore.resetToken();
           next(`/login?redirect=${to.path}`);
         }

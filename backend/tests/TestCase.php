@@ -17,9 +17,9 @@ abstract class TestCase extends BaseTestCase
     {
         $user = User::factory()->create([
             'tenant_id' => 0,
-            'username'  => 'superadmin_' . uniqid(),
-            'password'  => '123456',
-            'status'    => 1,
+            'username' => 'superadmin_'.uniqid(),
+            'password' => '123456',
+            'status' => 1,
         ]);
 
         $role = Role::firstOrCreate(
@@ -45,9 +45,9 @@ abstract class TestCase extends BaseTestCase
 
         $user = User::factory()->create([
             'tenant_id' => $tenant->id,
-            'username'  => 'admin_' . uniqid(),
-            'password'  => '123456',
-            'status'    => 1,
+            'username' => 'admin_'.uniqid(),
+            'password' => '123456',
+            'status' => 1,
         ]);
 
         $role = Role::firstOrCreate(
@@ -73,9 +73,9 @@ abstract class TestCase extends BaseTestCase
 
         $user = User::factory()->create([
             'tenant_id' => $tenantId,
-            'username'  => 'user_' . uniqid(),
-            'password'  => bcrypt('123456'),
-            'status'    => 1,
+            'username' => 'user_'.uniqid(),
+            'password' => bcrypt('123456'),
+            'status' => 1,
         ]);
 
         Passport::actingAs($user);

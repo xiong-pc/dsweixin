@@ -41,16 +41,16 @@ return new class extends Migration
 
             if (! $common) {
                 $commonId = DB::table('menus')->insertGetId([
-                    'parent_id'  => 0,
-                    'name'       => '基础数据',
-                    'type'       => 1,
-                    'path'       => '/common',
-                    'component'  => 'Layout',
+                    'parent_id' => 0,
+                    'name' => '基础数据',
+                    'type' => 1,
+                    'path' => '/common',
+                    'component' => 'Layout',
                     'permission' => '',
-                    'icon'       => 'DataLine',
-                    'sort'       => 2,
-                    'visible'    => 1,
-                    'redirect'   => '/common/area',
+                    'icon' => 'DataLine',
+                    'sort' => 2,
+                    'visible' => 1,
+                    'redirect' => '/common/area',
                     'created_at' => $now,
                     'updated_at' => $now,
                 ]);
@@ -62,9 +62,9 @@ return new class extends Migration
             DB::table('menus')
                 ->where('id', $area->id)
                 ->update([
-                    'parent_id'  => $commonId,
-                    'component'  => 'common/area/index',
-                    'sort'       => 1,
+                    'parent_id' => $commonId,
+                    'component' => 'common/area/index',
+                    'sort' => 1,
                     'updated_at' => $now,
                 ]);
 
@@ -98,9 +98,9 @@ return new class extends Migration
                 ->where('parent_id', $common->id)
                 ->where('component', 'common/area/index')
                 ->update([
-                    'parent_id'  => $system->id,
-                    'component'  => 'system/area/index',
-                    'sort'       => 9,
+                    'parent_id' => $system->id,
+                    'component' => 'system/area/index',
+                    'sort' => 9,
                     'updated_at' => $now,
                 ]);
 

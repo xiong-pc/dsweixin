@@ -23,7 +23,7 @@ watch(
   (val) => {
     isDark.value = val;
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 watch(
@@ -31,6 +31,6 @@ watch(
   (val) => {
     locale.value = val;
     localStorage.setItem('language', val);
-  }
+  },
 );
 </script>

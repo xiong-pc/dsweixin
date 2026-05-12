@@ -6,8 +6,12 @@
           <el-input v-model="queryParams.keywords" placeholder="请输入字典名称" clearable @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
-          <el-button @click="handleReset"><el-icon><Refresh /></el-icon>重置</el-button>
+          <el-button type="primary" @click="handleQuery"
+            ><el-icon><Search /></el-icon>搜索</el-button
+          >
+          <el-button @click="handleReset"
+            ><el-icon><Refresh /></el-icon>重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -21,7 +25,14 @@
             </el-button>
           </div>
 
-          <el-table v-loading="loading" :data="dictList" border stripe highlight-current-row @current-change="handleDictSelect">
+          <el-table
+            v-loading="loading"
+            :data="dictList"
+            border
+            stripe
+            highlight-current-row
+            @current-change="handleDictSelect"
+          >
             <el-table-column label="字典编号" prop="id" width="80" align="center" />
             <el-table-column label="字典名称" prop="name" min-width="120" />
             <el-table-column label="字典编码" prop="code" min-width="120" />
@@ -34,8 +45,12 @@
             </el-table-column>
             <el-table-column label="操作" width="150" align="center">
               <template #default="{ row }">
-                <el-button type="primary" link v-hasPerm="['sys:dict:edit']" @click="openDictDialog(row.id)">编辑</el-button>
-                <el-button type="danger" link v-hasPerm="['sys:dict:delete']" @click="handleDeleteDict(row.id)">删除</el-button>
+                <el-button type="primary" link v-hasPerm="['sys:dict:edit']" @click="openDictDialog(row.id)"
+                  >编辑</el-button
+                >
+                <el-button type="danger" link v-hasPerm="['sys:dict:delete']" @click="handleDeleteDict(row.id)"
+                  >删除</el-button
+                >
               </template>
             </el-table-column>
           </el-table>
@@ -138,7 +153,16 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue';
 import { ElMessage, ElMessageBox, type FormInstance } from 'element-plus';
-import { getDictList, createDict, updateDict, deleteDict, getDictItems, createDictItem, updateDictItem, deleteDictItem } from '@/api/dict';
+import {
+  getDictList,
+  createDict,
+  updateDict,
+  deleteDict,
+  getDictItems,
+  createDictItem,
+  updateDictItem,
+  deleteDictItem,
+} from '@/api/dict';
 
 const loading = ref(false);
 const itemLoading = ref(false);

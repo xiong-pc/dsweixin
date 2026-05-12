@@ -6,11 +6,11 @@
 
 统一存放商城（电商 + 配送 + 订单）相关的业务视图，形成与后端命名空间、API 路由的三层对称：
 
-| 层 | 位置 / 命名 | 对称示例 |
-|---|---|---|
-| 前端视图 | `frontend/src/views/mall/` | `views/mall/product/category/index.vue` |
+| 层                 | 位置 / 命名                      | 对称示例                                                  |
+| ------------------ | -------------------------------- | --------------------------------------------------------- |
+| 前端视图           | `frontend/src/views/mall/`       | `views/mall/product/category/index.vue`                   |
 | 后端控制器（规划） | `App\Http\Controllers\Api\Mall\` | `App\Http\Controllers\Api\Mall\ProductCategoryController` |
-| API 路由（规划） | `/api/v1/mall/*` | `GET /api/v1/mall/product/categories` |
+| API 路由（规划）   | `/api/v1/mall/*`                 | `GET /api/v1/mall/product/categories`                     |
 
 ## 规划的子模块（按 specs 优先级排序）
 

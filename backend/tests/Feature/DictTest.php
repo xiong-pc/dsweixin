@@ -21,8 +21,8 @@ class DictTest extends TestCase
     private function createDict(array $attrs = []): Dict
     {
         return Dict::create(array_merge([
-            'name'   => '测试字典',
-            'code'   => 'test_dict_' . uniqid(),
+            'name' => '测试字典',
+            'code' => 'test_dict_'.uniqid(),
             'status' => 1,
         ], $attrs));
     }
@@ -31,10 +31,10 @@ class DictTest extends TestCase
     {
         return DictItem::create(array_merge([
             'dict_id' => $dict->id,
-            'label'   => '标签',
-            'value'   => 'val_' . uniqid(),
-            'sort'    => 0,
-            'status'  => 1,
+            'label' => '标签',
+            'value' => 'val_'.uniqid(),
+            'sort' => 0,
+            'status' => 1,
         ], $attrs));
     }
 
@@ -73,8 +73,8 @@ class DictTest extends TestCase
     public function test_store_creates_dict(): void
     {
         $response = $this->postJson('/api/v1/system/dicts', [
-            'name'   => '新字典',
-            'code'   => 'new_dict',
+            'name' => '新字典',
+            'code' => 'new_dict',
             'status' => 1,
         ]);
 
@@ -179,9 +179,9 @@ class DictTest extends TestCase
 
         $response = $this->postJson('/api/v1/system/dict-items', [
             'dict_id' => $dict->id,
-            'label'   => '新标签',
-            'value'   => 'new_val',
-            'sort'    => 1,
+            'label' => '新标签',
+            'value' => 'new_val',
+            'sort' => 1,
         ]);
 
         $response->assertOk()->assertJsonPath('code', 200);
@@ -192,8 +192,8 @@ class DictTest extends TestCase
     {
         $response = $this->postJson('/api/v1/system/dict-items', [
             'dict_id' => 99999,
-            'label'   => '标签',
-            'value'   => 'val',
+            'label' => '标签',
+            'value' => 'val',
         ]);
 
         $response->assertStatus(422)

@@ -13,19 +13,19 @@ class NoticeResource extends JsonResource
         $r = $this->resource;
 
         return [
-            'id'           => data_get($r, 'id'),
-            'title'        => data_get($r, 'title'),
-            'type'         => data_get($r, 'type'),
-            'level'        => data_get($r, 'level'),
-            'content'      => data_get($r, 'content'),
-            'status'       => data_get($r, 'status'),
+            'id' => data_get($r, 'id'),
+            'title' => data_get($r, 'title'),
+            'type' => data_get($r, 'type'),
+            'level' => data_get($r, 'level'),
+            'content' => data_get($r, 'content'),
+            'status' => data_get($r, 'status'),
             'publish_time' => $this->formatDateTime(data_get($r, 'publish_time')),
-            'created_at'   => $this->formatDateTime(data_get($r, 'created_at')),
-            'creator'      => data_get($r, 'publisher.nickname'),
-            'publisher'    => $this->when(
+            'created_at' => $this->formatDateTime(data_get($r, 'created_at')),
+            'creator' => data_get($r, 'publisher.nickname'),
+            'publisher' => $this->when(
                 data_get($r, 'publisher') !== null,
                 fn () => [
-                    'id'       => data_get($r, 'publisher.id'),
+                    'id' => data_get($r, 'publisher.id'),
                     'nickname' => data_get($r, 'publisher.nickname'),
                 ]
             ),

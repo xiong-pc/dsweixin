@@ -13,7 +13,6 @@
 namespace App\Http\Controllers\Api\System;
 
 use App\Http\Controllers\Api\Controller;
-
 use App\Http\Requests\Api\UserLog\StoreUserLogRequest;
 use App\Http\Requests\Api\UserLog\UpdateUserLogRequest;
 use App\Services\Api\UserLogService;

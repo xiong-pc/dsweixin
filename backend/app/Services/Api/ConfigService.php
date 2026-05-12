@@ -11,19 +11,19 @@ class ConfigService
     {
         $query = SysConfig::query();
 
-        if (!empty($filters['keywords'])) {
+        if (! empty($filters['keywords'])) {
             $kw = $filters['keywords'];
             $query->where(function ($q) use ($kw) {
                 $q->where('name', 'like', "%{$kw}%")
-                  ->orWhere('key', 'like', "%{$kw}%");
+                    ->orWhere('key', 'like', "%{$kw}%");
             });
         }
 
-        if (!empty($filters['name'])) {
+        if (! empty($filters['name'])) {
             $query->where('name', 'like', '%'.$filters['name'].'%');
         }
 
-        if (!empty($filters['key'])) {
+        if (! empty($filters['key'])) {
             $query->where('key', 'like', '%'.$filters['key'].'%');
         }
 

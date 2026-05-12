@@ -2,8 +2,11 @@
 
 /**
  * @Author: xiong-pc
+ *
  * @Email: 562740366@qq.com
+ *
  * @Date: 2026-04-10 03:00:00
+ *
  * @Version: 1.0.0
  */
 
@@ -24,7 +27,7 @@ class StoreUserRequest extends ApiFormRequest
             $this->merge(['dept_id' => null]);
         }
 
-        if ($this->has('role_ids') && !$this->has('roleIds')) {
+        if ($this->has('role_ids') && ! $this->has('roleIds')) {
             $this->merge(['roleIds' => $this->input('role_ids')]);
         }
     }
@@ -32,14 +35,14 @@ class StoreUserRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'username'  => 'required|string|unique:users,username',
-            'nickname'  => 'required|string',
-            'password'  => 'required|string|min:6',
-            'status'    => 'in:0,1',
-            'email'     => 'nullable|email',
-            'phone'     => 'nullable|string',
-            'dept_id'   => 'nullable|exists:depts,id',
-            'roleIds'   => 'nullable|array',
+            'username' => 'required|string|unique:users,username',
+            'nickname' => 'required|string',
+            'password' => 'required|string|min:6',
+            'status' => 'in:0,1',
+            'email' => 'nullable|email',
+            'phone' => 'nullable|string',
+            'dept_id' => 'nullable|exists:depts,id',
+            'roleIds' => 'nullable|array',
             'roleIds.*' => 'exists:roles,id',
         ];
     }

@@ -14,11 +14,11 @@ class StoreNoticeRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'title'   => 'required|string',
-            'type'    => 'nullable|integer',
-            'level'   => 'nullable|integer',
+            'title' => 'required|string',
+            'type' => 'nullable|integer',
+            'level' => 'nullable|integer',
             'content' => 'nullable|string',
-            'status'  => 'nullable|in:0,1,2',
+            'status' => 'nullable|in:0,1,2',
         ];
     }
 }

@@ -3,11 +3,20 @@
     <div class="search-container">
       <el-form :model="queryParams" :inline="true">
         <el-form-item label="名称/键名">
-          <el-input v-model="queryParams.keywords" placeholder="请输入配置名称或键名" clearable @keyup.enter="handleQuery" />
+          <el-input
+            v-model="queryParams.keywords"
+            placeholder="请输入配置名称或键名"
+            clearable
+            @keyup.enter="handleQuery"
+          />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
-          <el-button @click="handleReset"><el-icon><Refresh /></el-icon>重置</el-button>
+          <el-button type="primary" @click="handleQuery"
+            ><el-icon><Search /></el-icon>搜索</el-button
+          >
+          <el-button @click="handleReset"
+            ><el-icon><Refresh /></el-icon>重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -34,7 +43,9 @@
         <el-table-column label="操作" width="150" align="center" fixed="right">
           <template #default="{ row }">
             <el-button type="primary" link v-hasPerm="['sys:config:edit']" @click="openDialog(row)">编辑</el-button>
-            <el-button type="danger" link v-hasPerm="['sys:config:delete']" @click="handleDelete(row.id)">删除</el-button>
+            <el-button type="danger" link v-hasPerm="['sys:config:delete']" @click="handleDelete(row.id)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>

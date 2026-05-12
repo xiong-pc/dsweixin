@@ -16,10 +16,10 @@ class UpdateConfigRequest extends ApiFormRequest
         $configId = $this->route('config')?->id;
 
         return [
-            'name'   => 'sometimes|string',
-            'key'    => "sometimes|string|unique:configs,key,{$configId}",
-            'value'  => 'nullable|string',
-            'type'   => 'nullable|string',
+            'name' => 'sometimes|string',
+            'key' => "sometimes|string|unique:configs,key,{$configId}",
+            'value' => 'nullable|string',
+            'type' => 'nullable|string',
             'remark' => 'nullable|string',
         ];
     }

@@ -30,6 +30,10 @@ jobs:
         working-directory: backend
         run: composer install --prefer-dist --no-progress --no-interaction
 
+      - name: Pint code style check
+        working-directory: backend
+        run: ./vendor/bin/pint --test
+
       - name: Prepare Laravel environment
         working-directory: backend
         run: |
@@ -57,6 +61,14 @@ jobs:
       - name: Install dependencies
         working-directory: frontend
         run: npm ci
+
+      - name: Prettier format check
+        working-directory: frontend
+        run: npm run format:check
+
+      - name: ESLint check
+        working-directory: frontend
+        run: npm run lint:check
 
       - name: Type check
         working-directory: frontend

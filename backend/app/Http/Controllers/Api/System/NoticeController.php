@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\System;
 
 use App\Http\Controllers\Api\Controller;
-
 use App\Http\Requests\Api\Notice\StoreNoticeRequest;
 use App\Http\Requests\Api\Notice\UpdateNoticeRequest;
 use App\Http\Resources\Api\NoticeResource;

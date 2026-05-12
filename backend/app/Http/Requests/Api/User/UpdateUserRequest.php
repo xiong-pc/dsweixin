@@ -2,8 +2,11 @@
 
 /**
  * @Author: xiong-pc
+ *
  * @Email: 562740366@qq.com
+ *
  * @Date: 2026-04-10 03:00:00
+ *
  * @Version: 1.0.0
  */
 
@@ -26,7 +29,7 @@ class UpdateUserRequest extends ApiFormRequest
         }
 
         // 前端可能传 role_ids（snake_case），统一转为 roleIds
-        if ($this->has('role_ids') && !$this->has('roleIds')) {
+        if ($this->has('role_ids') && ! $this->has('roleIds')) {
             $this->merge(['roleIds' => $this->input('role_ids')]);
         }
     }
@@ -36,12 +39,12 @@ class UpdateUserRequest extends ApiFormRequest
         $userId = $this->route('user')?->id;
 
         return [
-            'username'  => "sometimes|string|unique:users,username,{$userId}",
-            'nickname'  => 'sometimes|string',
-            'email'     => 'nullable|email',
-            'phone'     => 'nullable|string',
-            'dept_id'   => 'nullable|exists:depts,id',
-            'roleIds'   => 'nullable|array',
+            'username' => "sometimes|string|unique:users,username,{$userId}",
+            'nickname' => 'sometimes|string',
+            'email' => 'nullable|email',
+            'phone' => 'nullable|string',
+            'dept_id' => 'nullable|exists:depts,id',
+            'roleIds' => 'nullable|array',
             'roleIds.*' => 'exists:roles,id',
         ];
     }

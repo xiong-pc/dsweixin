@@ -12,8 +12,12 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
-          <el-button @click="handleReset"><el-icon><Refresh /></el-icon>重置</el-button>
+          <el-button type="primary" @click="handleQuery"
+            ><el-icon><Search /></el-icon>搜索</el-button
+          >
+          <el-button @click="handleReset"
+            ><el-icon><Refresh /></el-icon>重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -47,9 +51,25 @@
         <el-table-column label="操作" width="250" align="center" fixed="right">
           <template #default="{ row }">
             <el-button type="primary" link v-hasPerm="['sys:notice:edit']" @click="openDialog(row)">编辑</el-button>
-            <el-button v-if="row.status === 0" type="success" link v-hasPerm="['sys:notice:publish']" @click="handlePublish(row.id)">发布</el-button>
-            <el-button v-if="row.status === 1" type="warning" link v-hasPerm="['sys:notice:revoke']" @click="handleRevoke(row.id)">撤回</el-button>
-            <el-button type="danger" link v-hasPerm="['sys:notice:delete']" @click="handleDelete(row.id)">删除</el-button>
+            <el-button
+              v-if="row.status === 0"
+              type="success"
+              link
+              v-hasPerm="['sys:notice:publish']"
+              @click="handlePublish(row.id)"
+              >发布</el-button
+            >
+            <el-button
+              v-if="row.status === 1"
+              type="warning"
+              link
+              v-hasPerm="['sys:notice:revoke']"
+              @click="handleRevoke(row.id)"
+              >撤回</el-button
+            >
+            <el-button type="danger" link v-hasPerm="['sys:notice:delete']" @click="handleDelete(row.id)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
