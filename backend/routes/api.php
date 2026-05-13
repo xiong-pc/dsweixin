@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Mall\AttributeController;
 use App\Http\Controllers\Api\Mall\AttributeValueController;
+use App\Http\Controllers\Api\Mall\CategoryController;
 use App\Http\Controllers\Api\Mall\ProductController;
 use App\Http\Controllers\Api\Mall\ProductVariantController;
 use App\Http\Controllers\Api\Mall\SpecificationController;
@@ -129,6 +130,10 @@ Route::prefix('v1')->group(function () {
                 Route::get('product-variants/{variant}', [ProductVariantController::class, 'show']);
                 Route::put('product-variants/{variant}', [ProductVariantController::class, 'update']);
                 Route::delete('product-variants/{variant}', [ProductVariantController::class, 'destroy']);
+
+                // 类目树（含拖拽排序，reorder 必须放在 apiResource 前）
+                Route::post('categories/reorder', [CategoryController::class, 'reorder']);
+                Route::apiResource('categories', CategoryController::class);
             });
         });
     });

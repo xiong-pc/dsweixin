@@ -50,4 +50,10 @@ return [
     // 汇率
     'no_rates_supplied' => '未提供汇率数据',
     'sync_dispatched' => '同步任务已发起',
+
+    // 商城类目
+    'category_has_children' => '存在子类目，不能删除',
+    'category_has_products' => '类目下存在商品，不能删除',
+    'category_cycle' => '父类目不能是自身或子类目',
+    'invalid_parent_category' => '父类目不存在或属于其他租户',
 ];

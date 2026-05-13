@@ -49,5 +49,11 @@ return [
 
     // Exchange rates
     'no_rates_supplied' => 'No exchange rates supplied',
-    'sync_dispatched' => 'Sync task dispatched',
+    'sync_dispatched' => 'Sync job dispatched',
+
+    // Mall categories
+    'category_has_children' => 'Cannot delete category with sub-categories',
+    'category_has_products' => 'Cannot delete category with associated products',
+    'category_cycle' => 'Parent category cannot be self or descendant',
+    'invalid_parent_category' => 'Parent category does not exist or belongs to another tenant',
 ];
