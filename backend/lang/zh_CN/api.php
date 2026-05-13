@@ -46,4 +46,8 @@ return [
 
     // 套餐
     'plan_in_use' => '该套餐已被租户使用，不能删除',
+
+    // 汇率
+    'no_rates_supplied' => '未提供汇率数据',
+    'sync_dispatched' => '同步任务已发起',
 ];

@@ -46,4 +46,8 @@ return [
 
     // Plans
     'plan_in_use' => 'This plan is in use by tenants and cannot be deleted',
+
+    // Exchange rates
+    'no_rates_supplied' => 'No exchange rates supplied',
+    'sync_dispatched' => 'Sync task dispatched',
 ];

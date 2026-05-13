@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
@@ -28,6 +29,11 @@ class Country extends Model
     public function translations(): HasMany
     {
         return $this->hasMany(CountryTranslation::class);
+    }
+
+    public function zones(): BelongsToMany
+    {
+        return $this->belongsToMany(Zone::class, 'zone_countries')->withTimestamps();
     }
 
     public function getTranslation(string $locale): ?string

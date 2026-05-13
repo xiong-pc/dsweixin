@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\System\CurrencyController;
 use App\Http\Controllers\Api\System\DeptController;
 use App\Http\Controllers\Api\System\DictController;
 use App\Http\Controllers\Api\System\DictItemController;
+use App\Http\Controllers\Api\System\ExchangeRateController;
 use App\Http\Controllers\Api\System\LanguageController;
 use App\Http\Controllers\Api\System\MenuController;
 use App\Http\Controllers\Api\System\NoticeController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Api\System\ShopController;
 use App\Http\Controllers\Api\System\TenantController;
 use App\Http\Controllers\Api\System\UserController;
 use App\Http\Controllers\Api\System\UserLogController;
+use App\Http\Controllers\Api\System\ZoneController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -79,6 +81,14 @@ Route::prefix('v1')->group(function () {
                 Route::apiResource('languages', LanguageController::class);
                 Route::apiResource('currencies', CurrencyController::class);
                 Route::apiResource('countries', CountryController::class);
+
+                // 区域分组（如 EU, ASEAN, APAC）
+                Route::apiResource('zones', ZoneController::class);
+
+                // 汇率（含手动同步入口）
+                Route::post('exchange-rates/sync', [ExchangeRateController::class, 'sync']);
+                Route::apiResource('exchange-rates', ExchangeRateController::class)
+                    ->parameters(['exchange-rates' => 'exchangeRate']);
             });
 
             // 地区管理（公共地理数据，不属于 system 命名空间）
