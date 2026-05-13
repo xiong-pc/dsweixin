@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 12 | 0 | 0 | 25.5 % |
+| 47 | 13 | 0 | 0 | 27.7 % |
 
 ### 进度明细
 
@@ -622,7 +622,7 @@ composer require dedoc/scramble
 | ⬜ | M03-PR12 后台商品 UI 基础 | M03 | 1.0 | | | + TranslationTabs 组件 |
 | ⬜ | M03-PR13 后台变体 UI | M03 | 1.0 | | | 矩阵生成 + 批量编辑 |
 | ✅ | M03-PR14 简单商品快速创建 | M03 | 0.5 | 2026-05-13 | `f463b8b` | POST /products/quick-create 一次建 SPU+默认 SKU，完全事务原子，8 测试，**M03 后端 100%** |
-| ⬜ | M04-PR15 categories 树 | M04 | 1.5 | | | |
+| ✅ | M04-PR15 categories 树 | M04 | 1.5 | 2026-05-13 | `dcb54b9` | parent_id 树 + reorder 拖拽 + cycle 防循环 + multi-field 翻译（name+description），18 测试 |
 | ⬜ | M04-PR16 brands | M04 | 0.5 | | | |
 | ⬜ | M04-PR17 商品筛选联动 UI | M04 | 1.0 | | | |
 | ⬜ | M05-PR18 carts | M05 | 1.0 | | | 游客 + 登录合并 |
