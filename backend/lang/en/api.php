@@ -43,4 +43,7 @@ return [
     // Shop resolution
     'shop_not_resolved' => 'Unable to resolve shop from request host',
     'shop_not_found' => 'Shop not found or disabled',
+
+    // Plans
+    'plan_in_use' => 'This plan is in use by tenants and cannot be deleted',
 ];

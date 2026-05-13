@@ -36,4 +36,9 @@ class Tenant extends Model
     {
         return $this->hasMany(Shop::class);
     }
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
 }

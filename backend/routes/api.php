@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\System\DictController;
 use App\Http\Controllers\Api\System\DictItemController;
 use App\Http\Controllers\Api\System\MenuController;
 use App\Http\Controllers\Api\System\NoticeController;
+use App\Http\Controllers\Api\System\PlanController;
 use App\Http\Controllers\Api\System\RoleController;
 use App\Http\Controllers\Api\System\ShopController;
 use App\Http\Controllers\Api\System\TenantController;
@@ -67,6 +68,9 @@ Route::prefix('v1')->group(function () {
 
                 // 店铺：跨境多语言站点，归属租户
                 Route::apiResource('shops', ShopController::class);
+
+                // 套餐：SaaS 套餐定义（含额度限制）
+                Route::apiResource('plans', PlanController::class);
             });
 
             // 地区管理（公共地理数据，不属于 system 命名空间）

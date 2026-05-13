@@ -43,4 +43,7 @@ return [
     // 店铺解析
     'shop_not_resolved' => '无法从请求 Host 识别店铺',
     'shop_not_found' => '店铺不存在或已关闭',
+
+    // 套餐
+    'plan_in_use' => '该套餐已被租户使用，不能删除',
 ];
