@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 7 | 0 | 0 | 14.9 % |
+| 47 | 8 | 0 | 0 | 17.0 % |
 
 ### 进度明细
 
@@ -615,7 +615,7 @@ composer require dedoc/scramble
 | ✅ | M02-PR5 lang/currency/country | M02 | 1.0 | 2026-05-13 | `6c9f66a` | 4 张表 + I18nSeeder（13 语/11 币/28 国）+ 24 测试 |
 | ✅ | M02-PR6 zones 区域分组 | M02 | 0.5 | 2026-05-13 | `6d4cff7` | zones + zone_countries pivot，11 测试（与 PR7 合包）|
 | ✅ | M02-PR7 exchange_rates | M02 | 0.5 | 2026-05-13 | `6d4cff7` | rate(18,8)，同步 Job + everySixHours schedule，15 测试，**M02 模块 100%** |
-| ⬜ | M03-PR8 specifications | M03 | 1.0 | | | + HasTranslations trait |
+| ✅ | M03-PR8 specifications | M03 | 1.0 | 2026-05-13 | `624bea4` | 4 表 + HasTranslations trait (复用) + 23 测试，启动 Mall 命名空间 |
 | ⬜ | M03-PR9 attributes | M03 | 1.0 | | | |
 | ⬜ | M03-PR10 products 主表 | M03 | 1.5 | | | + ProductTranslation |
 | ⬜ | M03-PR11 product_variants | M03 | 1.0 | | | + 规格关联 |
