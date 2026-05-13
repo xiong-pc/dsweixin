@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\System\DictItemController;
 use App\Http\Controllers\Api\System\MenuController;
 use App\Http\Controllers\Api\System\NoticeController;
 use App\Http\Controllers\Api\System\RoleController;
+use App\Http\Controllers\Api\System\ShopController;
 use App\Http\Controllers\Api\System\TenantController;
 use App\Http\Controllers\Api\System\UserController;
 use App\Http\Controllers\Api\System\UserLogController;
@@ -63,6 +64,9 @@ Route::prefix('v1')->group(function () {
 
                 // 租户：超管全量；租户管理员仅本租户（接口内校验）
                 Route::apiResource('tenants', TenantController::class);
+
+                // 店铺：跨境多语言站点，归属租户
+                Route::apiResource('shops', ShopController::class);
             });
 
             // 地区管理（公共地理数据，不属于 system 命名空间）
