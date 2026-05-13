@@ -608,7 +608,7 @@ composer require dedoc/scramble
 
 | 状态 | PR | 模块 | 工日 | 完成日期 | commit | 备注 |
 |---|---|---|---|---|---|---|
-| ✅ | M01-PR1 tenants 扩字段 | M01 | 0.5 | 2026-05-13 | `120c733` | 5 新字段，7 测试全过，pint+stan 全绿 |
+| ✅ | M01-PR1 tenants 扩字段 | M01 | 0.5 | 2026-05-13 | `8b0de8a` | 5 新字段，7 测试全过，pint+stan 全绿 |
 | ⬜ | M01-PR2 merchants→shops | M01 | 1.0 | | | 表改名 + 加 locale/currency/subdomain |
 | ⬜ | M01-PR3 TenantMiddleware host 解析 | M01 | 0.5 | | | 子域名识别 shop |
 | ⬜ | M01-PR4 plans 套餐表 | M01 | 1.0 | | | 套餐限额 |
