@@ -1,5 +1,12 @@
 # dsweixin 商城系统需求文档
 
+> ⚠️ **本文档已被替代（2026-05-12）**
+>
+> 项目方向调整为 **多租户跨境电商 SaaS**，融合 Teanary + BeikeShop 优点。
+> 最新规划：[`2026-05-12-cross-border-mall-saas-plan.md`](./2026-05-12-cross-border-mall-saas-plan.md)
+>
+> 本文档保留作为单租户单语言场景的简化参考。
+
 ## 项目架构说明（必读）
 
 - 后端：Laravel 13，控制器统一放在 `backend/app/Http/Controllers/Api/`

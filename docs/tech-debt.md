@@ -588,6 +588,89 @@ composer require dedoc/scramble
 10. **TD-08 OpenAPI**（开始多人协作或多端调用时再做）
 11. **TD-09 监控**（上生产前必做）
 
+## P0 跨境电商 SaaS · 进度看板
+
+> 配套规划：[`superpowers/specs/2026-05-12-cross-border-mall-saas-plan.md`](./superpowers/specs/2026-05-12-cross-border-mall-saas-plan.md)
+>
+> 详细任务：[`superpowers/specs/2026-05-12-cross-border-mall-saas-p0-tasks.md`](./superpowers/specs/2026-05-12-cross-border-mall-saas-p0-tasks.md)
+
+### 状态图例
+
+⬜ 未开始 · 🟨 进行中 · ✅ 已完成 · ⏸️ 阻塞 · ❌ 已取消
+
+### 进度统计
+
+| 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
+|---|---|---|---|---|
+| 47 | 0 | 0 | 0 | 0 % |
+
+### 进度明细
+
+| 状态 | PR | 模块 | 工日 | 完成日期 | commit | 备注 |
+|---|---|---|---|---|---|---|
+| ⬜ | M01-PR1 tenants 扩字段 | M01 | 0.5 | | | 5 新字段（不含已有 expired_at）|
+| ⬜ | M01-PR2 merchants→shops | M01 | 1.0 | | | 表改名 + 加 locale/currency/subdomain |
+| ⬜ | M01-PR3 TenantMiddleware host 解析 | M01 | 0.5 | | | 子域名识别 shop |
+| ⬜ | M01-PR4 plans 套餐表 | M01 | 1.0 | | | 套餐限额 |
+| ⬜ | M02-PR5 lang/currency/country | M02 | 1.0 | | | + 国家翻译表 |
+| ⬜ | M02-PR6 zones 区域分组 | M02 | 0.5 | | | |
+| ⬜ | M02-PR7 exchange_rates | M02 | 0.5 | | | + 定时同步 Job |
+| ⬜ | M03-PR8 specifications | M03 | 1.0 | | | + HasTranslations trait |
+| ⬜ | M03-PR9 attributes | M03 | 1.0 | | | |
+| ⬜ | M03-PR10 products 主表 | M03 | 1.5 | | | + ProductTranslation |
+| ⬜ | M03-PR11 product_variants | M03 | 1.0 | | | + 规格关联 |
+| ⬜ | M03-PR12 后台商品 UI 基础 | M03 | 1.0 | | | + TranslationTabs 组件 |
+| ⬜ | M03-PR13 后台变体 UI | M03 | 1.0 | | | 矩阵生成 + 批量编辑 |
+| ⬜ | M03-PR14 简单商品快速创建 | M03 | 0.5 | | | |
+| ⬜ | M04-PR15 categories 树 | M04 | 1.5 | | | |
+| ⬜ | M04-PR16 brands | M04 | 0.5 | | | |
+| ⬜ | M04-PR17 商品筛选联动 UI | M04 | 1.0 | | | |
+| ⬜ | M05-PR18 carts | M05 | 1.0 | | | 游客 + 登录合并 |
+| ⬜ | M05-PR19 orders | M05 | 1.5 | | | + 快照机制 |
+| ⬜ | M05-PR20 库存预占 | M05 | 1.0 | | | + 30min 超时 Job |
+| ⬜ | M05-PR21 价格三段式 | M05 | 0.5 | | | base + 覆盖 + 汇率 markup |
+| ⬜ | M05-PR22 前台下单 API | M05 | 1.0 | | | preview + place-order |
+| ⬜ | M06-PR23 支付驱动抽象 | M06 | 1.0 | | | Driver Interface |
+| ⬜ | M06-PR24 StripeDriver | M06 | 1.5 | | | + Webhook 验签幂等 |
+| ⬜ | M06-PR25 WechatDriver | M06 | 1.5 | | | H5 + JSAPI |
+| ⬜ | M06-PR26 order_payments | M06 | 0.5 | | | + OrderPaidEvent |
+| ⬜ | M06-PR27 退款链路 | M06 | 0.5 | | | |
+| ⬜ | M07-PR28 shipping_methods | M07 | 1.0 | | | + rates |
+| ⬜ | M07-PR29 运费计算 | M07 | 1.0 | | | 重量/zone/免运费 |
+| ⬜ | M07-PR30 order_shipments | M07 | 1.0 | | | + tracking |
+| ⬜ | M08-PR31 订单状态机 | M08 | 1.0 | | | + history 自动写 |
+| ⬜ | M08-PR32 后台订单 UI | M08 | 1.5 | | | |
+| ⬜ | M08-PR33 发货退款取消 | M08 | 1.5 | | | |
+| ⬜ | M09-PR34 customers | M09 | 1.0 | | | + addresses + groups |
+| ⬜ | M09-PR35 customer 注册登录 | M09 | 1.0 | | | passport-customer guard |
+| ⬜ | M09-PR36 customer 我的中心 API | M09 | 1.0 | | | |
+| ⬜ | M10-PR37 mall 菜单权限 | M10 | 1.0 | | | + Seeder |
+| ⬜ | M10-PR38 商品 UI 整合 | M10 | 1.0 | | | |
+| ⬜ | M10-PR39 类目品牌 UI 整合 | M10 | 1.0 | | | |
+| ⬜ | M10-PR40 订单 UI 整合 | M10 | 1.0 | | | |
+| ⬜ | M10-PR41 客户 UI 整合 | M10 | 1.0 | | | |
+| ⬜ | M11-PR42 Nuxt 工程脚手架 | M11 | 1.0 | | | frontend-shop/ |
+| ⬜ | M11-PR43 首页+类目页 | M11 | 1.5 | | | SSR + SEO meta |
+| ⬜ | M11-PR44 商品详情页 SEO | M11 | 1.5 | | | + JSON-LD + hreflang |
+| ⬜ | M11-PR45 购物车结账 | M11 | 1.5 | | | |
+| ⬜ | M11-PR46 我的中心 | M11 | 1.0 | | | |
+| ⬜ | M11-PR47 多语言/币种切换 | M11 | 0.5 | | | |
+| **总计** | | | **47** | | | |
+
+### 阻塞与风险记录
+
+> 遇到阻塞在此登记，标 ⏸️，写明原因 + 应对计划。
+
+_暂无_
+
+### 周复盘记录
+
+> 每周一 15 分钟复盘，记录本周完成 / 下周计划 / 决策变更。
+
+_暂无_
+
+---
+
 ## 更新本文档
 
 每完成一项，在对应条目下加：
