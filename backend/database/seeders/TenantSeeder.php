@@ -16,6 +16,8 @@ class TenantSeeder extends Seeder
             'status' => 1,
             'contact_name' => '管理员',
             'contact_phone' => '13800000000',
+            'default_locale' => 'zh-CN',
+            'default_currency' => 'CNY',
         ]);
     }
 }

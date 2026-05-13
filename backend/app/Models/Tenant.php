@@ -11,12 +11,14 @@ class Tenant extends Model
 
     protected $fillable = [
         'name', 'code', 'status', 'contact_name', 'contact_phone', 'expired_at', 'remark',
+        'plan_id', 'primary_domain', 'default_locale', 'default_currency', 'industry',
     ];
 
     protected function casts(): array
     {
         return [
             'expired_at' => 'datetime',
+            'plan_id' => 'integer',
         ];
     }
 
