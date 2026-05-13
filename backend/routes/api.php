@@ -118,7 +118,8 @@ Route::prefix('v1')->group(function () {
                 Route::put('attribute-values/{value}', [AttributeValueController::class, 'update']);
                 Route::delete('attribute-values/{value}', [AttributeValueController::class, 'destroy']);
 
-                // SPU 商品主体
+                // SPU 商品主体（quick-create 必须放在 apiResource 前，否则匹配 show {product}）
+                Route::post('products/quick-create', [ProductController::class, 'quickCreate']);
                 Route::apiResource('products', ProductController::class);
 
                 // SKU 商品变体（嵌套在 product 下创建/列出，独立端点更新/删除）

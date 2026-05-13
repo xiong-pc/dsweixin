@@ -3,18 +3,23 @@
 namespace App\Http\Controllers\Api\Mall;
 
 use App\Http\Controllers\Api\Controller;
+use App\Http\Requests\Api\Mall\Product\QuickCreateProductRequest;
 use App\Http\Requests\Api\Mall\Product\StoreProductRequest;
 use App\Http\Requests\Api\Mall\Product\UpdateProductRequest;
 use App\Http\Resources\Api\Mall\ProductResource;
 use App\Models\Mall\Product;
 use App\Services\Api\Mall\ProductService;
+use App\Services\Api\Mall\ProductVariantService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
-    public function __construct(private readonly ProductService $service) {}
+    public function __construct(
+        private readonly ProductService $service,
+        private readonly ProductVariantService $variantService,
+    ) {}
 
     public function index(Request $request): JsonResponse
     {
@@ -57,6 +62,32 @@ class ProductController extends Controller
         }
 
         $product = $this->service->create($tenantId, $data);
+
+        return $this->success(new ProductResource($product), 'api.created');
+    }
+
+    /**
+     * 简单商品快速创建：一次接口建 SPU + 1 个默认 SKU。
+     *
+     * @throws ValidationException
+     */
+    public function quickCreate(QuickCreateProductRequest $request): JsonResponse
+    {
+        $tenantId = $this->resolveTenantId($request);
+        $data = $request->validated();
+
+        $shopId = $this->normalizeShopId($data['shop_id'] ?? null);
+        $errors = $this->service->validateSlugUniqueness(
+            $tenantId,
+            $shopId,
+            $data['translations'] ?? []
+        );
+
+        if ($errors !== []) {
+            throw ValidationException::withMessages($errors);
+        }
+
+        $product = $this->service->quickCreate($tenantId, $data, $this->variantService);
 
         return $this->success(new ProductResource($product), 'api.created');
     }

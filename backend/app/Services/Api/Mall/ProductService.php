@@ -100,6 +100,45 @@ class ProductService
     }
 
     /**
+     * 简单商品快速创建：一次性建 SPU + 1 个默认 SKU。
+     * 适用于不需要变体的商品（书本/装饰品/单件商品）。
+     */
+    public function quickCreate(int $tenantId, array $data, ProductVariantService $variantService): Product
+    {
+        return DB::transaction(function () use ($tenantId, $data, $variantService) {
+            // 拆分商品级与 SKU 级字段
+            $skuData = [
+                'sku' => $data['sku'],
+                'price' => $data['price'],
+                'stock' => $data['stock'],
+            ];
+
+            foreach (['compare_at_price', 'weight', 'weight_unit'] as $optional) {
+                if (isset($data[$optional])) {
+                    $skuData[$optional] = $data[$optional];
+                }
+            }
+
+            $productData = [
+                'translations' => $data['translations'] ?? [],
+                'shop_id' => $data['shop_id'] ?? null,
+                'brand_id' => $data['brand_id'] ?? null,
+                'category_id' => $data['category_id'] ?? null,
+                'cover_image' => $data['cover_image'] ?? '',
+                'images' => $data['images'] ?? [],
+                'base_price' => $data['price'], // SPU 基础价 = SKU 价
+                'base_currency' => $data['base_currency'] ?? 'CNY',
+                'status' => $data['status'] ?? 0,
+            ];
+
+            $product = $this->create($tenantId, $productData);
+            $variantService->create($product, $skuData);
+
+            return $product->load(['translations', 'variants']);
+        });
+    }
+
+    /**
      * 校验 slug 在同 shop+locale 内唯一。
      *
      * @param  array<int, array<string, mixed>>  $translations
