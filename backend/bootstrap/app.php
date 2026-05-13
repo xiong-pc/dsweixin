@@ -2,6 +2,7 @@
 
 use App\Exceptions\BusinessException;
 use App\Http\Middleware\EnsureSuperAdmin;
+use App\Http\Middleware\ShopResolverMiddleware;
 use App\Http\Middleware\TenantMiddleware;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -25,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'tenant' => TenantMiddleware::class,
             'super-admin' => EnsureSuperAdmin::class,
+            'shop' => ShopResolverMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

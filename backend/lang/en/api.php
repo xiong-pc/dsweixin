@@ -39,4 +39,8 @@ return [
     // Tenant
     'tenant_disabled' => 'Tenant has been disabled',
     'tenant_expired' => 'Tenant has expired',
+
+    // Shop resolution
+    'shop_not_resolved' => 'Unable to resolve shop from request host',
+    'shop_not_found' => 'Shop not found or disabled',
 ];

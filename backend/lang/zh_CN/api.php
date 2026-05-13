@@ -39,4 +39,8 @@ return [
     // 租户
     'tenant_disabled' => '租户已被禁用',
     'tenant_expired' => '租户已过期',
+
+    // 店铺解析
+    'shop_not_resolved' => '无法从请求 Host 识别店铺',
+    'shop_not_found' => '店铺不存在或已关闭',
 ];

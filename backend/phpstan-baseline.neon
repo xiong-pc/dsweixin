@@ -13,6 +13,18 @@ parameters:
 			path: app/Http/Middleware/TenantMiddleware.php
 
 		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Middleware/ShopResolverMiddleware.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$expired_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Middleware/ShopResolverMiddleware.php
+
+		-
 			message: '#^Unsafe usage of new static\(\)\.$#'
 			identifier: new.static
 			count: 1
