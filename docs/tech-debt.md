@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 3 | 0 | 0 | 6.4 % |
+| 47 | 4 | 0 | 0 | 8.5 % |
 
 ### 进度明细
 
@@ -611,7 +611,7 @@ composer require dedoc/scramble
 | ✅ | M01-PR1 tenants 扩字段 | M01 | 0.5 | 2026-05-13 | `8b0de8a` | 5 新字段，7 测试全过，pint+stan 全绿 |
 | ✅ | M01-PR2 新建 shops 表 | M01 | 1.0 | 2026-05-13 | `112409a` | 全新表（无 merchants 历史包袱），16 测试，subdomain 全局唯一 |
 | ✅ | M01-PR3 ShopResolverMiddleware | M01 | 0.5 | 2026-05-13 | `624b674` | 新建独立中间件（13 测试），host + X-Shop-Subdomain header 两种解析方式 |
-| ⬜ | M01-PR4 plans 套餐表 | M01 | 1.0 | | | 套餐限额 |
+| ✅ | M01-PR4 plans 套餐表 | M01 | 1.0 | 2026-05-13 | `230c323` | 额度字段 + Seeder 三档 + 16 测试，**M01 模块 100%** |
 | ⬜ | M02-PR5 lang/currency/country | M02 | 1.0 | | | + 国家翻译表 |
 | ⬜ | M02-PR6 zones 区域分组 | M02 | 0.5 | | | |
 | ⬜ | M02-PR7 exchange_rates | M02 | 0.5 | | | + 定时同步 Job |
