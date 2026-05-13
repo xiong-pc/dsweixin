@@ -20,8 +20,10 @@ use Illuminate\Support\Str;
 
 class OrderService
 {
+    public function __construct(private readonly InventoryService $inventoryService) {}
+
     /**
-     * 从购物车创建订单（快照机制）。
+     * 从购物车创建订单（快照机制 + 库存预占）。
      *
      * @param  array<string, mixed>  $addressData  shipping address fields
      * @param  array<string, mixed>  $extra  optional: billing_address, remark
@@ -34,6 +36,15 @@ class OrderService
         }
 
         return DB::transaction(function () use ($cart, $items, $addressData, $extra) {
+            // 先预占所有 items 的库存（不足则整事务回滚）
+            /** @var CartItem $cartItem */
+            foreach ($items as $cartItem) {
+                $this->inventoryService->reserve(
+                    (int) $cartItem->variant_id,
+                    (int) $cartItem->quantity
+                );
+            }
+
             $order = $this->createOrderShell($cart, $extra);
 
             $subtotal = 0.0;
@@ -84,6 +95,43 @@ class OrderService
         $order->status = $target;
         $this->applyStatusTimestamps($order, $target);
         $order->save();
+    }
+
+    /**
+     * 取消订单：释放所有预占库存。
+     */
+    public function cancelOrder(Order $order): void
+    {
+        DB::transaction(function () use ($order) {
+            $this->transitionStatus($order, OrderStatus::Cancelled);
+
+            /** @var OrderItem $item */
+            foreach ($order->items()->get() as $item) {
+                $this->inventoryService->release(
+                    (int) $item->variant_id,
+                    (int) $item->quantity
+                );
+            }
+        });
+    }
+
+    /**
+     * 支付成功：确认扣减库存（stock 真正减少）。
+     */
+    public function confirmPayment(Order $order, string $payMethod = ''): void
+    {
+        DB::transaction(function () use ($order, $payMethod) {
+            $order->pay_method = $payMethod;
+            $this->transitionStatus($order, OrderStatus::Paid);
+
+            /** @var OrderItem $item */
+            foreach ($order->items()->get() as $item) {
+                $this->inventoryService->confirmDeduct(
+                    (int) $item->variant_id,
+                    (int) $item->quantity
+                );
+            }
+        });
     }
 
     private function createOrderShell(Cart $cart, array $extra): Order

@@ -70,4 +70,7 @@ return [
     // Mall orders
     'order_not_found' => 'Order not found',
     'invalid_order_status_transition' => 'Order status transition not allowed',
+
+    // Mall inventory
+    'insufficient_stock' => 'Insufficient stock to reserve',
 ];

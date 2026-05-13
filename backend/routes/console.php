@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\Mall\ReleaseExpiredOrderReservationsJob;
 use App\Jobs\SyncExchangeRatesJob;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -29,3 +30,17 @@ Artisan::command('mall:sync-exchange-rates {--base=CNY} {--source=manual}', func
 })->purpose('Sync exchange rates from external provider (P0 placeholder)');
 
 Schedule::command('mall:sync-exchange-rates')->everySixHours()->withoutOverlapping();
+
+Artisan::command('mall:release-expired-reservations {--minutes=30}', function () {
+    $minutes = (int) $this->option('minutes');
+    if ($minutes < 1) {
+        $minutes = 30;
+    }
+
+    ReleaseExpiredOrderReservationsJob::dispatchSync($minutes);
+    $this->info("Released expired reservations older than {$minutes} minutes.");
+
+    return self::SUCCESS;
+})->purpose('Cancel pending orders older than N minutes and release their reserved stock');
+
+Schedule::command('mall:release-expired-reservations')->everyMinute()->withoutOverlapping();

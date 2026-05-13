@@ -70,4 +70,7 @@ return [
     // 商城订单
     'order_not_found' => '订单不存在',
     'invalid_order_status_transition' => '订单状态不允许该转移',
+
+    // 商城库存
+    'insufficient_stock' => '库存不足，无法预占',
 ];
