@@ -4,6 +4,7 @@ namespace App\Models\Mall;
 
 use App\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -43,5 +44,10 @@ class Product extends Model
             'sold_count' => 'integer',
             'view_count' => 'integer',
         ];
+    }
+
+    public function variants(): HasMany
+    {
+        return $this->hasMany(ProductVariant::class);
     }
 }

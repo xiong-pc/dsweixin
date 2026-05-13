@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Mall\AttributeController;
 use App\Http\Controllers\Api\Mall\AttributeValueController;
 use App\Http\Controllers\Api\Mall\ProductController;
+use App\Http\Controllers\Api\Mall\ProductVariantController;
 use App\Http\Controllers\Api\Mall\SpecificationController;
 use App\Http\Controllers\Api\Mall\SpecificationValueController;
 use App\Http\Controllers\Api\System\ConfigController;
@@ -119,6 +120,14 @@ Route::prefix('v1')->group(function () {
 
                 // SPU 商品主体
                 Route::apiResource('products', ProductController::class);
+
+                // SKU 商品变体（嵌套在 product 下创建/列出，独立端点更新/删除）
+                Route::get('products/{product}/variants', [ProductVariantController::class, 'index']);
+                Route::post('products/{product}/variants', [ProductVariantController::class, 'store']);
+                Route::post('products/{product}/variants/matrix', [ProductVariantController::class, 'generateMatrix']);
+                Route::get('product-variants/{variant}', [ProductVariantController::class, 'show']);
+                Route::put('product-variants/{variant}', [ProductVariantController::class, 'update']);
+                Route::delete('product-variants/{variant}', [ProductVariantController::class, 'destroy']);
             });
         });
     });
