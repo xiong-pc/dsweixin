@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 14 | 0 | 0 | 29.8 % |
+| 47 | 15 | 0 | 0 | 31.9 % |
 
 ### 进度明细
 
@@ -625,7 +625,7 @@ composer require dedoc/scramble
 | ✅ | M04-PR15 categories 树 | M04 | 1.5 | 2026-05-13 | `dcb54b9` | parent_id 树 + reorder 拖拽 + cycle 防循环 + multi-field 翻译（name+description），18 测试 |
 | ✅ | M04-PR16 brands | M04 | 0.5 | 2026-05-13 | `37f98eb` | brands + brand_translations（含 description），复用 saveTranslations 多字段模式，13 测试，**M04 后端 100%** |
 | ⬜ | M04-PR17 商品筛选联动 UI | M04 | 1.0 | | | |
-| ⬜ | M05-PR18 carts | M05 | 1.0 | | | 游客 + 登录合并 |
+| ✅ | M05-PR18 carts | M05 | 1.0 | 2026-05-13 | `997b8f6` | 4 身份场景（游客/登录/合并/locale），header 驱动身份，22 测试，启动 Shop 前台 API |
 | ⬜ | M05-PR19 orders | M05 | 1.5 | | | + 快照机制 |
 | ⬜ | M05-PR20 库存预占 | M05 | 1.0 | | | + 30min 超时 Job |
 | ⬜ | M05-PR21 价格三段式 | M05 | 0.5 | | | base + 覆盖 + 汇率 markup |
