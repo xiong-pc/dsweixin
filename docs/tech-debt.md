@@ -602,14 +602,14 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 1 | 0 | 0 | 2.1 % |
+| 47 | 2 | 0 | 0 | 4.3 % |
 
 ### 进度明细
 
 | 状态 | PR | 模块 | 工日 | 完成日期 | commit | 备注 |
 |---|---|---|---|---|---|---|
 | ✅ | M01-PR1 tenants 扩字段 | M01 | 0.5 | 2026-05-13 | `8b0de8a` | 5 新字段，7 测试全过，pint+stan 全绿 |
-| ⬜ | M01-PR2 merchants→shops | M01 | 1.0 | | | 表改名 + 加 locale/currency/subdomain |
+| ✅ | M01-PR2 新建 shops 表 | M01 | 1.0 | 2026-05-13 | `112409a` | 全新表（无 merchants 历史包袱），16 测试，subdomain 全局唯一 |
 | ⬜ | M01-PR3 TenantMiddleware host 解析 | M01 | 0.5 | | | 子域名识别 shop |
 | ⬜ | M01-PR4 plans 套餐表 | M01 | 1.0 | | | 套餐限额 |
 | ⬜ | M02-PR5 lang/currency/country | M02 | 1.0 | | | + 国家翻译表 |
