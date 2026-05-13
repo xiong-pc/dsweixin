@@ -65,4 +65,9 @@ return [
     'invalid_cart_quantity' => 'Cart item quantity must be greater than 0',
     'product_variant_not_found' => 'SKU variant not found or belongs to another tenant',
     'cart_not_found' => 'Cart not found',
+    'cart_is_empty' => 'Cart is empty, cannot create order',
+
+    // Mall orders
+    'order_not_found' => 'Order not found',
+    'invalid_order_status_transition' => 'Order status transition not allowed',
 ];

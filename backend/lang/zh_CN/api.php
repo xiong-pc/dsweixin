@@ -65,4 +65,9 @@ return [
     'invalid_cart_quantity' => '购物车数量必须大于 0',
     'product_variant_not_found' => 'SKU 变体不存在或属于其他租户',
     'cart_not_found' => '购物车不存在',
+    'cart_is_empty' => '购物车为空，无法下单',
+
+    // 商城订单
+    'order_not_found' => '订单不存在',
+    'invalid_order_status_transition' => '订单状态不允许该转移',
 ];

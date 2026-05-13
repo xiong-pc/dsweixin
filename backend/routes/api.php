@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Mall\ProductVariantController;
 use App\Http\Controllers\Api\Mall\SpecificationController;
 use App\Http\Controllers\Api\Mall\SpecificationValueController;
 use App\Http\Controllers\Api\Shop\CartController;
+use App\Http\Controllers\Api\Shop\OrderController;
 use App\Http\Controllers\Api\System\ConfigController;
 use App\Http\Controllers\Api\System\CountryController;
 use App\Http\Controllers\Api\System\CurrencyController;
@@ -44,6 +45,11 @@ Route::prefix('v1')->group(function () {
         Route::delete('cart/items/{item}', [CartController::class, 'removeItem']);
         Route::delete('cart', [CartController::class, 'clear']);
         Route::post('cart/merge', [CartController::class, 'merge']);
+
+        // 订单
+        Route::get('orders', [OrderController::class, 'index']);
+        Route::post('orders', [OrderController::class, 'store']);
+        Route::get('orders/{order}', [OrderController::class, 'show']);
     });
 
     // Authenticated routes
