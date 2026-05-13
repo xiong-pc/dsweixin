@@ -56,4 +56,7 @@ return [
     'category_has_products' => 'Cannot delete category with associated products',
     'category_cycle' => 'Parent category cannot be self or descendant',
     'invalid_parent_category' => 'Parent category does not exist or belongs to another tenant',
+
+    // Mall brands
+    'brand_has_products' => 'Cannot delete brand with associated products',
 ];

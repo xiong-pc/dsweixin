@@ -56,4 +56,7 @@ return [
     'category_has_products' => '类目下存在商品，不能删除',
     'category_cycle' => '父类目不能是自身或子类目',
     'invalid_parent_category' => '父类目不存在或属于其他租户',
+
+    // 商城品牌
+    'brand_has_products' => '品牌下存在商品，不能删除',
 ];
