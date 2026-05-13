@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Mall\AttributeController;
 use App\Http\Controllers\Api\Mall\AttributeValueController;
+use App\Http\Controllers\Api\Mall\ProductController;
 use App\Http\Controllers\Api\Mall\SpecificationController;
 use App\Http\Controllers\Api\Mall\SpecificationValueController;
 use App\Http\Controllers\Api\System\ConfigController;
@@ -115,6 +116,9 @@ Route::prefix('v1')->group(function () {
                 Route::get('attribute-values/{value}', [AttributeValueController::class, 'show']);
                 Route::put('attribute-values/{value}', [AttributeValueController::class, 'update']);
                 Route::delete('attribute-values/{value}', [AttributeValueController::class, 'destroy']);
+
+                // SPU 商品主体
+                Route::apiResource('products', ProductController::class);
             });
         });
     });
