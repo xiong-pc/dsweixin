@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 11 | 0 | 0 | 23.4 % |
+| 47 | 12 | 0 | 0 | 25.5 % |
 
 ### 进度明细
 
@@ -621,7 +621,7 @@ composer require dedoc/scramble
 | ✅ | M03-PR11 product_variants | M03 | 1.0 | 2026-05-13 | `6e2f575` | SKU + pivot + matrix 生成器，sku 全局唯一，available_stock accessor，21 测试 |
 | ⬜ | M03-PR12 后台商品 UI 基础 | M03 | 1.0 | | | + TranslationTabs 组件 |
 | ⬜ | M03-PR13 后台变体 UI | M03 | 1.0 | | | 矩阵生成 + 批量编辑 |
-| ⬜ | M03-PR14 简单商品快速创建 | M03 | 0.5 | | | |
+| ✅ | M03-PR14 简单商品快速创建 | M03 | 0.5 | 2026-05-13 | `f463b8b` | POST /products/quick-create 一次建 SPU+默认 SKU，完全事务原子，8 测试，**M03 后端 100%** |
 | ⬜ | M04-PR15 categories 树 | M04 | 1.5 | | | |
 | ⬜ | M04-PR16 brands | M04 | 0.5 | | | |
 | ⬜ | M04-PR17 商品筛选联动 UI | M04 | 1.0 | | | |
