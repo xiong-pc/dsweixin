@@ -59,4 +59,10 @@ return [
 
     // Mall brands
     'brand_has_products' => 'Cannot delete brand with associated products',
+
+    // Mall carts
+    'cart_identity_required' => 'Cart requires user identity (customer_id or session_id)',
+    'invalid_cart_quantity' => 'Cart item quantity must be greater than 0',
+    'product_variant_not_found' => 'SKU variant not found or belongs to another tenant',
+    'cart_not_found' => 'Cart not found',
 ];

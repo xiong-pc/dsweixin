@@ -59,4 +59,10 @@ return [
 
     // 商城品牌
     'brand_has_products' => '品牌下存在商品，不能删除',
+
+    // 商城购物车
+    'cart_identity_required' => '购物车需要指定用户身份 (customer_id 或 session_id)',
+    'invalid_cart_quantity' => '购物车数量必须大于 0',
+    'product_variant_not_found' => 'SKU 变体不存在或属于其他租户',
+    'cart_not_found' => '购物车不存在',
 ];

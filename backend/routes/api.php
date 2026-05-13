@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Mall\ProductController;
 use App\Http\Controllers\Api\Mall\ProductVariantController;
 use App\Http\Controllers\Api\Mall\SpecificationController;
 use App\Http\Controllers\Api\Mall\SpecificationValueController;
+use App\Http\Controllers\Api\Shop\CartController;
 use App\Http\Controllers\Api\System\ConfigController;
 use App\Http\Controllers\Api\System\CountryController;
 use App\Http\Controllers\Api\System\CurrencyController;
@@ -33,6 +34,17 @@ Route::prefix('v1')->group(function () {
     // Auth routes (public)
     Route::post('auth/login', [AuthController::class, 'login']);
     Route::post('auth/refresh', [AuthController::class, 'refresh']);
+
+    // === Shop 前台 API（消费者侧，允许游客）===
+    Route::prefix('shop')->group(function () {
+        // 购物车（身份通过 header 解析：X-Tenant-Id + X-Shop-Id + X-Customer-Id/X-Session-Id）
+        Route::get('cart', [CartController::class, 'show']);
+        Route::post('cart/items', [CartController::class, 'addItem']);
+        Route::put('cart/items/{item}', [CartController::class, 'updateItem']);
+        Route::delete('cart/items/{item}', [CartController::class, 'removeItem']);
+        Route::delete('cart', [CartController::class, 'clear']);
+        Route::post('cart/merge', [CartController::class, 'merge']);
+    });
 
     // Authenticated routes
     Route::middleware('auth:api')->group(function () {
