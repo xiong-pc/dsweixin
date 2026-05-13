@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 9 | 0 | 0 | 19.1 % |
+| 47 | 10 | 0 | 0 | 21.3 % |
 
 ### 进度明细
 
@@ -617,7 +617,7 @@ composer require dedoc/scramble
 | ✅ | M02-PR7 exchange_rates | M02 | 0.5 | 2026-05-13 | `6d4cff7` | rate(18,8)，同步 Job + everySixHours schedule，15 测试，**M02 模块 100%** |
 | ✅ | M03-PR8 specifications | M03 | 1.0 | 2026-05-13 | `624bea4` | 4 表 + HasTranslations trait (复用) + 23 测试，启动 Mall 命名空间 |
 | ✅ | M03-PR9 attributes | M03 | 1.0 | 2026-05-13 | `df331fb` | 4 表（不含 color_hex），验证 HasTranslations trait 跨模型复用，16 测试 |
-| ⬜ | M03-PR10 products 主表 | M03 | 1.5 | | | + ProductTranslation |
+| ✅ | M03-PR10 products 主表 | M03 | 1.5 | 2026-05-13 | `300b694` | 13 字段 + SoftDeletes + ProductTranslation（8 字段含 SEO），slug 唯一性（tenant+shop+locale），22 测试 |
 | ⬜ | M03-PR11 product_variants | M03 | 1.0 | | | + 规格关联 |
 | ⬜ | M03-PR12 后台商品 UI 基础 | M03 | 1.0 | | | + TranslationTabs 组件 |
 | ⬜ | M03-PR13 后台变体 UI | M03 | 1.0 | | | 矩阵生成 + 批量编辑 |
