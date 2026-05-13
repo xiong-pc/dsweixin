@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Mall\SpecificationController;
+use App\Http\Controllers\Api\Mall\SpecificationValueController;
 use App\Http\Controllers\Api\System\ConfigController;
 use App\Http\Controllers\Api\System\CountryController;
 use App\Http\Controllers\Api\System\CurrencyController;
@@ -93,6 +95,17 @@ Route::prefix('v1')->group(function () {
 
             // 地区管理（公共地理数据，不属于 system 命名空间）
             Route::apiResource('areas', AreaController::class);
+
+            // === Mall 商城业务模块 ===
+            Route::prefix('mall')->group(function () {
+                // 规格组（颜色/尺码）+ 嵌套值（红/M）
+                Route::apiResource('specifications', SpecificationController::class);
+                Route::get('specifications/{specification}/values', [SpecificationValueController::class, 'index']);
+                Route::post('specifications/{specification}/values', [SpecificationValueController::class, 'store']);
+                Route::get('specification-values/{value}', [SpecificationValueController::class, 'show']);
+                Route::put('specification-values/{value}', [SpecificationValueController::class, 'update']);
+                Route::delete('specification-values/{value}', [SpecificationValueController::class, 'destroy']);
+            });
         });
     });
 });
