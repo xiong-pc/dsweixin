@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Mall\AttributeController;
+use App\Http\Controllers\Api\Mall\AttributeValueController;
 use App\Http\Controllers\Api\Mall\SpecificationController;
 use App\Http\Controllers\Api\Mall\SpecificationValueController;
 use App\Http\Controllers\Api\System\ConfigController;
@@ -105,6 +107,14 @@ Route::prefix('v1')->group(function () {
                 Route::get('specification-values/{value}', [SpecificationValueController::class, 'show']);
                 Route::put('specification-values/{value}', [SpecificationValueController::class, 'update']);
                 Route::delete('specification-values/{value}', [SpecificationValueController::class, 'destroy']);
+
+                // 属性组（材质/产地）+ 嵌套值
+                Route::apiResource('attributes', AttributeController::class);
+                Route::get('attributes/{attribute}/values', [AttributeValueController::class, 'index']);
+                Route::post('attributes/{attribute}/values', [AttributeValueController::class, 'store']);
+                Route::get('attribute-values/{value}', [AttributeValueController::class, 'show']);
+                Route::put('attribute-values/{value}', [AttributeValueController::class, 'update']);
+                Route::delete('attribute-values/{value}', [AttributeValueController::class, 'destroy']);
             });
         });
     });
