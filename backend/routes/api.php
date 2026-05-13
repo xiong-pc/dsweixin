@@ -3,9 +3,12 @@
 use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\System\ConfigController;
+use App\Http\Controllers\Api\System\CountryController;
+use App\Http\Controllers\Api\System\CurrencyController;
 use App\Http\Controllers\Api\System\DeptController;
 use App\Http\Controllers\Api\System\DictController;
 use App\Http\Controllers\Api\System\DictItemController;
+use App\Http\Controllers\Api\System\LanguageController;
 use App\Http\Controllers\Api\System\MenuController;
 use App\Http\Controllers\Api\System\NoticeController;
 use App\Http\Controllers\Api\System\PlanController;
@@ -71,6 +74,11 @@ Route::prefix('v1')->group(function () {
 
                 // 套餐：SaaS 套餐定义（含额度限制）
                 Route::apiResource('plans', PlanController::class);
+
+                // 多语言 / 多币种 / 国家基础数据
+                Route::apiResource('languages', LanguageController::class);
+                Route::apiResource('currencies', CurrencyController::class);
+                Route::apiResource('countries', CountryController::class);
             });
 
             // 地区管理（公共地理数据，不属于 system 命名空间）
