@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 17 | 0 | 0 | 36.2 % |
+| 47 | 18 | 0 | 0 | 38.3 % |
 
 ### 进度明细
 
@@ -628,7 +628,7 @@ composer require dedoc/scramble
 | ✅ | M05-PR18 carts | M05 | 1.0 | 2026-05-13 | `997b8f6` | 4 身份场景（游客/登录/合并/locale），header 驱动身份，22 测试，启动 Shop 前台 API |
 | ✅ | M05-PR19 orders | M05 | 1.5 | 2026-05-13 | `3519be2` | 3 表 + OrderStatus enum + createFromCart + 快照（name/sku/image/spec/price）+ 状态机，19 测试 |
 | ✅ | M05-PR20 库存预占 | M05 | 1.0 | 2026-05-13 | `65a5ed6` | InventoryService（lockForUpdate防超卖）+ cancelOrder/confirmPayment + everyMinute Job + 20 测试 |
-| ⬜ | M05-PR21 价格三段式 | M05 | 0.5 | | | base + 覆盖 + 汇率 markup |
+| ✅ | M05-PR21 价格三段式 | M05 | 0.5 | 2026-05-18 | `d647ae1` | PriceCalculator（base × markup% × 汇率）+ tenants.price_markup_pct + OrderService 集成，23 测试 |
 | ⬜ | M05-PR22 前台下单 API | M05 | 1.0 | | | preview + place-order |
 | ⬜ | M06-PR23 支付驱动抽象 | M06 | 1.0 | | | Driver Interface |
 | ⬜ | M06-PR24 StripeDriver | M06 | 1.5 | | | + Webhook 验签幂等 |
