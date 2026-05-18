@@ -4,7 +4,6 @@ namespace App\Services\Api\Shop;
 
 use App\Enums\OrderStatus;
 use App\Exceptions\BusinessException;
-use App\Models\ExchangeRate;
 use App\Models\Mall\Cart;
 use App\Models\Mall\CartItem;
 use App\Models\Mall\Order;
@@ -20,7 +19,10 @@ use Illuminate\Support\Str;
 
 class OrderService
 {
-    public function __construct(private readonly InventoryService $inventoryService) {}
+    public function __construct(
+        private readonly InventoryService $inventoryService,
+        private readonly PriceCalculator $priceCalculator,
+    ) {}
 
     /**
      * 从购物车创建订单（快照机制 + 库存预占）。
@@ -144,7 +146,8 @@ class OrderService
         $order->session_id = (string) $cart->session_id;
         $order->status = OrderStatus::Pending;
         $order->currency = (string) ($cart->currency ?: 'CNY');
-        $order->exchange_rate = $this->resolveExchangeRate((int) $cart->tenant_id, $order->currency);
+        // 平台基准币种 CNY 与订单目标币种之间的汇率快照（PriceCalculator 第三段）
+        $order->exchange_rate = $this->priceCalculator->resolveExchangeRate('CNY', $order->currency);
 
         if (isset($extra['remark']) && is_string($extra['remark'])) {
             $order->remark = $extra['remark'];
@@ -174,9 +177,14 @@ class OrderService
         $imageSnapshot = $variant->image !== '' ? $variant->image : (string) $product->cover_image;
         $specSnapshot = $this->resolveSpecSnapshot($variant, (string) $cart->locale);
 
-        $unitPrice = (float) $variant->price;
+        // 价格三段式：base × (1 + markup%) × 汇率
+        $unitPrice = $this->priceCalculator->computeForVariant(
+            $variant,
+            (string) $order->currency,
+            (int) $order->tenant_id,
+        );
         $quantity = (int) $cartItem->quantity;
-        $lineTotal = $unitPrice * $quantity;
+        $lineTotal = round($unitPrice * $quantity, 2, PHP_ROUND_HALF_UP);
 
         return OrderItem::create([
             'order_id' => $order->id,
@@ -239,26 +247,6 @@ class OrderService
         }
 
         return implode(' / ', $parts);
-    }
-
-    private function resolveExchangeRate(int $tenantId, string $currency): float
-    {
-        // P0 简化：CNY -> CNY 等同币种为 1.0；其他币种查 ExchangeRate 表（全局共享，无 tenant 字段）
-        $base = 'CNY';
-        if ($currency === $base) {
-            return 1.0;
-        }
-
-        $rate = ExchangeRate::where('from_currency', $base)
-            ->where('to_currency', $currency)
-            ->latest('fetched_at')
-            ->first();
-
-        if ($rate === null) {
-            return 1.0;
-        }
-
-        return (float) $rate->rate;
     }
 
     private function saveAddress(Order $order, string $type, array $data): OrderAddress
