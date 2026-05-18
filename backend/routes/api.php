@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Mall\SpecificationValueController;
 use App\Http\Controllers\Api\Shop\CartController;
 use App\Http\Controllers\Api\Shop\CheckoutController;
 use App\Http\Controllers\Api\Shop\OrderController;
+use App\Http\Controllers\Api\Shop\PaymentWebhookController;
 use App\Http\Controllers\Api\System\ConfigController;
 use App\Http\Controllers\Api\System\CountryController;
 use App\Http\Controllers\Api\System\CurrencyController;
@@ -55,6 +56,9 @@ Route::prefix('v1')->group(function () {
         // 结账（preview 只读 + place-order 写入，身份解析同购物车/订单）
         Route::get('checkout/preview', [CheckoutController::class, 'preview']);
         Route::post('checkout/place-order', [CheckoutController::class, 'place']);
+
+        // 支付回调统一入口（{paymentMethod} = payment_methods.id）
+        Route::post('payment/webhook/{paymentMethod}', [PaymentWebhookController::class, 'handle']);
     });
 
     // Authenticated routes

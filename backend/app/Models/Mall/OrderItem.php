@@ -5,6 +5,20 @@ namespace App\Models\Mall;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $order_id
+ * @property int|null $product_id
+ * @property int|null $variant_id
+ * @property string $sku
+ * @property string $name_snapshot
+ * @property string $image_snapshot
+ * @property string $spec_text_snapshot
+ * @property string $unit_price
+ * @property string $currency
+ * @property int $quantity
+ * @property string $line_total
+ */
 class OrderItem extends Model
 {
     protected $fillable = [

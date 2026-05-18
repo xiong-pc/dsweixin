@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    // Stripe 全局默认 key（多租户场景下每个 PaymentMethod.config.api_key 优先于此）
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+    ],
+
 ];

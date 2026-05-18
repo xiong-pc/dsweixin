@@ -108,8 +108,9 @@ class PaymentManager
             throw new BusinessException('api.payment_driver_unavailable');
         }
 
+        // 走容器解析以便注入 driver 自身依赖（如 StripeClient），$method 作为 PaymentMethod 参数
         /** @var PaymentDriverInterface $instance */
-        $instance = new $class($method);
+        $instance = app()->make($class, ['method' => $method]);
 
         return $instance;
     }
