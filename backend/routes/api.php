@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Mall\ProductVariantController;
 use App\Http\Controllers\Api\Mall\SpecificationController;
 use App\Http\Controllers\Api\Mall\SpecificationValueController;
 use App\Http\Controllers\Api\Shop\CartController;
+use App\Http\Controllers\Api\Shop\CheckoutController;
 use App\Http\Controllers\Api\Shop\OrderController;
 use App\Http\Controllers\Api\System\ConfigController;
 use App\Http\Controllers\Api\System\CountryController;
@@ -50,6 +51,10 @@ Route::prefix('v1')->group(function () {
         Route::get('orders', [OrderController::class, 'index']);
         Route::post('orders', [OrderController::class, 'store']);
         Route::get('orders/{order}', [OrderController::class, 'show']);
+
+        // 结账（preview 只读 + place-order 写入，身份解析同购物车/订单）
+        Route::get('checkout/preview', [CheckoutController::class, 'preview']);
+        Route::post('checkout/place-order', [CheckoutController::class, 'place']);
     });
 
     // Authenticated routes
