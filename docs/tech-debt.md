@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 22 | 0 | 0 | 46.8 % |
+| 47 | 23 | 0 | 0 | 48.9 % |
 
 ### 进度明细
 
@@ -632,7 +632,7 @@ composer require dedoc/scramble
 | ✅ | M05-PR22 前台下单 API | M05 | 1.0 | 2026-05-18 | `ad06976` | GET preview + POST place-order，CheckoutFlowTest 9 测试，preview→place 数值一致性验证，**M05 模块 100%** |
 | ✅ | M06-PR23 支付驱动抽象 | M06 | 1.0 | 2026-05-18 | `efec13c` | payment_methods 表 + 3 DTO + PaymentDriverInterface + AbstractPaymentDriver + PaymentManager（shop>tenant 优先，extend 可热插）+ 13 单元测试，预留 Stripe/Wechat 接入点 |
 | ✅ | M06-PR24 StripeDriver | M06 | 1.5 | 2026-05-18 | `4e27f9a` | StripeDriver + StripeClient 接口抽象 SDK + PaymentWebhookController + 4 事件类型解析（checkout.session.completed/payment_intent.*/charge.refunded）+ zero-decimal 货币处理（JPY/KRW）+ 20 测试（FakeStripeClient + 幂等 + 签名失败）。composer require stripe/stripe-php@20.1 |
-| ⬜ | M06-PR25 WechatDriver | M06 | 1.5 | | | H5 + JSAPI |
+| ✅ | M06-PR25 WechatDriver | M06 | 1.5 | 2026-05-18 | `8dd441a` | WechatDriver（jsapi/h5/native 三场景）+ WechatClient 接口抽象 yansongda/pay v3 SDK + 复用 PaymentWebhookController + V3 异步通知（TRANSACTION.SUCCESS / REFUND.SUCCESS）解密 + 元→分单位换算 + 18 测试（FakeWechatClient + 幂等 + 签名失败 + scene_info/payer.openid 校验）。composer require yansongda/pay@^3.7 |
 | ✅ | M06-PR26 order_payments | M06 | 0.5 | 2026-05-18 | `b350eb9` | order_payments 表 + OrderPaymentStatus enum + OrderPaidEvent + HandleOrderPaidListener（复用 OrderService.confirmPayment）+ 8 测试。**调整依赖顺序**：原 spec PR26 在 PR24/25 后，现提前以解环形依赖（PR24 需写 order_payments + 发 OrderPaidEvent） |
 | ⬜ | M06-PR27 退款链路 | M06 | 0.5 | | | |
 | ⬜ | M07-PR28 shipping_methods | M07 | 1.0 | | | + rates |
