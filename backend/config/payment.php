@@ -1,6 +1,7 @@
 <?php
 
 use App\Services\Api\Payment\Drivers\StripeDriver;
+use App\Services\Api\Payment\Drivers\WechatDriver;
 
 return [
     /*
@@ -17,6 +18,6 @@ return [
     */
     'drivers' => [
         'stripe' => StripeDriver::class,
-        // 'wechat' => \App\Services\Api\Payment\Drivers\WechatDriver::class,   // M06-PR25
+        'wechat' => WechatDriver::class,
     ],
 ];
