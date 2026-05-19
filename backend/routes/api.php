@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Mall\BrandController;
 use App\Http\Controllers\Api\Mall\CategoryController;
 use App\Http\Controllers\Api\Mall\ProductController;
 use App\Http\Controllers\Api\Mall\ProductVariantController;
+use App\Http\Controllers\Api\Mall\ShippingMethodController;
 use App\Http\Controllers\Api\Mall\SpecificationController;
 use App\Http\Controllers\Api\Mall\SpecificationValueController;
 use App\Http\Controllers\Api\Shop\CartController;
@@ -165,6 +166,10 @@ Route::prefix('v1')->group(function () {
 
                 // 品牌
                 Route::apiResource('brands', BrandController::class);
+
+                // 物流 / 快递方式（含分段费率 rates）
+                Route::apiResource('shipping-methods', ShippingMethodController::class)
+                    ->parameters(['shipping-methods' => 'shippingMethod']);
             });
         });
     });

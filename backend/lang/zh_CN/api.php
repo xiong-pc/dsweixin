@@ -74,6 +74,11 @@ return [
     // 商城库存
     'insufficient_stock' => '库存不足，无法预占',
 
+    // 商城物流
+    'shipping_rate_zone_required' => '运费规则必须指定 zone',
+    'shipping_rate_zone_not_found' => '指定的 zone 不存在',
+    'shipping_rate_weight_range_invalid' => '运费规则的重量上限必须大于下限（或填 0 表示无上限）',
+
     // 商城支付 / 退款
     'payment_method_not_found' => '支付方式不存在或未启用',
     'payment_driver_unavailable' => '支付驱动暂不可用',

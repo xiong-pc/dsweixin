@@ -74,6 +74,11 @@ return [
     // Mall inventory
     'insufficient_stock' => 'Insufficient stock to reserve',
 
+    // Mall shipping
+    'shipping_rate_zone_required' => 'Shipping rate must specify a zone',
+    'shipping_rate_zone_not_found' => 'Specified zone does not exist',
+    'shipping_rate_weight_range_invalid' => 'Shipping rate weight_max must be greater than weight_min (or 0 for unlimited)',
+
     // Mall payment / refund
     'payment_method_not_found' => 'Payment method not found or disabled',
     'payment_driver_unavailable' => 'Payment driver is unavailable',
