@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Events\Mall\OrderPaidEvent;
 use App\Listeners\Mall\HandleOrderPaidListener;
+use App\Models\Mall\Order;
+use App\Observers\OrderObserver;
 use App\Services\Api\Payment\Stripe\StripeApiClient;
 use App\Services\Api\Payment\Stripe\StripeClient;
 use App\Services\Api\Payment\Wechat\WechatApiClient;
@@ -24,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
     {
         // Mall 域事件订阅（M06-PR26）
         Event::listen(OrderPaidEvent::class, [HandleOrderPaidListener::class, 'handle']);
+
+        // M08-PR31：Order.status 变更自动写 order_histories
+        Order::observe(OrderObserver::class);
     }
 }

@@ -13,6 +13,8 @@ use App\Models\Mall\Product;
 use App\Models\Mall\ProductVariant;
 use App\Models\Mall\Specification;
 use App\Models\Mall\SpecificationValue;
+use App\Observers\OrderObserver;
+use App\Services\Api\Mall\OrderStateMachine;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -22,6 +24,7 @@ class OrderService
     public function __construct(
         private readonly InventoryService $inventoryService,
         private readonly PriceCalculator $priceCalculator,
+        private readonly OrderStateMachine $stateMachine,
     ) {}
 
     /**
@@ -87,11 +90,18 @@ class OrderService
 
     /**
      * 状态机：转移订单状态。
+     *
+     * @param  array<string, mixed>  $context  可选：{reason, note, operator_type, operator_id} ——
+     *                                         用于 OrderHistory 审计（由 OrderObserver 读取）
      */
-    public function transitionStatus(Order $order, OrderStatus $target): void
+    public function transitionStatus(Order $order, OrderStatus $target, array $context = []): void
     {
-        if (! $order->status->canTransitionTo($target)) {
-            throw new BusinessException('api.invalid_order_status_transition');
+        $this->stateMachine->assertCanTransition($order->status, $target);
+
+        // 在 save 之前把 reason/operator 上下文写到 OrderObserver 静态表，
+        // observer 在 updated() 钩子里读出来写 OrderHistory，然后清理。
+        if ($context !== []) {
+            OrderObserver::setContext($order, $context);
         }
 
         $order->status = $target;

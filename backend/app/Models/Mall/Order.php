@@ -88,4 +88,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderShipment::class)->orderBy('id');
     }
+
+    public function histories(): HasMany
+    {
+        return $this->hasMany(OrderHistory::class)->orderBy('id');
+    }
 }
