@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 23 | 0 | 0 | 48.9 % |
+| 47 | 24 | 0 | 0 | 51.1 % |
 
 ### 进度明细
 
@@ -634,7 +634,7 @@ composer require dedoc/scramble
 | ✅ | M06-PR24 StripeDriver | M06 | 1.5 | 2026-05-18 | `4e27f9a` | StripeDriver + StripeClient 接口抽象 SDK + PaymentWebhookController + 4 事件类型解析（checkout.session.completed/payment_intent.*/charge.refunded）+ zero-decimal 货币处理（JPY/KRW）+ 20 测试（FakeStripeClient + 幂等 + 签名失败）。composer require stripe/stripe-php@20.1 |
 | ✅ | M06-PR25 WechatDriver | M06 | 1.5 | 2026-05-18 | `8dd441a` | WechatDriver（jsapi/h5/native 三场景）+ WechatClient 接口抽象 yansongda/pay v3 SDK + 复用 PaymentWebhookController + V3 异步通知（TRANSACTION.SUCCESS / REFUND.SUCCESS）解密 + 元→分单位换算 + 18 测试（FakeWechatClient + 幂等 + 签名失败 + scene_info/payer.openid 校验）。composer require yansongda/pay@^3.7 |
 | ✅ | M06-PR26 order_payments | M06 | 0.5 | 2026-05-18 | `b350eb9` | order_payments 表 + OrderPaymentStatus enum + OrderPaidEvent + HandleOrderPaidListener（复用 OrderService.confirmPayment）+ 8 测试。**调整依赖顺序**：原 spec PR26 在 PR24/25 后，现提前以解环形依赖（PR24 需写 order_payments + 发 OrderPaidEvent） |
-| ⬜ | M06-PR27 退款链路 | M06 | 0.5 | | | |
+| ✅ | M06-PR27 退款链路 | M06 | 0.5 | 2026-05-19 | `e10016c` | RefundService（PaymentManager 派发 driver.refund + DB 事务外调网关）+ InventoryService::restore（stock += qty）+ 全/部分退款分支（全额翻订单 Refunded + 还库存；部分仅写流水）+ 25 测试（StripeRefundTest 13 + WechatRefundTest 12，覆盖 SUCCEEDED/PENDING/FAILED、JPY zero-decimal、状态机边界、partial 不变状态）+ 6 个 lang key。**M06 模块 100% 收官** |
 | ⬜ | M07-PR28 shipping_methods | M07 | 1.0 | | | + rates |
 | ⬜ | M07-PR29 运费计算 | M07 | 1.0 | | | 重量/zone/免运费 |
 | ⬜ | M07-PR30 order_shipments | M07 | 1.0 | | | + tracking |
