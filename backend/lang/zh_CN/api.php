@@ -78,6 +78,10 @@ return [
     'shipping_rate_zone_required' => '运费规则必须指定 zone',
     'shipping_rate_zone_not_found' => '指定的 zone 不存在',
     'shipping_rate_weight_range_invalid' => '运费规则的重量上限必须大于下限（或填 0 表示无上限）',
+    'order_cannot_ship' => '订单当前状态不允许发货',
+    'shipment_carrier_tracking_required' => '发货必须提供承运商和运单号',
+    'shipment_cannot_deliver' => '该发货记录当前状态不允许签收',
+    'shipment_cannot_cancel' => '该发货记录当前状态不允许撤销',
 
     // 商城支付 / 退款
     'payment_method_not_found' => '支付方式不存在或未启用',

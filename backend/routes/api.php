@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Mall\AttributeController;
 use App\Http\Controllers\Api\Mall\AttributeValueController;
 use App\Http\Controllers\Api\Mall\BrandController;
 use App\Http\Controllers\Api\Mall\CategoryController;
+use App\Http\Controllers\Api\Mall\OrderShipmentController;
 use App\Http\Controllers\Api\Mall\ProductController;
 use App\Http\Controllers\Api\Mall\ProductVariantController;
 use App\Http\Controllers\Api\Mall\ShippingMethodController;
@@ -170,6 +171,13 @@ Route::prefix('v1')->group(function () {
                 // 物流 / 快递方式（含分段费率 rates）
                 Route::apiResource('shipping-methods', ShippingMethodController::class)
                     ->parameters(['shipping-methods' => 'shippingMethod']);
+
+                // 订单发货 / 物流跟踪（一订单可多发货）
+                Route::post('order-shipments/{orderShipment}/deliver', [OrderShipmentController::class, 'deliver']);
+                Route::post('order-shipments/{orderShipment}/cancel', [OrderShipmentController::class, 'cancel']);
+                Route::apiResource('order-shipments', OrderShipmentController::class)
+                    ->parameters(['order-shipments' => 'orderShipment'])
+                    ->except(['destroy']);
             });
         });
     });

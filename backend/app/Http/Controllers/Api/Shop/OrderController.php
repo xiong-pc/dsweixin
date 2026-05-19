@@ -31,7 +31,7 @@ class OrderController extends Controller
             throw new BusinessException('api.cart_identity_required');
         }
 
-        $query = Order::query()->where('tenant_id', $tenantId)->with(['items', 'shippingAddress']);
+        $query = Order::query()->where('tenant_id', $tenantId)->with(['items', 'shippingAddress', 'shipments']);
         if ($customerId !== null) {
             $query->where('customer_id', $customerId);
         } else {
@@ -54,7 +54,7 @@ class OrderController extends Controller
         $this->ensureOrderAccess($request, $order);
 
         return $this->success(new OrderResource(
-            $order->load(['items', 'shippingAddress', 'billingAddress'])
+            $order->load(['items', 'shippingAddress', 'billingAddress', 'shipments'])
         ));
     }
 

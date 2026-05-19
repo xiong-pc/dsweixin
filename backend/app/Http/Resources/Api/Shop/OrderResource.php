@@ -38,6 +38,7 @@ class OrderResource extends JsonResource
             'items' => $this->formatItems(data_get($r, 'items')),
             'shipping_address' => $this->formatAddress(data_get($r, 'shippingAddress')),
             'billing_address' => $this->formatAddress(data_get($r, 'billingAddress')),
+            'shipments' => $this->formatShipments(data_get($r, 'shipments')),
             'created_at' => $this->formatDateTime(data_get($r, 'created_at')),
             'updated_at' => $this->formatDateTime(data_get($r, 'updated_at')),
         ];
@@ -72,6 +73,35 @@ class OrderResource extends JsonResource
                 'currency' => data_get($item, 'currency'),
                 'quantity' => (int) data_get($item, 'quantity'),
                 'line_total' => data_get($item, 'line_total'),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    private function formatShipments(mixed $shipments): array
+    {
+        if (! is_iterable($shipments)) {
+            return [];
+        }
+
+        $result = [];
+        foreach ($shipments as $s) {
+            $status = data_get($s, 'status');
+            if ($status instanceof \BackedEnum) {
+                $status = (string) $status->value;
+            }
+            $result[] = [
+                'id' => data_get($s, 'id'),
+                'carrier' => data_get($s, 'carrier'),
+                'tracking_no' => data_get($s, 'tracking_no'),
+                'status' => $status,
+                'fee' => data_get($s, 'fee'),
+                'shipped_at' => $this->formatDateTime(data_get($s, 'shipped_at')),
+                'delivered_at' => $this->formatDateTime(data_get($s, 'delivered_at')),
             ];
         }
 

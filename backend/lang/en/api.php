@@ -78,6 +78,10 @@ return [
     'shipping_rate_zone_required' => 'Shipping rate must specify a zone',
     'shipping_rate_zone_not_found' => 'Specified zone does not exist',
     'shipping_rate_weight_range_invalid' => 'Shipping rate weight_max must be greater than weight_min (or 0 for unlimited)',
+    'order_cannot_ship' => 'Order status does not allow shipping',
+    'shipment_carrier_tracking_required' => 'Shipment requires carrier and tracking_no',
+    'shipment_cannot_deliver' => 'Shipment status does not allow marking as delivered',
+    'shipment_cannot_cancel' => 'Shipment status does not allow cancellation',
 
     // Mall payment / refund
     'payment_method_not_found' => 'Payment method not found or disabled',
