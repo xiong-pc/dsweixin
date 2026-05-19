@@ -111,11 +111,13 @@ class OrderService
 
     /**
      * 取消订单：释放所有预占库存。
+     *
+     * @param  array<string, mixed>  $context  可选审计：{reason, note, operator_type, operator_id}
      */
-    public function cancelOrder(Order $order): void
+    public function cancelOrder(Order $order, array $context = []): void
     {
-        DB::transaction(function () use ($order) {
-            $this->transitionStatus($order, OrderStatus::Cancelled);
+        DB::transaction(function () use ($order, $context) {
+            $this->transitionStatus($order, OrderStatus::Cancelled, $context);
 
             /** @var OrderItem $item */
             foreach ($order->items()->get() as $item) {

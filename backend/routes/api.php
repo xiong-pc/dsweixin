@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Mall\AttributeController;
 use App\Http\Controllers\Api\Mall\AttributeValueController;
 use App\Http\Controllers\Api\Mall\BrandController;
 use App\Http\Controllers\Api\Mall\CategoryController;
+use App\Http\Controllers\Api\Mall\OrderController as MallOrderController;
 use App\Http\Controllers\Api\Mall\OrderShipmentController;
 use App\Http\Controllers\Api\Mall\ProductController;
 use App\Http\Controllers\Api\Mall\ProductVariantController;
@@ -178,6 +179,12 @@ Route::prefix('v1')->group(function () {
                 Route::apiResource('order-shipments', OrderShipmentController::class)
                     ->parameters(['order-shipments' => 'orderShipment'])
                     ->except(['destroy']);
+
+                // 后台订单管理（list / show + ship/refund/cancel 三个动作端点）
+                Route::post('orders/{order}/ship', [MallOrderController::class, 'ship']);
+                Route::post('orders/{order}/refund', [MallOrderController::class, 'refund']);
+                Route::post('orders/{order}/cancel', [MallOrderController::class, 'cancel']);
+                Route::apiResource('orders', MallOrderController::class)->only(['index', 'show']);
             });
         });
     });
