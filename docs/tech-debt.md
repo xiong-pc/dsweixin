@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 27 | 0 | 0 | 57.4 % |
+| 47 | 28 | 0 | 0 | 59.6 % |
 
 ### 进度明细
 
@@ -638,7 +638,7 @@ composer require dedoc/scramble
 | ✅ | M07-PR28 shipping_methods | M07 | 1.0 | 2026-05-19 | `0938380` | 3 张迁移（shipping_methods + shipping_method_translations + shipping_rates）+ 复用 zones（M02-PR6）+ ShippingMethodService（嵌套保存 translations + rates，update 整体替换）+ ShippingMethodController CRUD + 校验（zone 必填存在、weight_max=0 视为无上限）+ 16 测试（多租户隔离 + rates 替换 + 软删除 + 关键字过滤）+ 3 个 lang key |
 | ✅ | M07-PR29 运费计算 | M07 | 1.0 | 2026-05-19 | `44e8aa2` | ShippingService::quote(Cart, country) → 候选 method 列表（fee/is_free/weight_g/rate_id）+ calculate(method_id) 单查；一国可属多 zone 取并集；重量单位 g/kg/oz/lb 自动转化；weight_max=0 无上限；free_threshold 命中费零（复用 PriceCalculator 算 subtotal）；禁用 method / 跨租户 / cart 空 / zone 未覆盖 → 排除。**ShippingCalculateTest 18 case** |
 | ✅ | M07-PR30 order_shipments | M07 | 1.0 | 2026-05-19 | `1156f4c` | order_shipments 表 + OrderShipmentStatus enum（shipped/delivered/cancelled）+ OrderShipmentService::ship 推进 Paid→Shipped + markDelivered 全部签收转 Delivered + cancel 撤销；拆单可多 shipment；Shop OrderResource 暴露 shipments[] 供客户查询。**OrderShipmentTest 13 case**，4 个 lang key。**M07 模块 100% 收官** |
-| ⬜ | M08-PR31 订单状态机 | M08 | 1.0 | | | + history 自动写 |
+| ✅ | M08-PR31 订单状态机 | M08 | 1.0 | 2026-05-19 | `c7b0caa` | order_histories 表 + OrderStateMachine（canTransition / assertCanTransition / nextStates）+ OrderObserver 自动写 history（静态 spl_object_id context 表透传 reason/operator）+ OrderService::transitionStatus 接受 \$context。**21 测试**（OrderStateMachineTest 12 unit + OrderHistoryAutoLogTest 9 feature） |
 | ⬜ | M08-PR32 后台订单 UI | M08 | 1.5 | | | |
 | ⬜ | M08-PR33 发货退款取消 | M08 | 1.5 | | | |
 | ⬜ | M09-PR34 customers | M09 | 1.0 | | | + addresses + groups |
