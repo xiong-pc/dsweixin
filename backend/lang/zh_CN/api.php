@@ -73,4 +73,12 @@ return [
 
     // 商城库存
     'insufficient_stock' => '库存不足，无法预占',
+
+    // 商城支付 / 退款
+    'payment_method_not_found' => '支付方式不存在或未启用',
+    'payment_driver_unavailable' => '支付驱动暂不可用',
+    'order_cannot_refund' => '订单当前状态不允许退款',
+    'no_payment_to_refund' => '订单没有可退款的支付记录',
+    'invalid_refund_amount' => '退款金额必须大于 0 且不超过原支付金额',
+    'refund_failed' => '退款失败',
 ];

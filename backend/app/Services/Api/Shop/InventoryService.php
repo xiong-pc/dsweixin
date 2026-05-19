@@ -91,6 +91,32 @@ class InventoryService
     }
 
     /**
+     * 退款 / 售后：把已经从 stock 扣减的数量加回去。
+     *
+     * 注意与 release() 的区别：
+     *   - release() 仅在「预占未确认」阶段被调用，只回滚 reserved
+     *   - restore() 在「已确认扣减」之后（订单已 Paid+）被调用，stock += qty
+     */
+    public function restore(int $variantId, int $quantity): void
+    {
+        if ($quantity < 1) {
+            return;
+        }
+
+        DB::transaction(function () use ($variantId, $quantity) {
+            /** @var ProductVariant|null $variant */
+            $variant = ProductVariant::withTrashed()->lockForUpdate()->find($variantId);
+
+            if ($variant === null) {
+                return;
+            }
+
+            $variant->stock = (int) $variant->stock + $quantity;
+            $variant->save();
+        });
+    }
+
+    /**
      * 仅查询可用库存（不加锁）。
      */
     public function available(int $variantId): int

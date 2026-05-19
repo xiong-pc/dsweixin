@@ -73,4 +73,12 @@ return [
 
     // Mall inventory
     'insufficient_stock' => 'Insufficient stock to reserve',
+
+    // Mall payment / refund
+    'payment_method_not_found' => 'Payment method not found or disabled',
+    'payment_driver_unavailable' => 'Payment driver is unavailable',
+    'order_cannot_refund' => 'Order status does not allow refund',
+    'no_payment_to_refund' => 'No refundable payment found for this order',
+    'invalid_refund_amount' => 'Refund amount must be greater than 0 and not exceed original payment',
+    'refund_failed' => 'Refund failed',
 ];
