@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 25 | 0 | 0 | 53.2 % |
+| 47 | 26 | 0 | 0 | 55.3 % |
 
 ### 进度明细
 
@@ -636,7 +636,7 @@ composer require dedoc/scramble
 | ✅ | M06-PR26 order_payments | M06 | 0.5 | 2026-05-18 | `b350eb9` | order_payments 表 + OrderPaymentStatus enum + OrderPaidEvent + HandleOrderPaidListener（复用 OrderService.confirmPayment）+ 8 测试。**调整依赖顺序**：原 spec PR26 在 PR24/25 后，现提前以解环形依赖（PR24 需写 order_payments + 发 OrderPaidEvent） |
 | ✅ | M06-PR27 退款链路 | M06 | 0.5 | 2026-05-19 | `e10016c` | RefundService（PaymentManager 派发 driver.refund + DB 事务外调网关）+ InventoryService::restore（stock += qty）+ 全/部分退款分支（全额翻订单 Refunded + 还库存；部分仅写流水）+ 25 测试（StripeRefundTest 13 + WechatRefundTest 12，覆盖 SUCCEEDED/PENDING/FAILED、JPY zero-decimal、状态机边界、partial 不变状态）+ 6 个 lang key。**M06 模块 100% 收官** |
 | ✅ | M07-PR28 shipping_methods | M07 | 1.0 | 2026-05-19 | `0938380` | 3 张迁移（shipping_methods + shipping_method_translations + shipping_rates）+ 复用 zones（M02-PR6）+ ShippingMethodService（嵌套保存 translations + rates，update 整体替换）+ ShippingMethodController CRUD + 校验（zone 必填存在、weight_max=0 视为无上限）+ 16 测试（多租户隔离 + rates 替换 + 软删除 + 关键字过滤）+ 3 个 lang key |
-| ⬜ | M07-PR29 运费计算 | M07 | 1.0 | | | 重量/zone/免运费 |
+| ✅ | M07-PR29 运费计算 | M07 | 1.0 | 2026-05-19 | `44e8aa2` | ShippingService::quote(Cart, country) → 候选 method 列表（fee/is_free/weight_g/rate_id）+ calculate(method_id) 单查；一国可属多 zone 取并集；重量单位 g/kg/oz/lb 自动转化；weight_max=0 无上限；free_threshold 命中费零（复用 PriceCalculator 算 subtotal）；禁用 method / 跨租户 / cart 空 / zone 未覆盖 → 排除。**ShippingCalculateTest 18 case** |
 | ⬜ | M07-PR30 order_shipments | M07 | 1.0 | | | + tracking |
 | ⬜ | M08-PR31 订单状态机 | M08 | 1.0 | | | + history 自动写 |
 | ⬜ | M08-PR32 后台订单 UI | M08 | 1.5 | | | |
