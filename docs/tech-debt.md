@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 28 | 0 | 0 | 59.6 % |
+| 47 | 29 | 0 | 0 | 61.7 % |
 
 ### 进度明细
 
@@ -640,7 +640,7 @@ composer require dedoc/scramble
 | ✅ | M07-PR30 order_shipments | M07 | 1.0 | 2026-05-19 | `1156f4c` | order_shipments 表 + OrderShipmentStatus enum（shipped/delivered/cancelled）+ OrderShipmentService::ship 推进 Paid→Shipped + markDelivered 全部签收转 Delivered + cancel 撤销；拆单可多 shipment；Shop OrderResource 暴露 shipments[] 供客户查询。**OrderShipmentTest 13 case**，4 个 lang key。**M07 模块 100% 收官** |
 | ✅ | M08-PR31 订单状态机 | M08 | 1.0 | 2026-05-19 | `c7b0caa` | order_histories 表 + OrderStateMachine（canTransition / assertCanTransition / nextStates）+ OrderObserver 自动写 history（静态 spl_object_id context 表透传 reason/operator）+ OrderService::transitionStatus 接受 \$context。**21 测试**（OrderStateMachineTest 12 unit + OrderHistoryAutoLogTest 9 feature） |
 | ⬜ | M08-PR32 后台订单 UI | M08 | 1.5 | | | |
-| ⬜ | M08-PR33 发货退款取消 | M08 | 1.5 | | | |
+| ✅ | M08-PR33 发货退款取消 | M08 | 1.5 | 2026-05-19 | `0b336f7` | Mall\\OrderController（admin 后台，与 Shop\\OrderController 客户前台分离）+ ship/refund/cancel 三个动作端点复用 OrderShipmentService / RefundService / OrderService；cancelOrder 接受 \$context 透传 reason/operator 到 OrderHistory。**25 测试**（Ship 7 + Refund 8 + Cancel 10）覆盖状态机/库存/审计/tenant 隔离 |
 | ⬜ | M09-PR34 customers | M09 | 1.0 | | | + addresses + groups |
 | ⬜ | M09-PR35 customer 注册登录 | M09 | 1.0 | | | passport-customer guard |
 | ⬜ | M09-PR36 customer 我的中心 API | M09 | 1.0 | | | |
