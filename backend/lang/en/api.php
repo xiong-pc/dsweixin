@@ -83,6 +83,10 @@ return [
     'shipment_cannot_deliver' => 'Shipment status does not allow marking as delivered',
     'shipment_cannot_cancel' => 'Shipment status does not allow cancellation',
 
+    // Mall customers
+    'customer_group_not_found' => 'Customer group not found or belongs to another tenant',
+    'customer_group_has_customers' => 'Cannot delete group with associated customers',
+
     // Mall payment / refund
     'payment_method_not_found' => 'Payment method not found or disabled',
     'payment_driver_unavailable' => 'Payment driver is unavailable',

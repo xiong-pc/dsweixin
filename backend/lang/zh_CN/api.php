@@ -83,6 +83,10 @@ return [
     'shipment_cannot_deliver' => '该发货记录当前状态不允许签收',
     'shipment_cannot_cancel' => '该发货记录当前状态不允许撤销',
 
+    // 商城客户
+    'customer_group_not_found' => '客户分组不存在或属于其他租户',
+    'customer_group_has_customers' => '分组下存在客户，不能删除',
+
     // 商城支付 / 退款
     'payment_method_not_found' => '支付方式不存在或未启用',
     'payment_driver_unavailable' => '支付驱动暂不可用',

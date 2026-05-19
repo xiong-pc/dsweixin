@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\Mall\AttributeController;
 use App\Http\Controllers\Api\Mall\AttributeValueController;
 use App\Http\Controllers\Api\Mall\BrandController;
 use App\Http\Controllers\Api\Mall\CategoryController;
+use App\Http\Controllers\Api\Mall\CustomerController;
+use App\Http\Controllers\Api\Mall\CustomerGroupController;
 use App\Http\Controllers\Api\Mall\OrderController as MallOrderController;
 use App\Http\Controllers\Api\Mall\OrderShipmentController;
 use App\Http\Controllers\Api\Mall\ProductController;
@@ -185,6 +187,14 @@ Route::prefix('v1')->group(function () {
                 Route::post('orders/{order}/refund', [MallOrderController::class, 'refund']);
                 Route::post('orders/{order}/cancel', [MallOrderController::class, 'cancel']);
                 Route::apiResource('orders', MallOrderController::class)->only(['index', 'show']);
+
+                // 客户分组（请放在 customers 前，避免被路由匹配为 customer）
+                Route::apiResource('customer-groups', CustomerGroupController::class)
+                    ->parameters(['customer-groups' => 'customerGroup']);
+
+                // 后台客户管理（仅 list/show/update/destroy，不开放 store）
+                Route::apiResource('customers', CustomerController::class)
+                    ->only(['index', 'show', 'update', 'destroy']);
             });
         });
     });
