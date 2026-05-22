@@ -109,6 +109,11 @@
         </el-form-item>
       </el-card>
 
+      <el-card v-if="!isCreate" class="card-section">
+        <template #header>变体管理（M03-PR13）</template>
+        <VariantManager :product-id="productId" />
+      </el-card>
+
       <div style="margin-top: 16px">
         <el-button type="primary" :loading="submitting" @click="submit">
           {{ isCreate ? '创建商品' : '保存修改' }}
@@ -131,6 +136,7 @@ import {
   getMallBrandOptions,
 } from '@/api/mall/product';
 import type { PickerOption, ProductTranslation, QuickCreateProductPayload } from '@/types/api/mall/product';
+import VariantManager from './components/VariantManager.vue';
 
 /**
  * Mall 后台商品创建 / 编辑（M10-PR38）。
