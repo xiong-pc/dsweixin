@@ -1,0 +1,9 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了"
+  },
+  "home": {
+    "title": "首页"
+  }
+}

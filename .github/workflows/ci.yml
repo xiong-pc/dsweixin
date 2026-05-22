@@ -86,3 +86,38 @@ jobs:
       - name: Build
         working-directory: frontend
         run: npm run build
+
+  frontend-shop:
+    name: Frontend Shop (Nuxt 3 SSR)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend-shop/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend-shop
+        # postinstall 自动执行 `nuxt prepare`，生成 .nuxt/tsconfig.json + eslint.config.mjs
+        run: npm ci
+
+      - name: Prettier format check
+        working-directory: frontend-shop
+        run: npm run format:check
+
+      - name: ESLint check
+        working-directory: frontend-shop
+        run: npm run lint:check
+
+      - name: Type check
+        working-directory: frontend-shop
+        run: npm run typecheck
+
+      - name: Build (Nuxt SSR)
+        working-directory: frontend-shop
+        run: npm run build

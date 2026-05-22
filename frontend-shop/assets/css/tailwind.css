@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 默认主题色（白/极光蓝），可通过 useTheme(shop.theme) 在运行时覆盖 */
+:root {
+  --color-primary: 24 96 200;
+  --color-secondary: 248 113 113;
+}

@@ -1,0 +1,38 @@
+{
+  "name": "dsweixin-frontend-shop",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "typecheck": "nuxt typecheck",
+    "format": "prettier --write \"**/*.{ts,vue,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,vue,json,md}\""
+  },
+  "dependencies": {
+    "@nuxtjs/i18n": "^9.5.4",
+    "@nuxtjs/tailwindcss": "^6.12.2",
+    "@pinia/nuxt": "^0.10.1",
+    "@vueuse/nuxt": "^12.8.2",
+    "nuxt": "^3.16.2",
+    "pinia": "^3.0.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^1.2.0",
+    "@types/node": "^22.13.10",
+    "eslint": "^9.22.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2",
+    "vue-tsc": "^2.2.8"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  }
+}

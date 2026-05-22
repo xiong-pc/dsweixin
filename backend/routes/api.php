@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\Shop\CustomerAddressController;
 use App\Http\Controllers\Api\Shop\CustomerOrderController;
 use App\Http\Controllers\Api\Shop\OrderController;
 use App\Http\Controllers\Api\Shop\PaymentWebhookController;
+use App\Http\Controllers\Api\Shop\ShopConfigController;
 use App\Http\Controllers\Api\System\ConfigController;
 use App\Http\Controllers\Api\System\CountryController;
 use App\Http\Controllers\Api\System\CurrencyController;
@@ -48,6 +49,9 @@ Route::prefix('v1')->group(function () {
 
     // === Shop 前台 API（消费者侧，允许游客）===
     Route::prefix('shop')->group(function () {
+        // 店铺配置（Nuxt SSR 启动时调用，shop 中间件按 host/header 解析）
+        Route::middleware('shop')->get('config', [ShopConfigController::class, 'show']);
+
         // 客户验证码 / 注册 / 登录（公开端点 + throttle 节流）
         Route::middleware('throttle:5,1')->group(function () {
             Route::post('auth/send-code', [ShopAuthController::class, 'sendCode']);
