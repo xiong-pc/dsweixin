@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 41 | 0 | 0 | 87.2 % |
+| 47 | 42 | 0 | 0 | 89.4 % |
 
 ### 进度明细
 
@@ -646,7 +646,7 @@ composer require dedoc/scramble
 | ✅ | M09-PR36 customer 我的中心 API | M09 | 1.0 | 2026-05-22 | `cbe66f6` | CustomerAddressController CRUD 5 端点（`/me/addresses`）+ 默认地址语义（首条自动 default / 指定 default 降级其它 / 不允许 update 将自己降级为 0 / 删除 default 按 id 倒序晋升下一条）+ CustomerOrderController（`/me/orders`）身份强制来自 passport-customer guard（X-Customer-Id header 仿冒无效，游客订单 customer_id=null 不进，跨租户订单不可见）+ status 过滤 + 分页。**24 测试**（Address 15 + MyOrders 9）。**M09 模块 100% 收官** |
 | ✅ | M10-PR37 mall 菜单权限 | M10 | 1.0 | 2026-05-22 | `4e391c6` | MallMenuSeeder 4 层菜单树（1 顶级 + 4 子目录 + 13 二级页面）+ MallPermissionSeeder 33 个 Type 3 按钮权限（`mall:resource:action`），全部 tenant_id=0 系统级菜单。DatabaseSeeder 在 RoleSeeder 之前注册以让 SUPER_ADMIN 默认获得。**15 测试**覆盖菜单树结构 / 权限命名规范 / SUPER_ADMIN 可见 / 仅授系统菜单的角色不可见（关键安全） / hasPermissionKey 精确匹配 + 超管短路 |
 | ✅ | M10-PR38 商品 UI 整合 | M10 | 1.0 | 2026-05-22 | `5c2d2e0` | types/api/mall/product.ts + api/mall/product.ts（list/show/quickCreate/update/destroy + categories/brands picker）。views/mall/product/index.vue 列表（关键词 + 类目/品牌/状态筛选 + 状态 el-switch 直接 PUT update + 删除二次确认 + el-image 缩略图 + v-hasPerm 按钮权限） + edit.vue 创建/编辑共用表单（基本信息 / 多语言行内编辑 / 创建态 首 SKU 调 quickCreate / 编辑态 PUT update）。router 注册隐藏静态路由 `/mall/product/create` + `/mall/product/:id`。后端未动。**前端 4 检查全过** |
-| ⬜ | M10-PR39 类目品牌 UI 整合 | M10 | 1.0 | | | |
+| ✅ | M10-PR39 类目/品牌/规格/属性 UI | M10 | 1.0 | 2026-05-22 | `b089693` | types + api 完整套 4 资源（category / brand / specification / attribute 含嵌套 values）。**4 页**：category 树形 el-table（parent_id 重构）+ 表单含父类目下拉 / brand 列表 + 关键词状态筛选 + el-image Logo / specification 主从面板（左组右值 + 2 个 dialog） / attribute 与 specification 完全对称。全部 v-hasPerm。后端未动（复用 M03/M04 端点）。**前端 4 检查全过** |
 | ⬜ | M10-PR40 订单 UI 整合 | M10 | 1.0 | | | |
 | ⬜ | M10-PR41 客户 UI 整合 | M10 | 1.0 | | | |
 | ✅ | M11-PR42 Nuxt 工程脚手架 | M11 | 1.0 | 2026-05-22 | `7de0acf` | 后端 ShopConfigController + GET `/api/v1/shop/config`（shop 中间件解析 host 子域 / X-Shop-Subdomain header）+ 6 测试。前端 `frontend-shop/`：Nuxt 3 SSR + i18n（zh-CN/en/ja/ko）+ tailwind + pinia + vueuse + @nuxt/eslint；middleware/tenant.global.ts（SSR/CSR 双端 host 子域推断 + 兑底环境变量 + fetch /shop/config）；composables/useApi.ts 统一 ApiClient（baseURL / X-Tenant-Id / X-Shop-Id / Bearer token / ApiError）； types/shop.ts 与后端响应严格对齐。CI 新增 frontend-shop job（format/lint/typecheck/build 4 步）。**后端 746 测试**，**前端 4 检查全过** |
