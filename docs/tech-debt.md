@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 34 | 0 | 0 | 72.3 % |
+| 47 | 35 | 0 | 0 | 74.5 % |
 
 ### 进度明细
 
@@ -650,7 +650,7 @@ composer require dedoc/scramble
 | ⬜ | M10-PR40 订单 UI 整合 | M10 | 1.0 | | | |
 | ⬜ | M10-PR41 客户 UI 整合 | M10 | 1.0 | | | |
 | ✅ | M11-PR42 Nuxt 工程脚手架 | M11 | 1.0 | 2026-05-22 | `7de0acf` | 后端 ShopConfigController + GET `/api/v1/shop/config`（shop 中间件解析 host 子域 / X-Shop-Subdomain header）+ 6 测试。前端 `frontend-shop/`：Nuxt 3 SSR + i18n（zh-CN/en/ja/ko）+ tailwind + pinia + vueuse + @nuxt/eslint；middleware/tenant.global.ts（SSR/CSR 双端 host 子域推断 + 兑底环境变量 + fetch /shop/config）；composables/useApi.ts 统一 ApiClient（baseURL / X-Tenant-Id / X-Shop-Id / Bearer token / ApiError）； types/shop.ts 与后端响应严格对齐。CI 新增 frontend-shop job（format/lint/typecheck/build 4 步）。**后端 746 测试**，**前端 4 检查全过** |
-| ⬜ | M11-PR43 首页+类目页 | M11 | 1.5 | | | SSR + SEO meta |
+| ✅ | M11-PR43 首页+类目页 | M11 | 1.5 | 2026-05-22 | `bc9ca36` | 后端 ShopCategoryController + ShopProductController（list/show）公开端点，tenant + shop + status=1 三重隔离。资源按 X-Locale header 命中翻译，未命中回退首条；pageSize 上限 60；越 shop 越租户 404。**16 测试**。前端 Header/Footer/CategoryNav/ProductCard 4 组件 + layouts/default.vue（useAsyncData 全站复用类目） + pages/index.vue（Hero + 最新 12 件网格 + useHead title/description/og） + pages/category/[id].vue（落地页 + prev/next 分页 + setResponseStatus(404)）。**后端 762 测试**，**前端 4 检查全过** |
 | ⬜ | M11-PR44 商品详情页 SEO | M11 | 1.5 | | | + JSON-LD + hreflang |
 | ⬜ | M11-PR45 购物车结账 | M11 | 1.5 | | | |
 | ⬜ | M11-PR46 我的中心 | M11 | 1.0 | | | |
