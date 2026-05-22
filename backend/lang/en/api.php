@@ -86,6 +86,13 @@ return [
     // Mall customers
     'customer_group_not_found' => 'Customer group not found or belongs to another tenant',
     'customer_group_has_customers' => 'Cannot delete group with associated customers',
+    'tenant_required' => 'Tenant identifier (X-Tenant-Id) is required',
+    'verification_code_invalid' => 'Verification code is invalid or expired',
+    'verification_code_sent' => 'Verification code sent',
+    'code_target_required' => 'Verification code target is required',
+    'code_type_invalid' => 'Code type must be email or phone',
+    'account_already_exists' => 'Account already exists, please log in',
+    'register_success' => 'Registration successful',
 
     // Mall payment / refund
     'payment_method_not_found' => 'Payment method not found or disabled',

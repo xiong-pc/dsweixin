@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Mall\ProductVariantController;
 use App\Http\Controllers\Api\Mall\ShippingMethodController;
 use App\Http\Controllers\Api\Mall\SpecificationController;
 use App\Http\Controllers\Api\Mall\SpecificationValueController;
+use App\Http\Controllers\Api\Shop\AuthController as ShopAuthController;
 use App\Http\Controllers\Api\Shop\CartController;
 use App\Http\Controllers\Api\Shop\CheckoutController;
 use App\Http\Controllers\Api\Shop\OrderController;
@@ -45,6 +46,20 @@ Route::prefix('v1')->group(function () {
 
     // === Shop 前台 API（消费者侧，允许游客）===
     Route::prefix('shop')->group(function () {
+        // 客户验证码 / 注册 / 登录（公开端点 + throttle 节流）
+        Route::middleware('throttle:5,1')->group(function () {
+            Route::post('auth/send-code', [ShopAuthController::class, 'sendCode']);
+            Route::post('auth/register', [ShopAuthController::class, 'register']);
+            Route::post('auth/login', [ShopAuthController::class, 'login']);
+            Route::post('auth/login-by-code', [ShopAuthController::class, 'loginByCode']);
+        });
+
+        // 需 customer 身份的端点
+        Route::middleware('auth:passport-customer')->group(function () {
+            Route::get('auth/me', [ShopAuthController::class, 'me']);
+            Route::post('auth/logout', [ShopAuthController::class, 'logout']);
+        });
+
         // 购物车（身份通过 header 解析：X-Tenant-Id + X-Shop-Id + X-Customer-Id/X-Session-Id）
         Route::get('cart', [CartController::class, 'show']);
         Route::post('cart/items', [CartController::class, 'addItem']);

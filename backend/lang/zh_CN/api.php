@@ -86,6 +86,13 @@ return [
     // 商城客户
     'customer_group_not_found' => '客户分组不存在或属于其他租户',
     'customer_group_has_customers' => '分组下存在客户，不能删除',
+    'tenant_required' => '请提供租户标识（X-Tenant-Id）',
+    'verification_code_invalid' => '验证码错误或已过期',
+    'verification_code_sent' => '验证码已发送',
+    'code_target_required' => '请提供验证码接收账号',
+    'code_type_invalid' => '验证码类型只能为 email 或 phone',
+    'account_already_exists' => '账号已存在，请直接登录',
+    'register_success' => '注册成功',
 
     // 商城支付 / 退款
     'payment_method_not_found' => '支付方式不存在或未启用',

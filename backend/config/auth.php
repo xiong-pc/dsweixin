@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Mall\Customer;
 use App\Models\User;
 
 return [
@@ -46,6 +47,11 @@ return [
             'driver' => 'passport',
             'provider' => 'users',
         ],
+        // 商城前台客户 guard（M09-PR35）：与 admin 隔离的 Passport 个人访问令牌
+        'passport-customer' => [
+            'driver' => 'passport',
+            'provider' => 'customers',
+        ],
     ],
 
     /*
@@ -70,11 +76,11 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        // 商城前台客户 provider（M09-PR35）：独立 Customer 模型
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => Customer::class,
+        ],
     ],
 
     /*
