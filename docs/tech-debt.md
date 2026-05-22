@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 31 | 0 | 0 | 66.0 % |
+| 47 | 32 | 0 | 0 | 68.1 % |
 
 ### 进度明细
 
@@ -643,7 +643,7 @@ composer require dedoc/scramble
 | ✅ | M08-PR33 发货退款取消 | M08 | 1.5 | 2026-05-19 | `0b336f7` | Mall\\OrderController（admin 后台，与 Shop\\OrderController 客户前台分离）+ ship/refund/cancel 三个动作端点复用 OrderShipmentService / RefundService / OrderService；cancelOrder 接受 \$context 透传 reason/operator 到 OrderHistory。**25 测试**（Ship 7 + Refund 8 + Cancel 10）覆盖状态机/库存/审计/tenant 隔离 |
 | ✅ | M09-PR34 customers | M09 | 1.0 | 2026-05-19 | `f2f858e` | 4 表（customers / customer_addresses / customer_groups / customer_group_translations）+ Customer 实现 AuthenticatableContract+OAuthenticatable（password 自动 hashed）+ CustomerGroup 多语言；Mall CRUD（customers 仅 list/show/update/destroy，不开放 store，email/phone/password 静默忽略）。**26 测试**（Customer 15 + CustomerGroup 11）+ 2 个 lang key |
 | ✅ | M09-PR35 customer 注册登录 | M09 | 1.0 | 2026-05-22 | `7ee6a1f` | passport-customer guard + customers provider 隔离；VerificationCodeService（P0 日志 stub，10 分钟 TTL，租户隔离）+ Shop\AuthService（register / loginByPassword / loginByCode 首次自动建号 / issueToken / logout 真撤销 revoked=1）+ AuthController 6 端点（send-code / register / login / login-by-code 公开 throttle:5,1，me / logout 需 customer token）+ TenantMiddleware narrow 兼容 customer guard。**32 测试**（Email 13 + Phone 14 + RateLimit 5），9 个 lang key |
-| ⬜ | M09-PR36 customer 我的中心 API | M09 | 1.0 | | | |
+| ✅ | M09-PR36 customer 我的中心 API | M09 | 1.0 | 2026-05-22 | `cbe66f6` | CustomerAddressController CRUD 5 端点（`/me/addresses`）+ 默认地址语义（首条自动 default / 指定 default 降级其它 / 不允许 update 将自己降级为 0 / 删除 default 按 id 倒序晋升下一条）+ CustomerOrderController（`/me/orders`）身份强制来自 passport-customer guard（X-Customer-Id header 仿冒无效，游客订单 customer_id=null 不进，跨租户订单不可见）+ status 过滤 + 分页。**24 测试**（Address 15 + MyOrders 9）。**M09 模块 100% 收官** |
 | ⬜ | M10-PR37 mall 菜单权限 | M10 | 1.0 | | | + Seeder |
 | ⬜ | M10-PR38 商品 UI 整合 | M10 | 1.0 | | | |
 | ⬜ | M10-PR39 类目品牌 UI 整合 | M10 | 1.0 | | | |
