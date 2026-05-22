@@ -43,6 +43,10 @@
             {{ $t('nav.register') }}
           </NuxtLink>
         </template>
+
+        <!-- 语言 / 币种切换（M11-PR47） -->
+        <LocaleSwitcher />
+        <CurrencySwitcher />
       </nav>
     </div>
   </header>
