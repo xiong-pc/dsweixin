@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 33 | 0 | 0 | 70.2 % |
+| 47 | 34 | 0 | 0 | 72.3 % |
 
 ### 进度明细
 
@@ -649,7 +649,7 @@ composer require dedoc/scramble
 | ⬜ | M10-PR39 类目品牌 UI 整合 | M10 | 1.0 | | | |
 | ⬜ | M10-PR40 订单 UI 整合 | M10 | 1.0 | | | |
 | ⬜ | M10-PR41 客户 UI 整合 | M10 | 1.0 | | | |
-| ⬜ | M11-PR42 Nuxt 工程脚手架 | M11 | 1.0 | | | frontend-shop/ |
+| ✅ | M11-PR42 Nuxt 工程脚手架 | M11 | 1.0 | 2026-05-22 | `7de0acf` | 后端 ShopConfigController + GET `/api/v1/shop/config`（shop 中间件解析 host 子域 / X-Shop-Subdomain header）+ 6 测试。前端 `frontend-shop/`：Nuxt 3 SSR + i18n（zh-CN/en/ja/ko）+ tailwind + pinia + vueuse + @nuxt/eslint；middleware/tenant.global.ts（SSR/CSR 双端 host 子域推断 + 兑底环境变量 + fetch /shop/config）；composables/useApi.ts 统一 ApiClient（baseURL / X-Tenant-Id / X-Shop-Id / Bearer token / ApiError）； types/shop.ts 与后端响应严格对齐。CI 新增 frontend-shop job（format/lint/typecheck/build 4 步）。**后端 746 测试**，**前端 4 检查全过** |
 | ⬜ | M11-PR43 首页+类目页 | M11 | 1.5 | | | SSR + SEO meta |
 | ⬜ | M11-PR44 商品详情页 SEO | M11 | 1.5 | | | + JSON-LD + hreflang |
 | ⬜ | M11-PR45 购物车结账 | M11 | 1.5 | | | |
