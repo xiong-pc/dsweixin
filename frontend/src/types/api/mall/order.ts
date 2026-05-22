@@ -39,6 +39,17 @@ export interface OrderShipmentRow {
   delivered_at?: string | null;
 }
 
+export interface OrderHistoryRow {
+  id: number;
+  from_status: string | null;
+  to_status: string | null;
+  operator_type: string | null;
+  operator_id: number | null;
+  reason: string | null;
+  note: string | null;
+  created_at: string | null;
+}
+
 export interface OrderRow {
   id: number;
   order_no: string;
@@ -57,6 +68,7 @@ export interface OrderRow {
   shipping_address?: OrderShippingAddress | null;
   billing_address?: OrderShippingAddress | null;
   shipments?: OrderShipmentRow[];
+  histories?: OrderHistoryRow[];
 }
 
 export interface OrderListQuery {

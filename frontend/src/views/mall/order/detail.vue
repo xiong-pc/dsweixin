@@ -82,6 +82,9 @@
             <el-tag size="small" type="info">{{ ship.status }}</el-tag>
           </li>
         </ul>
+
+        <h3 class="section-title">操作历史</h3>
+        <OrderHistoryTimeline :histories="order.histories || []" />
       </div>
     </div>
 
@@ -157,6 +160,7 @@ import { getMallOrderDetail, shipMallOrder, refundMallOrder, cancelMallOrder } f
 import type { OrderRow, OrderStatus } from '@/types/api/mall/order';
 import StatusTimeline from './components/StatusTimeline.vue';
 import OrderItemsTable from './components/OrderItemsTable.vue';
+import OrderHistoryTimeline from './components/OrderHistoryTimeline.vue';
 
 /**
  * Mall 后台订单详情（M08-PR32）。

@@ -39,9 +39,47 @@ class OrderResource extends JsonResource
             'shipping_address' => $this->formatAddress(data_get($r, 'shippingAddress')),
             'billing_address' => $this->formatAddress(data_get($r, 'billingAddress')),
             'shipments' => $this->formatShipments(data_get($r, 'shipments')),
+            'histories' => $this->formatHistories(data_get($r, 'histories')),
             'created_at' => $this->formatDateTime(data_get($r, 'created_at')),
             'updated_at' => $this->formatDateTime(data_get($r, 'updated_at')),
         ];
+    }
+
+    /**
+     * 订单历史轨迹（M10-PR40）：仅当 controller 调用 ->load(['histories']) 时输出非空数组。
+     *
+     * @param  iterable<mixed>|null  $histories
+     * @return array<int, array<string, mixed>>
+     */
+    private function formatHistories(mixed $histories): array
+    {
+        if (! is_iterable($histories)) {
+            return [];
+        }
+
+        $result = [];
+        foreach ($histories as $h) {
+            $fromStatus = data_get($h, 'from_status');
+            $toStatus = data_get($h, 'to_status');
+            if ($fromStatus instanceof \BackedEnum) {
+                $fromStatus = (string) $fromStatus->value;
+            }
+            if ($toStatus instanceof \BackedEnum) {
+                $toStatus = (string) $toStatus->value;
+            }
+            $result[] = [
+                'id' => data_get($h, 'id'),
+                'from_status' => $fromStatus,
+                'to_status' => $toStatus,
+                'operator_type' => data_get($h, 'operator_type'),
+                'operator_id' => data_get($h, 'operator_id'),
+                'reason' => data_get($h, 'reason'),
+                'note' => data_get($h, 'note'),
+                'created_at' => $this->formatDateTime(data_get($h, 'created_at')),
+            ];
+        }
+
+        return $result;
     }
 
     private function formatStatus(mixed $status): ?string
