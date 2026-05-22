@@ -155,15 +155,21 @@
 
   // ===== 行为 =====
 
-  function onAddToCart(_productId: number) {
-    // PR45 接入：调用 cart store / POST /shop/cart/items
-  }
+  // SpecSelector v-model：当前选中的 variant_id
+  const selectedVariantId = ref<number | null>(null)
+  const selectedVariant = computed(() => {
+    const p = product.value
+    if (!p || !selectedVariantId.value) return null
+    return p.variants.find((v) => v.id === selectedVariantId.value) ?? null
+  })
 
-  // 价格格式化（PR47 替换为 Intl.NumberFormat 国际化）
+  // 价格优先取选中变体的，否则回退商品 base_price（PR47 替换为 Intl.NumberFormat 国际化）
   const formattedPrice = computed(() => {
     const p = product.value
     if (!p) return ''
-    const num = Number(p.base_price)
+    const variantPrice = selectedVariant.value?.price
+    const raw = variantPrice ?? p.base_price
+    const num = Number(raw)
     if (!Number.isFinite(num)) return ''
     return `${p.base_currency} ${num.toFixed(2)}`
   })
@@ -196,9 +202,16 @@
 
         <div class="text-3xl font-bold text-primary">{{ formattedPrice }}</div>
 
-        <ProductSpecSelector :product-id="product.id" />
+        <ProductSpecSelector
+          v-if="product.variants.length > 0"
+          v-model:selected-variant-id="selectedVariantId"
+          :variants="product.variants"
+        />
+        <p v-else class="text-sm text-gray-500">
+          {{ t('product.no_variants') }}
+        </p>
 
-        <ProductAddToCartButton :product-id="product.id" @add-to-cart="onAddToCart" />
+        <ProductAddToCartButton :variant-id="selectedVariantId" />
 
         <section v-if="product.description" class="prose mt-8 max-w-none">
           <h2 class="text-lg font-semibold text-gray-900">

@@ -31,9 +31,57 @@
   "product": {
     "add_to_cart": "장바구니에 담기",
     "description": "상품 설명",
-    "spec_selector_placeholder": "옵션 선택 곧 제공",
+    "no_variants": "구매 가능한 옵션이 없습니다",
     "not_found": "상품을 찾을 수 없습니다",
     "not_found_desc": "해당 상품이 삭제되었거나 링크가 만료되었을 수 있습니다.",
     "back_home": "홈으로 돌아가기"
+  },
+  "cart": {
+    "title": "장바구니",
+    "empty": "장바구니가 비어 있습니다.",
+    "go_shopping": "쇼핑하러 가기 →",
+    "remove": "삭제",
+    "subtotal": "소계",
+    "checkout": "결제하기"
+  },
+  "address": {
+    "country": "국가 코드",
+    "province": "도/주",
+    "city": "시",
+    "district": "구/군",
+    "street": "상세 주소",
+    "postal_code": "우편번호",
+    "contact_name": "받는 분",
+    "contact_phone": "연락처",
+    "contact_email": "이메일"
+  },
+  "payment": {
+    "title": "결제 수단",
+    "stripe": {
+      "label": "신용카드 / Stripe",
+      "desc": "Visa / Mastercard, Stripe 안전 결제"
+    },
+    "wechat": {
+      "label": "WeChat Pay",
+      "desc": "중국 본토 고객 전용"
+    }
+  },
+  "checkout": {
+    "address_title": "결제 — 배송지",
+    "address_subtitle": "배송비 계산을 위해 정확한 배송지를 입력해주세요.",
+    "shipping_address": "배송지",
+    "address_invalid": "국가, 상세 주소, 받는 분, 연락처를 모두 입력해주세요.",
+    "back_to_cart": "장바구니로",
+    "continue_to_payment": "결제 수단 선택",
+    "payment_title": "결제 — 결제 수단",
+    "payment_subtitle": "주소 확인 후 결제 수단을 선택하면 주문이 생성됩니다.",
+    "payment_required": "결제 수단을 먼저 선택해주세요.",
+    "back_to_address": "이전",
+    "place_order": "주문하기",
+    "total_note": "배송비/세금은 주문 생성 후 표시됩니다.",
+    "success_title": "주문 완료!",
+    "success_subtitle": "주문을 받았습니다. 곧 처리해드리겠습니다.",
+    "continue_shopping": "쇼핑 계속",
+    "view_orders": "내 주문 보기"
   }
 }

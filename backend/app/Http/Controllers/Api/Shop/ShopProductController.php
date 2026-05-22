@@ -66,7 +66,7 @@ class ShopProductController extends Controller
         $shop = $this->requireShop($request);
         $this->ensureVisible($product, $shop);
 
-        $product->load(['translations']);
+        $product->load(['translations', 'variants.specificationValues.translations']);
 
         return $this->success(new ShopProductResource($product));
     }
@@ -107,7 +107,8 @@ class ShopProductController extends Controller
             abort(404);
         }
 
-        $product = Product::with(['translations'])->find($translation->product_id);
+        $product = Product::with(['translations', 'variants.specificationValues.translations'])
+            ->find($translation->product_id);
         if ($product === null) {
             abort(404);
         }

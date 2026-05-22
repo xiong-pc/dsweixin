@@ -31,9 +31,57 @@
   "product": {
     "add_to_cart": "カートに追加",
     "description": "商品説明",
-    "spec_selector_placeholder": "バリアント選択は近日公開",
+    "no_variants": "この商品には購入可能な仕様がありません",
     "not_found": "商品が見つかりません",
     "not_found_desc": "お探しの商品は削除されたか、リンクが無効になっている可能性があります。",
     "back_home": "ホームへ戻る"
+  },
+  "cart": {
+    "title": "カート",
+    "empty": "カートは空です。",
+    "go_shopping": "ショッピングへ →",
+    "remove": "削除",
+    "subtotal": "小計",
+    "checkout": "ご購入手続き"
+  },
+  "address": {
+    "country": "国コード",
+    "province": "都道府県",
+    "city": "市区",
+    "district": "町村",
+    "street": "番地・住所",
+    "postal_code": "郵便番号",
+    "contact_name": "お届け先",
+    "contact_phone": "電話番号",
+    "contact_email": "メール"
+  },
+  "payment": {
+    "title": "お支払い方法",
+    "stripe": {
+      "label": "クレジットカード / Stripe",
+      "desc": "Visa / Mastercard、Stripe による安全決済"
+    },
+    "wechat": {
+      "label": "WeChat Pay",
+      "desc": "中国本土のお客様向け"
+    }
+  },
+  "checkout": {
+    "address_title": "ご購入手続き — お届け先",
+    "address_subtitle": "送料計算のため、完全なお届け先をご入力ください。",
+    "shipping_address": "お届け先",
+    "address_invalid": "国・住所・お届け先・電話を入力してください。",
+    "back_to_cart": "カートへ戻る",
+    "continue_to_payment": "次へ：お支払い方法",
+    "payment_title": "ご購入手続き — お支払い",
+    "payment_subtitle": "住所を確認し、お支払い方法を選択して注文を確定します。",
+    "payment_required": "お支払い方法を選択してください。",
+    "back_to_address": "戻る",
+    "place_order": "注文を確定",
+    "total_note": "送料・税金は注文作成後に表示されます。",
+    "success_title": "ご注文が完了しました！",
+    "success_subtitle": "ご注文を承りました。順次処理いたします。",
+    "continue_shopping": "ショッピングを続ける",
+    "view_orders": "注文履歴を見る"
   }
 }

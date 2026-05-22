@@ -20,6 +20,22 @@ export interface ShopProductTranslationLite {
   slug: string
 }
 
+export interface ShopProductVariantSpecValue {
+  id: number
+  specification_id: number
+  code: string
+  name: string
+}
+
+export interface ShopProductVariant {
+  id: number
+  sku: string
+  price: string | number
+  image: string | null
+  available: number
+  specification_values: ShopProductVariantSpecValue[]
+}
+
 export interface ShopProduct {
   id: number
   category_id: number | null
@@ -38,6 +54,7 @@ export interface ShopProduct {
     description: string
   }
   translations: ShopProductTranslationLite[]
+  variants: ShopProductVariant[]
 }
 
 /** 后端 paginate() 输出的 list / total / page / pageSize 包结构 */

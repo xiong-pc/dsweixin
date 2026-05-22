@@ -39,7 +39,63 @@ class ShopProductResource extends JsonResource
                 'description' => data_get($translation, 'seo_description', ''),
             ],
             'translations' => $this->formatTranslations(data_get($r, 'translations')),
+            'variants' => $this->formatVariants(data_get($r, 'variants'), $locale),
         ];
+    }
+
+    /**
+     * Variants 仅在已 eager load 时输出，list 端点不带（避免 N+1）。
+     *
+     * @param  iterable<mixed>|null  $variants
+     * @return array<int, array<string, mixed>>
+     */
+    private function formatVariants(mixed $variants, string $locale): array
+    {
+        if (! is_iterable($variants)) {
+            return [];
+        }
+
+        $result = [];
+        foreach ($variants as $v) {
+            $stock = (int) data_get($v, 'stock', 0);
+            $reserved = (int) data_get($v, 'reserved', 0);
+            $available = max(0, $stock - $reserved);
+
+            $result[] = [
+                'id' => data_get($v, 'id'),
+                'sku' => data_get($v, 'sku'),
+                'price' => data_get($v, 'price'),
+                'image' => data_get($v, 'image'),
+                'available' => $available,
+                'specification_values' => $this->formatSpecValues(data_get($v, 'specificationValues'), $locale),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param  iterable<mixed>|null  $specValues
+     * @return array<int, array<string, mixed>>
+     */
+    private function formatSpecValues(mixed $specValues, string $locale): array
+    {
+        if (! is_iterable($specValues)) {
+            return [];
+        }
+
+        $result = [];
+        foreach ($specValues as $sv) {
+            $tr = $this->resolveTranslation(data_get($sv, 'translations'), $locale);
+            $result[] = [
+                'id' => data_get($sv, 'id'),
+                'specification_id' => data_get($sv, 'specification_id'),
+                'code' => data_get($sv, 'code'),
+                'name' => data_get($tr, 'name', ''),
+            ];
+        }
+
+        return $result;
     }
 
     /**

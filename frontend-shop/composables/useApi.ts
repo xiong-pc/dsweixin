@@ -40,7 +40,9 @@ export function useApi<T = unknown>(
 ): Promise<T> {
   const config = useRuntimeConfig()
   const shop = useShop()
+  const session = useShopSession()
   const token = useState<string | null>('auth.token', () => null)
+  const i18n = useNuxtApp().$i18n as { locale: { value: string } } | undefined
 
   const headers: Record<string, string> = {
     Accept: 'application/json',
@@ -54,6 +56,16 @@ export function useApi<T = unknown>(
     headers[config.public.shopHeader as string] = shop.value.subdomain
   } else if (process.env.NUXT_PUBLIC_FALLBACK_SUBDOMAIN) {
     headers[config.public.shopHeader as string] = process.env.NUXT_PUBLIC_FALLBACK_SUBDOMAIN
+  }
+
+  // 游客身份（购物车 / 结账识别用），始终发送
+  if (session.value) {
+    headers['X-Session-Id'] = session.value
+  }
+
+  // 当前语言（驱动后端资源 locale 解析）
+  if (i18n?.locale?.value) {
+    headers['X-Locale'] = i18n.locale.value
   }
 
   if (!options.skipAuth && token.value) {

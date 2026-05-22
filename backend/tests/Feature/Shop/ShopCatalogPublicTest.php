@@ -6,6 +6,10 @@ use App\Models\Mall\Category;
 use App\Models\Mall\CategoryTranslation;
 use App\Models\Mall\Product;
 use App\Models\Mall\ProductTranslation;
+use App\Models\Mall\ProductVariant;
+use App\Models\Mall\Specification;
+use App\Models\Mall\SpecificationValue;
+use App\Models\Mall\SpecificationValueTranslation;
 use App\Models\Shop;
 use App\Models\Tenant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -392,6 +396,53 @@ class ShopCatalogPublicTest extends TestCase
         $this->withHeaders($this->shopHeaders())
             ->getJson('/api/v1/shop/products/by-slug/draft')
             ->assertStatus(404);
+    }
+
+    public function test_show_exposes_variants_with_locale_resolved_spec_values(): void
+    {
+        $product = $this->makeProduct([], [['locale' => 'zh-CN', 'name' => 'V', 'slug' => 'with-variants']]);
+
+        $spec = Specification::create([
+            'tenant_id' => $this->tenant->id,
+            'code' => 'color',
+        ]);
+        $svRed = SpecificationValue::create([
+            'specification_id' => $spec->id,
+            'code' => 'red',
+        ]);
+        SpecificationValueTranslation::create([
+            'specification_value_id' => $svRed->id,
+            'locale' => 'zh-CN',
+            'name' => '红色',
+        ]);
+        SpecificationValueTranslation::create([
+            'specification_value_id' => $svRed->id,
+            'locale' => 'en',
+            'name' => 'Red',
+        ]);
+
+        $variant = ProductVariant::create([
+            'product_id' => $product->id,
+            'sku' => 'SKU-RED-'.uniqid(),
+            'price' => 199,
+            'stock' => 10,
+            'reserved' => 2,
+        ]);
+        $variant->specificationValues()->attach($svRed->id);
+
+        $en = $this->withHeaders($this->shopHeaders(['X-Locale' => 'en']))
+            ->getJson('/api/v1/shop/products/'.$product->id);
+
+        $en->assertOk()
+            ->assertJsonPath('data.variants.0.id', $variant->id)
+            ->assertJsonPath('data.variants.0.sku', $variant->sku)
+            ->assertJsonPath('data.variants.0.available', 8) // stock 10 - reserved 2
+            ->assertJsonPath('data.variants.0.specification_values.0.name', 'Red');
+
+        $zh = $this->withHeaders($this->shopHeaders(['X-Locale' => 'zh-CN']))
+            ->getJson('/api/v1/shop/products/'.$product->id)
+            ->json('data.variants.0.specification_values.0.name');
+        $this->assertSame('红色', $zh);
     }
 
     public function test_show_by_slug_works_for_tenant_level_shared_product(): void

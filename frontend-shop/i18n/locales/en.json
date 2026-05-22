@@ -31,9 +31,57 @@
   "product": {
     "add_to_cart": "Add to cart",
     "description": "Description",
-    "spec_selector_placeholder": "Variant selector coming soon",
+    "no_variants": "No purchasable variants for this product",
     "not_found": "Product not found or unlisted",
     "not_found_desc": "The product you are looking for may have been removed or the link has expired.",
     "back_home": "Back to home"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty.",
+    "go_shopping": "Start shopping →",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout"
+  },
+  "address": {
+    "country": "Country code",
+    "province": "Province / State",
+    "city": "City",
+    "district": "District",
+    "street": "Street address",
+    "postal_code": "Postal code",
+    "contact_name": "Recipient",
+    "contact_phone": "Phone",
+    "contact_email": "Email"
+  },
+  "payment": {
+    "title": "Payment method",
+    "stripe": {
+      "label": "Credit card / Stripe",
+      "desc": "Visa / Mastercard / international, secured by Stripe"
+    },
+    "wechat": {
+      "label": "WeChat Pay",
+      "desc": "For customers in mainland China"
+    }
+  },
+  "checkout": {
+    "address_title": "Checkout — Shipping",
+    "address_subtitle": "Please provide a complete shipping address; we use it to calculate shipping fees.",
+    "shipping_address": "Shipping address",
+    "address_invalid": "Please complete shipping info (country, street, recipient, phone).",
+    "back_to_cart": "Back to cart",
+    "continue_to_payment": "Continue to payment",
+    "payment_title": "Checkout — Payment",
+    "payment_subtitle": "Confirm your address and pick a payment method to place the order.",
+    "payment_required": "Please choose a payment method first.",
+    "back_to_address": "Back",
+    "place_order": "Place order",
+    "total_note": "Shipping / taxes will be calculated after the order is created.",
+    "success_title": "Order placed!",
+    "success_subtitle": "We have received your order and will process it shortly.",
+    "continue_shopping": "Continue shopping",
+    "view_orders": "View my orders"
   }
 }
