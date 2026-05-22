@@ -8,8 +8,17 @@ import withNuxt from './.nuxt/eslint.config.mjs'
  */
 export default withNuxt({
   rules: {
-    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      },
+    ],
     'vue/multi-word-component-names': 'off',
     'vue/no-multiple-template-root': 'off',
+    // Prettier 在 HTML 内会强制保留 `<input />` 自闭合；与 vue/html-self-closing 默认值冲突，关闭噪音
+    'vue/html-self-closing': 'off',
   },
 })

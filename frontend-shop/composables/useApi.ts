@@ -41,7 +41,7 @@ export function useApi<T = unknown>(
   const config = useRuntimeConfig()
   const shop = useShop()
   const session = useShopSession()
-  const token = useState<string | null>('auth.token', () => null)
+  const token = useAuthToken()
   const i18n = useNuxtApp().$i18n as { locale: { value: string } } | undefined
 
   const headers: Record<string, string> = {

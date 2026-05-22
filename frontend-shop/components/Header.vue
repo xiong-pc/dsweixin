@@ -1,10 +1,23 @@
 <script setup lang="ts">
+  import { useAuthStore } from '~/stores/auth'
+
   /**
-   * 全站头部（M11-PR43）：店铺名 + 主导航 + 简易语言切换占位。
-   * 真正的语言/币种切换器在 PR47 实现。
+   * 全站头部（M11-PR43 + PR46 加登录态）。
+   *
+   * - 店铺名 + 主导航
+   * - 已登录展示用户名 + 我的中心入口；未登录展示登录 / 注册链接
+   * - 语言/币种切换器在 PR47 实现
    */
   const shop = useShop()
+  const auth = useAuthStore()
   const localePath = useLocalePath()
+
+  // 首次挂载时尝试拉取个人资料（仅当 cookie 里已有 token 时）
+  onMounted(() => {
+    if (auth.token && !auth.profile) {
+      auth.fetchMe()
+    }
+  })
 </script>
 
 <template>
@@ -19,9 +32,17 @@
         <NuxtLink :to="localePath('/cart')" class="hover:text-primary">
           {{ $t('nav.cart') }}
         </NuxtLink>
-        <NuxtLink :to="localePath('/account')" class="hover:text-primary">
-          {{ $t('nav.account') }}
+        <NuxtLink v-if="auth.isLoggedIn" :to="localePath('/account')" class="hover:text-primary">
+          {{ auth.profile?.name || auth.profile?.email || $t('nav.account') }}
         </NuxtLink>
+        <template v-else>
+          <NuxtLink :to="localePath('/login')" class="hover:text-primary">
+            {{ $t('nav.login') }}
+          </NuxtLink>
+          <NuxtLink :to="localePath('/register')" class="hover:text-primary">
+            {{ $t('nav.register') }}
+          </NuxtLink>
+        </template>
       </nav>
     </div>
   </header>
