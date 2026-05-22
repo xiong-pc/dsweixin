@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 30 | 0 | 0 | 63.8 % |
+| 47 | 31 | 0 | 0 | 66.0 % |
 
 ### 进度明细
 
@@ -642,7 +642,7 @@ composer require dedoc/scramble
 | ⬜ | M08-PR32 后台订单 UI | M08 | 1.5 | | | |
 | ✅ | M08-PR33 发货退款取消 | M08 | 1.5 | 2026-05-19 | `0b336f7` | Mall\\OrderController（admin 后台，与 Shop\\OrderController 客户前台分离）+ ship/refund/cancel 三个动作端点复用 OrderShipmentService / RefundService / OrderService；cancelOrder 接受 \$context 透传 reason/operator 到 OrderHistory。**25 测试**（Ship 7 + Refund 8 + Cancel 10）覆盖状态机/库存/审计/tenant 隔离 |
 | ✅ | M09-PR34 customers | M09 | 1.0 | 2026-05-19 | `f2f858e` | 4 表（customers / customer_addresses / customer_groups / customer_group_translations）+ Customer 实现 AuthenticatableContract+OAuthenticatable（password 自动 hashed）+ CustomerGroup 多语言；Mall CRUD（customers 仅 list/show/update/destroy，不开放 store，email/phone/password 静默忽略）。**26 测试**（Customer 15 + CustomerGroup 11）+ 2 个 lang key |
-| ⬜ | M09-PR35 customer 注册登录 | M09 | 1.0 | | | passport-customer guard |
+| ✅ | M09-PR35 customer 注册登录 | M09 | 1.0 | 2026-05-22 | `7ee6a1f` | passport-customer guard + customers provider 隔离；VerificationCodeService（P0 日志 stub，10 分钟 TTL，租户隔离）+ Shop\AuthService（register / loginByPassword / loginByCode 首次自动建号 / issueToken / logout 真撤销 revoked=1）+ AuthController 6 端点（send-code / register / login / login-by-code 公开 throttle:5,1，me / logout 需 customer token）+ TenantMiddleware narrow 兼容 customer guard。**32 测试**（Email 13 + Phone 14 + RateLimit 5），9 个 lang key |
 | ⬜ | M09-PR36 customer 我的中心 API | M09 | 1.0 | | | |
 | ⬜ | M10-PR37 mall 菜单权限 | M10 | 1.0 | | | + Seeder |
 | ⬜ | M10-PR38 商品 UI 整合 | M10 | 1.0 | | | |
