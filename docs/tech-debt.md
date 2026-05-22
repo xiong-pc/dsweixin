@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 43 | 0 | 0 | 91.5 % |
+| 47 | 44 | 0 | 0 | 93.6 % |
 
 ### 进度明细
 
@@ -648,7 +648,7 @@ composer require dedoc/scramble
 | ✅ | M10-PR38 商品 UI 整合 | M10 | 1.0 | 2026-05-22 | `5c2d2e0` | types/api/mall/product.ts + api/mall/product.ts（list/show/quickCreate/update/destroy + categories/brands picker）。views/mall/product/index.vue 列表（关键词 + 类目/品牌/状态筛选 + 状态 el-switch 直接 PUT update + 删除二次确认 + el-image 缩略图 + v-hasPerm 按钮权限） + edit.vue 创建/编辑共用表单（基本信息 / 多语言行内编辑 / 创建态 首 SKU 调 quickCreate / 编辑态 PUT update）。router 注册隐藏静态路由 `/mall/product/create` + `/mall/product/:id`。后端未动。**前端 4 检查全过** |
 | ✅ | M10-PR39 类目/品牌/规格/属性 UI | M10 | 1.0 | 2026-05-22 | `b089693` | types + api 完整套 4 资源（category / brand / specification / attribute 含嵌套 values）。**4 页**：category 树形 el-table（parent_id 重构）+ 表单含父类目下拉 / brand 列表 + 关键词状态筛选 + el-image Logo / specification 主从面板（左组右值 + 2 个 dialog） / attribute 与 specification 完全对称。全部 v-hasPerm。后端未动（复用 M03/M04 端点）。**前端 4 检查全过** |
 | ✅ | M10-PR40 订单 UI 整合 | M10 | 1.0 | 2026-05-22 | `001df95` | OrderResource 新增 histories[]（formatHistories 处理 BackedEnum + 时间戳）。types/api/mall/order.ts 扩展 OrderHistoryRow + OrderRow.histories。新组件 OrderHistoryTimeline（el-timeline 渲染每次状态变更：from→to + operator + reason + note）与 PR32 StatusTimeline（5 节点宏观链）互补。detail.vue 追加“操作历史”区块。Mall\OrderController::show 已 eager-load histories。**后端 770 测试**，**前端 4 检查全过** |
-| ⬜ | M10-PR41 客户 UI 整合 | M10 | 1.0 | | | |
+| ✅ | M10-PR41 客户 UI 整合 | M10 | 1.0 | 2026-05-23 | `004a54d` | types + api: customer + customer-group。**2 页面**：views/mall/customer/index.vue 列表（关键词 / 分组 / 状态筛选 + el-avatar + 状态 switch 直接 PUT update + 编辑 dialog（admin 仅改 name/group/locale/currency/status）） / views/mall/customer/group/index.vue（CRUD + 翻译多语言 + 折扣率 + 客户数显示）。全部 v-hasPerm。后端未动（复用 M09-PR34 端点）。**前端 4 检查全过**。**M10 模块 100% 收官** |
 | ✅ | M11-PR42 Nuxt 工程脚手架 | M11 | 1.0 | 2026-05-22 | `7de0acf` | 后端 ShopConfigController + GET `/api/v1/shop/config`（shop 中间件解析 host 子域 / X-Shop-Subdomain header）+ 6 测试。前端 `frontend-shop/`：Nuxt 3 SSR + i18n（zh-CN/en/ja/ko）+ tailwind + pinia + vueuse + @nuxt/eslint；middleware/tenant.global.ts（SSR/CSR 双端 host 子域推断 + 兑底环境变量 + fetch /shop/config）；composables/useApi.ts 统一 ApiClient（baseURL / X-Tenant-Id / X-Shop-Id / Bearer token / ApiError）； types/shop.ts 与后端响应严格对齐。CI 新增 frontend-shop job（format/lint/typecheck/build 4 步）。**后端 746 测试**，**前端 4 检查全过** |
 | ✅ | M11-PR43 首页+类目页 | M11 | 1.5 | 2026-05-22 | `bc9ca36` | 后端 ShopCategoryController + ShopProductController（list/show）公开端点，tenant + shop + status=1 三重隔离。资源按 X-Locale header 命中翻译，未命中回退首条；pageSize 上限 60；越 shop 越租户 404。**16 测试**。前端 Header/Footer/CategoryNav/ProductCard 4 组件 + layouts/default.vue（useAsyncData 全站复用类目） + pages/index.vue（Hero + 最新 12 件网格 + useHead title/description/og） + pages/category/[id].vue（落地页 + prev/next 分页 + setResponseStatus(404)）。**后端 762 测试**，**前端 4 检查全过** |
 | ✅ | M11-PR44 商品详情页 SEO | M11 | 1.5 | 2026-05-22 | `202a786` | 后端 ShopProductController::showBySlug + GET `/shop/products/by-slug/{slug}`（locale 优先命中 / 回退任意 locale / 跨租户与下架 404）**+7 测试**。前端 pages/product/[slug].vue SSR 完整 SEO 套件：Open Graph (og:type=product) + Twitter Card + canonical + hreflang 多语言（包含 x-default） + JSON-LD schema.org Product+Offer，404 时 setResponseStatus 不被收录。**3 组件**：ImageGallery（主图 eager + LCP 优化）/ SpecSelector、AddToCartButton 占位（PR45 接入）。**后端 769 测试**，**前端 4 检查全过** |
