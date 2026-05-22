@@ -26,3 +26,7 @@ export function useProductList(query: ProductListQuery = {}) {
 export function useProduct(id: number | string) {
   return useApi<ShopProduct>(`products/${id}`)
 }
+
+export function useProductBySlug(slug: string) {
+  return useApi<ShopProduct>(`products/by-slug/${encodeURIComponent(slug)}`)
+}

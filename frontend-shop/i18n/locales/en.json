@@ -27,5 +27,13 @@
   "pagination": {
     "prev": "Previous",
     "next": "Next"
+  },
+  "product": {
+    "add_to_cart": "Add to cart",
+    "description": "Description",
+    "spec_selector_placeholder": "Variant selector coming soon",
+    "not_found": "Product not found or unlisted",
+    "not_found_desc": "The product you are looking for may have been removed or the link has expired.",
+    "back_home": "Back to home"
   }
 }

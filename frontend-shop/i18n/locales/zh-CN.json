@@ -27,5 +27,13 @@
   "pagination": {
     "prev": "上一页",
     "next": "下一页"
+  },
+  "product": {
+    "add_to_cart": "加入购物车",
+    "description": "商品描述",
+    "spec_selector_placeholder": "规格选择即将上线",
+    "not_found": "商品不存在或已下架",
+    "not_found_desc": "您查找的商品可能已被卖家下架，或链接已失效。",
+    "back_home": "返回首页"
   }
 }

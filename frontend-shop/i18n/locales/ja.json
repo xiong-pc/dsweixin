@@ -27,5 +27,13 @@
   "pagination": {
     "prev": "前へ",
     "next": "次へ"
+  },
+  "product": {
+    "add_to_cart": "カートに追加",
+    "description": "商品説明",
+    "spec_selector_placeholder": "バリアント選択は近日公開",
+    "not_found": "商品が見つかりません",
+    "not_found_desc": "お探しの商品は削除されたか、リンクが無効になっている可能性があります。",
+    "back_home": "ホームへ戻る"
   }
 }

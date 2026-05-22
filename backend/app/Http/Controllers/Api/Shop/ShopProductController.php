@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Shop;
 use App\Http\Controllers\Api\Controller;
 use App\Http\Resources\Api\Shop\ShopProductResource;
 use App\Models\Mall\Product;
+use App\Models\Mall\ProductTranslation;
 use App\Models\Shop;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -63,7 +64,61 @@ class ShopProductController extends Controller
     public function show(Request $request, Product $product): JsonResponse
     {
         $shop = $this->requireShop($request);
+        $this->ensureVisible($product, $shop);
 
+        $product->load(['translations']);
+
+        return $this->success(new ShopProductResource($product));
+    }
+
+    /**
+     * 按 slug 查找商品（M11-PR44 SEO 详情页）。
+     *
+     * 解析顺序：
+     *   1. 当前 X-Locale + 该 slug 命中的翻译
+     *   2. 该 slug 命中任意 locale 的翻译（多语言别名共用同一商品时不丢访问）
+     *
+     * 命中后复用 ensureVisible 做 tenant + shop + status=1 三重校验。
+     */
+    public function showBySlug(Request $request, string $slug): JsonResponse
+    {
+        $shop = $this->requireShop($request);
+        $locale = (string) ($request->header('X-Locale') ?? '');
+
+        $translationQuery = ProductTranslation::query()
+            ->where('slug', $slug)
+            ->whereHas('product', function ($q) use ($shop) {
+                $q->where('tenant_id', $shop->tenant_id)
+                    ->where('status', 1)
+                    ->where(function ($qq) use ($shop) {
+                        $qq->where('shop_id', $shop->id)->orWhereNull('shop_id');
+                    });
+            });
+
+        $translation = null;
+        if ($locale !== '') {
+            $translation = (clone $translationQuery)->where('locale', $locale)->first();
+        }
+        if ($translation === null) {
+            $translation = $translationQuery->first();
+        }
+
+        if ($translation === null) {
+            abort(404);
+        }
+
+        $product = Product::with(['translations'])->find($translation->product_id);
+        if ($product === null) {
+            abort(404);
+        }
+        // 双重保险：translation 关联可能因软删除等异常发生不一致
+        $this->ensureVisible($product, $shop);
+
+        return $this->success(new ShopProductResource($product));
+    }
+
+    private function ensureVisible(Product $product, Shop $shop): void
+    {
         if ((int) $product->tenant_id !== (int) $shop->tenant_id) {
             abort(404);
         }
@@ -74,10 +129,6 @@ class ShopProductController extends Controller
         if ($product->shop_id !== null && (int) $product->shop_id !== (int) $shop->id) {
             abort(404);
         }
-
-        $product->load(['translations']);
-
-        return $this->success(new ShopProductResource($product));
     }
 
     private function requireShop(Request $request): Shop

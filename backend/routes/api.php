@@ -56,6 +56,9 @@ Route::prefix('v1')->group(function () {
             Route::get('config', [ShopConfigController::class, 'show']);
             Route::get('categories', [ShopCategoryController::class, 'index']);
             Route::get('products', [ShopProductController::class, 'index']);
+            // 按 slug 查商品（M11-PR44 SEO 详情页），必须放在 numeric show 之前
+            Route::get('products/by-slug/{slug}', [ShopProductController::class, 'showBySlug'])
+                ->where('slug', '[A-Za-z0-9_\-]+');
             Route::get('products/{product}', [ShopProductController::class, 'show']);
         });
 

@@ -314,6 +314,99 @@ class ShopCatalogPublicTest extends TestCase
         $this->getJson('/api/v1/shop/categories')->assertStatus(400);
     }
 
+    // === Show by slug (M11-PR44) ===
+
+    public function test_show_by_slug_returns_product(): void
+    {
+        $p = $this->makeProduct([], [
+            ['locale' => 'zh-CN', 'name' => '红帽子', 'slug' => 'red-hat'],
+        ]);
+
+        $response = $this->withHeaders($this->shopHeaders())
+            ->getJson('/api/v1/shop/products/by-slug/red-hat');
+
+        $response->assertOk()
+            ->assertJsonPath('data.id', $p->id)
+            ->assertJsonPath('data.slug', 'red-hat');
+    }
+
+    public function test_show_by_slug_prefers_current_locale(): void
+    {
+        $p = $this->makeProduct([], [
+            ['locale' => 'zh-CN', 'name' => '帽子', 'slug' => 'hat'],
+            ['locale' => 'en', 'name' => 'Hat', 'slug' => 'hat'],
+        ]);
+
+        $en = $this->withHeaders($this->shopHeaders(['X-Locale' => 'en']))
+            ->getJson('/api/v1/shop/products/by-slug/hat');
+
+        $en->assertOk()
+            ->assertJsonPath('data.id', $p->id)
+            ->assertJsonPath('data.name', 'Hat');
+    }
+
+    public function test_show_by_slug_falls_back_when_locale_misses(): void
+    {
+        $p = $this->makeProduct([], [
+            ['locale' => 'zh-CN', 'name' => '中文标题', 'slug' => 'zh-only'],
+        ]);
+
+        $response = $this->withHeaders($this->shopHeaders(['X-Locale' => 'fr']))
+            ->getJson('/api/v1/shop/products/by-slug/zh-only');
+
+        $response->assertOk()->assertJsonPath('data.id', $p->id);
+    }
+
+    public function test_show_by_slug_404_when_unknown_slug(): void
+    {
+        $this->makeProduct([], [['locale' => 'zh-CN', 'name' => 'x', 'slug' => 'real']]);
+
+        $this->withHeaders($this->shopHeaders())
+            ->getJson('/api/v1/shop/products/by-slug/ghost')
+            ->assertStatus(404);
+    }
+
+    public function test_show_by_slug_404_for_other_tenant_product(): void
+    {
+        $other = Tenant::create(['name' => 'O', 'code' => 'O_'.uniqid(), 'status' => 1]);
+        $foreign = Product::create([
+            'tenant_id' => $other->id,
+            'sku_prefix' => 'F', 'base_price' => 1, 'base_currency' => 'CNY', 'status' => 1,
+        ]);
+        ProductTranslation::create([
+            'product_id' => $foreign->id,
+            'locale' => 'zh-CN',
+            'name' => 'foreign',
+            'slug' => 'foreign-slug',
+        ]);
+
+        $this->withHeaders($this->shopHeaders())
+            ->getJson('/api/v1/shop/products/by-slug/foreign-slug')
+            ->assertStatus(404);
+    }
+
+    public function test_show_by_slug_404_when_status_inactive(): void
+    {
+        $this->makeProduct(['status' => 0], [['locale' => 'zh-CN', 'name' => '草稿', 'slug' => 'draft']]);
+
+        $this->withHeaders($this->shopHeaders())
+            ->getJson('/api/v1/shop/products/by-slug/draft')
+            ->assertStatus(404);
+    }
+
+    public function test_show_by_slug_works_for_tenant_level_shared_product(): void
+    {
+        $shared = $this->makeProduct(
+            ['shop_id' => null],
+            [['locale' => 'zh-CN', 'name' => '共享', 'slug' => 'shared']],
+        );
+
+        $this->withHeaders($this->shopHeaders())
+            ->getJson('/api/v1/shop/products/by-slug/shared')
+            ->assertOk()
+            ->assertJsonPath('data.id', $shared->id);
+    }
+
     public function test_pagesize_is_capped_at_60(): void
     {
         for ($i = 0; $i < 80; $i++) {
