@@ -1,9 +1,31 @@
 {
   "common": {
     "loading": "加载中...",
-    "error": "出错了"
+    "error": "出错了",
+    "no_image": "暂无图片"
+  },
+  "nav": {
+    "home": "首页",
+    "cart": "购物车",
+    "account": "我的"
+  },
+  "footer": {
+    "rights": "保留所有权利。"
   },
   "home": {
-    "title": "首页"
+    "title": "首页",
+    "subtitle": "精选好物，全球直达。",
+    "latest": "最新商品",
+    "total": "共 {count} 件商品",
+    "empty": "暂无商品上架"
+  },
+  "category": {
+    "unknown": "类目不存在或已下线",
+    "fallback_desc": "浏览本类目下的精选商品",
+    "empty": "该类目下暂无商品"
+  },
+  "pagination": {
+    "prev": "上一页",
+    "next": "下一页"
   }
 }

@@ -1,9 +1,31 @@
 {
   "common": {
     "loading": "Loading...",
-    "error": "Something went wrong"
+    "error": "Something went wrong",
+    "no_image": "No image"
+  },
+  "nav": {
+    "home": "Home",
+    "cart": "Cart",
+    "account": "Account"
+  },
+  "footer": {
+    "rights": "All rights reserved."
   },
   "home": {
-    "title": "Home"
+    "title": "Home",
+    "subtitle": "Curated products. Worldwide delivery.",
+    "latest": "Latest products",
+    "total": "{count} products in total",
+    "empty": "No products available yet"
+  },
+  "category": {
+    "unknown": "Category not found or unlisted",
+    "fallback_desc": "Browse curated products in this category",
+    "empty": "No products in this category yet"
+  },
+  "pagination": {
+    "prev": "Previous",
+    "next": "Next"
   }
 }

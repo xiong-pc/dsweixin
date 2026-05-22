@@ -1,9 +1,31 @@
 {
   "common": {
     "loading": "読み込み中...",
-    "error": "エラーが発生しました"
+    "error": "エラーが発生しました",
+    "no_image": "画像なし"
+  },
+  "nav": {
+    "home": "ホーム",
+    "cart": "カート",
+    "account": "アカウント"
+  },
+  "footer": {
+    "rights": "全著作権所有。"
   },
   "home": {
-    "title": "ホーム"
+    "title": "ホーム",
+    "subtitle": "厳選商品を世界へお届け。",
+    "latest": "新着商品",
+    "total": "全 {count} 件",
+    "empty": "現在商品はありません"
+  },
+  "category": {
+    "unknown": "カテゴリが見つかりません",
+    "fallback_desc": "このカテゴリのおすすめ商品",
+    "empty": "このカテゴリの商品はまだありません"
+  },
+  "pagination": {
+    "prev": "前へ",
+    "next": "次へ"
   }
 }
