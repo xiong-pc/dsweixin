@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 37 | 0 | 0 | 78.7 % |
+| 47 | 38 | 0 | 0 | 80.9 % |
 
 ### 进度明细
 
@@ -653,7 +653,7 @@ composer require dedoc/scramble
 | ✅ | M11-PR43 首页+类目页 | M11 | 1.5 | 2026-05-22 | `bc9ca36` | 后端 ShopCategoryController + ShopProductController（list/show）公开端点，tenant + shop + status=1 三重隔离。资源按 X-Locale header 命中翻译，未命中回退首条；pageSize 上限 60；越 shop 越租户 404。**16 测试**。前端 Header/Footer/CategoryNav/ProductCard 4 组件 + layouts/default.vue（useAsyncData 全站复用类目） + pages/index.vue（Hero + 最新 12 件网格 + useHead title/description/og） + pages/category/[id].vue（落地页 + prev/next 分页 + setResponseStatus(404)）。**后端 762 测试**，**前端 4 检查全过** |
 | ✅ | M11-PR44 商品详情页 SEO | M11 | 1.5 | 2026-05-22 | `202a786` | 后端 ShopProductController::showBySlug + GET `/shop/products/by-slug/{slug}`（locale 优先命中 / 回退任意 locale / 跨租户与下架 404）**+7 测试**。前端 pages/product/[slug].vue SSR 完整 SEO 套件：Open Graph (og:type=product) + Twitter Card + canonical + hreflang 多语言（包含 x-default） + JSON-LD schema.org Product+Offer，404 时 setResponseStatus 不被收录。**3 组件**：ImageGallery（主图 eager + LCP 优化）/ SpecSelector、AddToCartButton 占位（PR45 接入）。**后端 769 测试**，**前端 4 检查全过** |
 | ✅ | M11-PR45 购物车结账 | M11 | 1.5 | 2026-05-22 | `18286e3` | 后端 ShopProductResource 扩展变体 variants[]（sku/price/available + specification_values 按 X-Locale 命中），**+1 测试**。前端 Pinia cart store（fetch/add/update/remove/clear/preview/placeOrder + computed subtotal） + useShopSession（UUID cookie 游客身份） + useApi 自动注入 X-Session-Id / X-Locale。SpecSelector 按 specification_id 分组 chips（缺货变体 disabled + line-through，单变体自动选中） + AddToCartButton 调用 cart store。**5 页面**：cart 列表加减删 / checkout/index 地址 / checkout/payment 支付 + place-order / checkout/success noindex 展示订单号 / + 2 组件 AddressForm + PaymentSelector。**后端 770 测试**，**前端 4 检查全过** |
-| ⬜ | M11-PR46 我的中心 | M11 | 1.0 | | | |
+| ✅ | M11-PR46 我的中心 | M11 | 1.0 | 2026-05-22 | `1363419` | types/auth.ts + useAuthToken（cookie 30 天）+ useApi 自动注入 Authorization；Pinia auth store（login / register / sendCode / loginByCode / fetchMe / logout + isLoggedIn）；middleware/auth.ts 未登录 / token 过期 跳 /login?redirect 以便回跳。**6 页面**：login 双 mode（密码 / 验证码） + register / account/index profile 概览 + 3 入口 / account/orders 分页列表 + 详情（复用 /me/orders） / account/addresses 生命调 CRUD + 设默认（复用 CheckoutAddressForm）。Header 加登录态 + 退出。后端未动代码（复用 PR35/PR36 端点）。**前端 4 检查全过** |
 | ⬜ | M11-PR47 多语言/币种切换 | M11 | 0.5 | | | |
 | **总计** | | | **47** | | | |
 
