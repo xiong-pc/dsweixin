@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 39 | 0 | 0 | 83.0 % |
+| 47 | 40 | 0 | 0 | 85.1 % |
 
 ### 进度明细
 
@@ -639,7 +639,7 @@ composer require dedoc/scramble
 | ✅ | M07-PR29 运费计算 | M07 | 1.0 | 2026-05-19 | `44e8aa2` | ShippingService::quote(Cart, country) → 候选 method 列表（fee/is_free/weight_g/rate_id）+ calculate(method_id) 单查；一国可属多 zone 取并集；重量单位 g/kg/oz/lb 自动转化；weight_max=0 无上限；free_threshold 命中费零（复用 PriceCalculator 算 subtotal）；禁用 method / 跨租户 / cart 空 / zone 未覆盖 → 排除。**ShippingCalculateTest 18 case** |
 | ✅ | M07-PR30 order_shipments | M07 | 1.0 | 2026-05-19 | `1156f4c` | order_shipments 表 + OrderShipmentStatus enum（shipped/delivered/cancelled）+ OrderShipmentService::ship 推进 Paid→Shipped + markDelivered 全部签收转 Delivered + cancel 撤销；拆单可多 shipment；Shop OrderResource 暴露 shipments[] 供客户查询。**OrderShipmentTest 13 case**，4 个 lang key。**M07 模块 100% 收官** |
 | ✅ | M08-PR31 订单状态机 | M08 | 1.0 | 2026-05-19 | `c7b0caa` | order_histories 表 + OrderStateMachine（canTransition / assertCanTransition / nextStates）+ OrderObserver 自动写 history（静态 spl_object_id context 表透传 reason/operator）+ OrderService::transitionStatus 接受 \$context。**21 测试**（OrderStateMachineTest 12 unit + OrderHistoryAutoLogTest 9 feature） |
-| ⬜ | M08-PR32 后台订单 UI | M08 | 1.5 | | | |
+| ✅ | M08-PR32 后台订单 UI | M08 | 1.5 | 2026-05-22 | `54d8a74` | types/api/mall/order.ts + api/mall/order.ts（list/show/ship/refund/cancel）。views/mall/order/index.vue 列表（关键词 + 状态筛选 + 分页 + el-tag 着色） + detail.vue 详情（左商品+地址 / 右状态时间线+操作面板 + 3 个 dialog、v-hasPerm 按钮权限）。**2 组件**：StatusTimeline（pending→paid→shipped→delivered 五节点链 + 终态 cancelled/refunded） + OrderItemsTable。router 注册隐藏静态路由 `/mall/order/:id`。后端未动 PR31/PR33 端点。**前端 4 检查全过**。**M08 模块 100% 收官** |
 | ✅ | M08-PR33 发货退款取消 | M08 | 1.5 | 2026-05-19 | `0b336f7` | Mall\\OrderController（admin 后台，与 Shop\\OrderController 客户前台分离）+ ship/refund/cancel 三个动作端点复用 OrderShipmentService / RefundService / OrderService；cancelOrder 接受 \$context 透传 reason/operator 到 OrderHistory。**25 测试**（Ship 7 + Refund 8 + Cancel 10）覆盖状态机/库存/审计/tenant 隔离 |
 | ✅ | M09-PR34 customers | M09 | 1.0 | 2026-05-19 | `f2f858e` | 4 表（customers / customer_addresses / customer_groups / customer_group_translations）+ Customer 实现 AuthenticatableContract+OAuthenticatable（password 自动 hashed）+ CustomerGroup 多语言；Mall CRUD（customers 仅 list/show/update/destroy，不开放 store，email/phone/password 静默忽略）。**26 测试**（Customer 15 + CustomerGroup 11）+ 2 个 lang key |
 | ✅ | M09-PR35 customer 注册登录 | M09 | 1.0 | 2026-05-22 | `7ee6a1f` | passport-customer guard + customers provider 隔离；VerificationCodeService（P0 日志 stub，10 分钟 TTL，租户隔离）+ Shop\AuthService（register / loginByPassword / loginByCode 首次自动建号 / issueToken / logout 真撤销 revoked=1）+ AuthController 6 端点（send-code / register / login / login-by-code 公开 throttle:5,1，me / logout 需 customer token）+ TenantMiddleware narrow 兼容 customer guard。**32 测试**（Email 13 + Phone 14 + RateLimit 5），9 个 lang key |
