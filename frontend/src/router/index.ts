@@ -38,6 +38,33 @@ export const constantRoutes: RouteRecordRaw[] = [
       },
     ],
   },
+  // Mall 商品创建 / 编辑（M10-PR38）：同样作为隐藏静态路由
+  {
+    path: '/mall/product/create',
+    component: () => import('@/layout/index.vue'),
+    meta: { hidden: true },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/mall/product/edit.vue'),
+        name: 'MallProductCreate',
+        meta: { title: '新增商品', hidden: true },
+      },
+    ],
+  },
+  {
+    path: '/mall/product/:id',
+    component: () => import('@/layout/index.vue'),
+    meta: { hidden: true },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/mall/product/edit.vue'),
+        name: 'MallProductEdit',
+        meta: { title: '编辑商品', hidden: true },
+      },
+    ],
+  },
   // 通配 404 须在动态路由注入之后注册，见 permissionStore.generateRoutes（否则刷新 /system/... 会先命中通配）
 ];
 
