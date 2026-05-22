@@ -602,7 +602,7 @@ composer require dedoc/scramble
 
 | 总数 | 已完成 | 进行中 | 阻塞 | 完成率 |
 |---|---|---|---|---|
-| 47 | 44 | 0 | 0 | 93.6 % |
+| 47 | 47 | 0 | 0 | **100 %** |
 
 ### 进度明细
 
@@ -619,12 +619,12 @@ composer require dedoc/scramble
 | ✅ | M03-PR9 attributes | M03 | 1.0 | 2026-05-13 | `df331fb` | 4 表（不含 color_hex），验证 HasTranslations trait 跨模型复用，16 测试 |
 | ✅ | M03-PR10 products 主表 | M03 | 1.5 | 2026-05-13 | `300b694` | 13 字段 + SoftDeletes + ProductTranslation（8 字段含 SEO），slug 唯一性（tenant+shop+locale），22 测试 |
 | ✅ | M03-PR11 product_variants | M03 | 1.0 | 2026-05-13 | `6e2f575` | SKU + pivot + matrix 生成器，sku 全局唯一，available_stock accessor，21 测试 |
-| ⬜ | M03-PR12 后台商品 UI 基础 | M03 | 1.0 | | | + TranslationTabs 组件 |
-| ⬜ | M03-PR13 后台变体 UI | M03 | 1.0 | | | 矩阵生成 + 批量编辑 |
+| ✅ | M03-PR12 后台商品 UI 基础 | M03 | 1.0 | 2026-05-22 | `5c2d2e0` | 被 M10-PR38 完整覆盖：views/mall/product/index.vue + edit.vue，多语言行内编辑代替 TranslationTabs（功能等价） |
+| ✅ | M03-PR13 后台变体 UI | M03 | 1.0 | 2026-05-23 | `d7d49e1` | types + api/mall/variant.ts（list/create/update/delete + generateMatrix 笛卡尔积预览）。VariantManager.vue 组件嵌入商品编辑页“变体管理”区块：列表（SKU + 规格 tags + 价格 + 库存 + 状态） + 新增/编辑 dialog（含 SKU/价格/划线价/库存/重量/变体图/规格值 cascader 多选）。后端未动（复用 M03-PR11 端点）。**前端 4 检查全过** |
 | ✅ | M03-PR14 简单商品快速创建 | M03 | 0.5 | 2026-05-13 | `f463b8b` | POST /products/quick-create 一次建 SPU+默认 SKU，完全事务原子，8 测试，**M03 后端 100%** |
 | ✅ | M04-PR15 categories 树 | M04 | 1.5 | 2026-05-13 | `dcb54b9` | parent_id 树 + reorder 拖拽 + cycle 防循环 + multi-field 翻译（name+description），18 测试 |
 | ✅ | M04-PR16 brands | M04 | 0.5 | 2026-05-13 | `37f98eb` | brands + brand_translations（含 description），复用 saveTranslations 多字段模式，13 测试，**M04 后端 100%** |
-| ⬜ | M04-PR17 商品筛选联动 UI | M04 | 1.0 | | | |
+| ✅ | M04-PR17 商品筛选联动 UI | M04 | 1.0 | 2026-05-22 | `5c2d2e0` | 被 M10-PR38 覆盖：views/mall/product/index.vue 列表页已实现类目/品牌/状态三个下拉筛选。树形选择器为 P1 polish |
 | ✅ | M05-PR18 carts | M05 | 1.0 | 2026-05-13 | `997b8f6` | 4 身份场景（游客/登录/合并/locale），header 驱动身份，22 测试，启动 Shop 前台 API |
 | ✅ | M05-PR19 orders | M05 | 1.5 | 2026-05-13 | `3519be2` | 3 表 + OrderStatus enum + createFromCart + 快照（name/sku/image/spec/price）+ 状态机，19 测试 |
 | ✅ | M05-PR20 库存预占 | M05 | 1.0 | 2026-05-13 | `65a5ed6` | InventoryService（lockForUpdate防超卖）+ cancelOrder/confirmPayment + everyMinute Job + 20 测试 |
