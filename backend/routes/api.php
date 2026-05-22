@@ -18,6 +18,8 @@ use App\Http\Controllers\Api\Mall\SpecificationValueController;
 use App\Http\Controllers\Api\Shop\AuthController as ShopAuthController;
 use App\Http\Controllers\Api\Shop\CartController;
 use App\Http\Controllers\Api\Shop\CheckoutController;
+use App\Http\Controllers\Api\Shop\CustomerAddressController;
+use App\Http\Controllers\Api\Shop\CustomerOrderController;
 use App\Http\Controllers\Api\Shop\OrderController;
 use App\Http\Controllers\Api\Shop\PaymentWebhookController;
 use App\Http\Controllers\Api\System\ConfigController;
@@ -58,6 +60,17 @@ Route::prefix('v1')->group(function () {
         Route::middleware('auth:passport-customer')->group(function () {
             Route::get('auth/me', [ShopAuthController::class, 'me']);
             Route::post('auth/logout', [ShopAuthController::class, 'logout']);
+
+            // 我的地址簿（M09-PR36）
+            Route::get('me/addresses', [CustomerAddressController::class, 'index']);
+            Route::post('me/addresses', [CustomerAddressController::class, 'store']);
+            Route::get('me/addresses/{address}', [CustomerAddressController::class, 'show']);
+            Route::put('me/addresses/{address}', [CustomerAddressController::class, 'update']);
+            Route::delete('me/addresses/{address}', [CustomerAddressController::class, 'destroy']);
+
+            // 我的订单（M09-PR36）
+            Route::get('me/orders', [CustomerOrderController::class, 'index']);
+            Route::get('me/orders/{order}', [CustomerOrderController::class, 'show']);
         });
 
         // 购物车（身份通过 header 解析：X-Tenant-Id + X-Shop-Id + X-Customer-Id/X-Session-Id）
