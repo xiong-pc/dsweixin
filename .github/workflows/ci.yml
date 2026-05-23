@@ -47,6 +47,8 @@ jobs:
         run: |
           cp .env.example .env
           php artisan key:generate
+          # Passport keys 用于 OAuth 测试（CryptKey 在加载 ~/storage/oauth-*.key 时检验签名）
+          php artisan passport:keys --force
 
       - name: Run tests with coverage
         working-directory: backend
