@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   backend:
-    name: Backend (PHP 8.3 + Laravel)
+    name: Backend (PHP 8.4 + Laravel)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,7 +21,8 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          # PHP 8.4：composer.lock 中 symfony v8.x 子依赖要求 8.4，同本地 dev 环境对齐
+          php-version: '8.4'
           extensions: pdo_sqlite, sqlite3, mbstring, openssl, fileinfo
           # 用 PCOV 比 Xdebug 快 10x，仅用于覆盖率收集
           coverage: pcov
@@ -54,7 +55,7 @@ jobs:
         run: php artisan test --coverage --min=30
 
   frontend:
-    name: Frontend (Node 20 + Vue 3)
+    name: Frontend (Node 22 + Vue 3)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -63,7 +64,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          # Node 22 LTS：eslint-flat-config-utils 依赖 Object.groupBy（Node 21+）
+          node-version: '22'
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
@@ -97,7 +99,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          # Node 22 LTS：eslint-flat-config-utils 依赖 Object.groupBy（Node 21+）
+          node-version: '22'
           cache: 'npm'
           cache-dependency-path: frontend-shop/package-lock.json
 
