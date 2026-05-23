@@ -17,7 +17,7 @@
   const pageSize = 24
 
   const { data: categoriesData } = await useAsyncData<ShopCategory[]>('shop-categories', () =>
-    useApi<ShopCategory[]>('categories'),
+    useApi<ShopCategory[]>('shop/categories'),
   )
   const category = computed(
     () => categoriesData.value?.find((c) => c.id === categoryId.value) ?? null,
@@ -26,7 +26,7 @@
   const { data, pending } = await useAsyncData<PaginatedList<ShopProduct>>(
     () => `category-${categoryId.value}-products-${page.value}`,
     () =>
-      useApi<PaginatedList<ShopProduct>>('products', {
+      useApi<PaginatedList<ShopProduct>>('shop/products', {
         query: { category_id: categoryId.value, pageNum: page.value, pageSize },
       }),
     {

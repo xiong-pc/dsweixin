@@ -8,7 +8,7 @@ import type { PaginatedList, ShopCategory, ShopProduct } from '~/types/catalog'
  * SSR 友好：在页面 setup 内通过 useAsyncData 包一层即可缓存 + 拿到 ref。
  */
 export function useCategories() {
-  return useApi<ShopCategory[]>('categories')
+  return useApi<ShopCategory[]>('shop/categories')
 }
 
 export interface ProductListQuery {
@@ -20,13 +20,13 @@ export interface ProductListQuery {
 }
 
 export function useProductList(query: ProductListQuery = {}) {
-  return useApi<PaginatedList<ShopProduct>>('products', { query })
+  return useApi<PaginatedList<ShopProduct>>('shop/products', { query })
 }
 
 export function useProduct(id: number | string) {
-  return useApi<ShopProduct>(`products/${id}`)
+  return useApi<ShopProduct>(`shop/products/${id}`)
 }
 
 export function useProductBySlug(slug: string) {
-  return useApi<ShopProduct>(`products/by-slug/${encodeURIComponent(slug)}`)
+  return useApi<ShopProduct>(`shop/products/by-slug/${encodeURIComponent(slug)}`)
 }

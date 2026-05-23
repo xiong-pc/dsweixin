@@ -12,7 +12,7 @@
 
   const { data, pending, error } = await useAsyncData<PaginatedList<ShopProduct>>(
     'home-products',
-    () => useApi<PaginatedList<ShopProduct>>('products', { query: { pageSize: 12 } }),
+    () => useApi<PaginatedList<ShopProduct>>('shop/products', { query: { pageSize: 12 } }),
     { default: () => ({ list: [], total: 0, page: 1, pageSize: 12 }) },
   )
 

@@ -31,7 +31,7 @@ export const useCartStore = defineStore('cart', () => {
     loading.value = true
     lastError.value = null
     try {
-      cart.value = await useApi<Cart>('cart')
+      cart.value = await useApi<Cart>('shop/cart')
     } catch (e) {
       lastError.value = (e as Error).message
     } finally {
@@ -43,7 +43,7 @@ export const useCartStore = defineStore('cart', () => {
     loading.value = true
     lastError.value = null
     try {
-      cart.value = await useApi<Cart>('cart/items', {
+      cart.value = await useApi<Cart>('shop/cart/items', {
         method: 'POST',
         body: { variant_id: variantId, quantity },
       })
@@ -59,7 +59,7 @@ export const useCartStore = defineStore('cart', () => {
     loading.value = true
     lastError.value = null
     try {
-      cart.value = await useApi<Cart>(`cart/items/${itemId}`, {
+      cart.value = await useApi<Cart>(`shop/cart/items/${itemId}`, {
         method: 'PUT',
         body: { quantity },
       })
@@ -74,7 +74,7 @@ export const useCartStore = defineStore('cart', () => {
     loading.value = true
     lastError.value = null
     try {
-      cart.value = await useApi<Cart>(`cart/items/${itemId}`, { method: 'DELETE' })
+      cart.value = await useApi<Cart>(`shop/cart/items/${itemId}`, { method: 'DELETE' })
     } catch (e) {
       lastError.value = (e as Error).message
     } finally {
@@ -86,7 +86,7 @@ export const useCartStore = defineStore('cart', () => {
     loading.value = true
     lastError.value = null
     try {
-      cart.value = await useApi<Cart>('cart', { method: 'DELETE' })
+      cart.value = await useApi<Cart>('shop/cart', { method: 'DELETE' })
     } catch (e) {
       lastError.value = (e as Error).message
     } finally {
@@ -95,11 +95,11 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   async function preview() {
-    return useApi<Record<string, unknown>>('checkout/preview')
+    return useApi<Record<string, unknown>>('shop/checkout/preview')
   }
 
   async function placeOrder(payload: PlaceOrderPayload) {
-    const order = await useApi<OrderSummary>('checkout/place-order', {
+    const order = await useApi<OrderSummary>('shop/checkout/place-order', {
       method: 'POST',
       body: payload,
     })

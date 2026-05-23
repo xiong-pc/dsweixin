@@ -26,7 +26,7 @@
     () => `product-${slug.value}`,
     async () => {
       try {
-        return await useApi<ShopProduct>(`products/by-slug/${encodeURIComponent(slug.value)}`)
+        return await useApi<ShopProduct>(`shop/products/by-slug/${encodeURIComponent(slug.value)}`)
       } catch (e) {
         if (e instanceof ApiError && (e.code === 404 || e.code === 400)) {
           return null
