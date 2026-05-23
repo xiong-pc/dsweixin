@@ -1,7 +1,4 @@
-export function buildTree<T extends { id: number; parent_id: number; children?: T[] }>(
-  items: T[],
-  parentId = 0
-): T[] {
+export function buildTree<T extends { id: number; parent_id: number; children?: T[] }>(items: T[], parentId = 0): T[] {
   const tree: T[] = [];
   for (const item of items) {
     if (item.parent_id === parentId) {

@@ -13,13 +13,13 @@ class ConfigResource extends JsonResource
         $r = $this->resource;
 
         return [
-            'id'         => data_get($r, 'id'),
-            'name'       => data_get($r, 'name'),
-            'key'        => data_get($r, 'key'),
-            'value'      => data_get($r, 'value'),
-            'type'       => data_get($r, 'type'),
-            'remark'     => data_get($r, 'remark'),
-            'tenant_id'  => data_get($r, 'tenant_id'),
+            'id' => data_get($r, 'id'),
+            'name' => data_get($r, 'name'),
+            'key' => data_get($r, 'key'),
+            'value' => data_get($r, 'value'),
+            'type' => data_get($r, 'type'),
+            'remark' => data_get($r, 'remark'),
+            'tenant_id' => data_get($r, 'tenant_id'),
             'created_at' => $this->formatDateTime(data_get($r, 'created_at')),
         ];
     }

@@ -11,12 +11,16 @@ class Tenant extends Model
 
     protected $fillable = [
         'name', 'code', 'status', 'contact_name', 'contact_phone', 'expired_at', 'remark',
+        'plan_id', 'primary_domain', 'default_locale', 'default_currency', 'industry',
+        'price_markup_pct',
     ];
 
     protected function casts(): array
     {
         return [
             'expired_at' => 'datetime',
+            'plan_id' => 'integer',
+            'price_markup_pct' => 'decimal:2',
         ];
     }
 
@@ -28,5 +32,15 @@ class Tenant extends Model
     public function depts()
     {
         return $this->hasMany(Dept::class);
+    }
+
+    public function shops()
+    {
+        return $this->hasMany(Shop::class);
+    }
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
     }
 }

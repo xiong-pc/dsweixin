@@ -1,0 +1,146 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "no_image": "No image",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "nav": {
+    "home": "Home",
+    "cart": "Cart",
+    "account": "Account",
+    "login": "Sign in",
+    "register": "Sign up"
+  },
+  "auth": {
+    "login_title": "Sign in",
+    "login_subtitle": "Sign in to view your orders and saved addresses.",
+    "register_title": "Create account",
+    "register_subtitle": "Verify your email or phone number to get started.",
+    "password_mode": "Password",
+    "code_mode": "Verification code",
+    "type_email": "Email",
+    "type_phone": "Phone",
+    "username": "Email / phone",
+    "password": "Password",
+    "email": "Email address",
+    "phone": "Phone number",
+    "name_optional": "Display name (optional)",
+    "code": "Verification code",
+    "send_code": "Send code",
+    "code_resent": "Resend",
+    "submit_login": "Sign in",
+    "submit_register": "Create account",
+    "no_account": "Don't have an account?",
+    "go_register": "Sign up",
+    "have_account": "Already have an account?",
+    "go_login": "Sign in",
+    "target_required": "Please enter an email or phone first"
+  },
+  "account": {
+    "title": "My account",
+    "back": "Back",
+    "orders_link": "My orders",
+    "orders_desc": "Track order status, shipping and returns",
+    "addresses_link": "Address book",
+    "addresses_desc": "Manage shipping addresses / default",
+    "logout_link": "Sign out",
+    "logout_desc": "Switch accounts or sign out",
+    "orders_title": "My orders",
+    "orders_empty": "No orders yet. Start shopping?",
+    "view_detail": "View detail",
+    "back_to_orders": "Back to orders",
+    "order_not_found": "Order not found or inaccessible",
+    "order_detail": "Order detail",
+    "items": "Items",
+    "total": "Total",
+    "shipping_address": "Shipping address",
+    "shipments": "Shipments",
+    "addresses_title": "Address book",
+    "addresses_empty": "No saved addresses yet",
+    "add_address": "Add address",
+    "address_form": "Recipient",
+    "address_label": "Label (e.g. Home, Office)",
+    "set_default": "Set default",
+    "is_default": "Default",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm_delete_address": "Delete this address?"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "home": {
+    "title": "Home",
+    "subtitle": "Curated products. Worldwide delivery.",
+    "latest": "Latest products",
+    "total": "{count} products in total",
+    "empty": "No products available yet"
+  },
+  "category": {
+    "unknown": "Category not found or unlisted",
+    "fallback_desc": "Browse curated products in this category",
+    "empty": "No products in this category yet"
+  },
+  "pagination": {
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "product": {
+    "add_to_cart": "Add to cart",
+    "description": "Description",
+    "no_variants": "No purchasable variants for this product",
+    "not_found": "Product not found or unlisted",
+    "not_found_desc": "The product you are looking for may have been removed or the link has expired.",
+    "back_home": "Back to home"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty.",
+    "go_shopping": "Start shopping →",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout"
+  },
+  "address": {
+    "country": "Country code",
+    "province": "Province / State",
+    "city": "City",
+    "district": "District",
+    "street": "Street address",
+    "postal_code": "Postal code",
+    "contact_name": "Recipient",
+    "contact_phone": "Phone",
+    "contact_email": "Email"
+  },
+  "payment": {
+    "title": "Payment method",
+    "stripe": {
+      "label": "Credit card / Stripe",
+      "desc": "Visa / Mastercard / international, secured by Stripe"
+    },
+    "wechat": {
+      "label": "WeChat Pay",
+      "desc": "For customers in mainland China"
+    }
+  },
+  "checkout": {
+    "address_title": "Checkout — Shipping",
+    "address_subtitle": "Please provide a complete shipping address; we use it to calculate shipping fees.",
+    "shipping_address": "Shipping address",
+    "address_invalid": "Please complete shipping info (country, street, recipient, phone).",
+    "back_to_cart": "Back to cart",
+    "continue_to_payment": "Continue to payment",
+    "payment_title": "Checkout — Payment",
+    "payment_subtitle": "Confirm your address and pick a payment method to place the order.",
+    "payment_required": "Please choose a payment method first.",
+    "back_to_address": "Back",
+    "place_order": "Place order",
+    "total_note": "Shipping / taxes will be calculated after the order is created.",
+    "success_title": "Order placed!",
+    "success_subtitle": "We have received your order and will process it shortly.",
+    "continue_shopping": "Continue shopping",
+    "view_orders": "View my orders"
+  }
+}

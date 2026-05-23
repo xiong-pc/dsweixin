@@ -14,10 +14,10 @@ class StoreConfigRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'name'   => 'required|string',
-            'key'    => 'required|string|unique:configs,key',
-            'value'  => 'nullable|string',
-            'type'   => 'nullable|string',
+            'name' => 'required|string',
+            'key' => 'required|string|unique:configs,key',
+            'value' => 'nullable|string',
+            'type' => 'nullable|string',
             'remark' => 'nullable|string',
         ];
     }

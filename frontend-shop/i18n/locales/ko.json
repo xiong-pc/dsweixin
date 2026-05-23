@@ -1,0 +1,146 @@
+{
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "no_image": "이미지 없음",
+    "save": "저장",
+    "cancel": "취소"
+  },
+  "nav": {
+    "home": "홈",
+    "cart": "장바구니",
+    "account": "내 계정",
+    "login": "로그인",
+    "register": "회원가입"
+  },
+  "auth": {
+    "login_title": "로그인",
+    "login_subtitle": "주문과 주소록을 확인하려면 로그인하세요.",
+    "register_title": "회원가입",
+    "register_subtitle": "이메일 또는 전화번호 인증으로 계정을 만드세요.",
+    "password_mode": "비밀번호",
+    "code_mode": "인증 코드",
+    "type_email": "이메일",
+    "type_phone": "전화",
+    "username": "이메일 / 전화",
+    "password": "비밀번호",
+    "email": "이메일 주소",
+    "phone": "전화번호",
+    "name_optional": "닉네임 (선택)",
+    "code": "인증 코드",
+    "send_code": "코드 전송",
+    "code_resent": "재전송",
+    "submit_login": "로그인",
+    "submit_register": "가입",
+    "no_account": "계정이 없으신가요?",
+    "go_register": "회원가입",
+    "have_account": "이미 계정이 있으신가요?",
+    "go_login": "로그인",
+    "target_required": "이메일 또는 전화번호를 먼저 입력하세요"
+  },
+  "account": {
+    "title": "내 계정",
+    "back": "뒤로",
+    "orders_link": "내 주문",
+    "orders_desc": "주문 상태, 배송, 반품 확인",
+    "addresses_link": "주소록",
+    "addresses_desc": "배송지 / 기본 주소 관리",
+    "logout_link": "로그아웃",
+    "logout_desc": "계정 전환 또는 로그아웃",
+    "orders_title": "내 주문",
+    "orders_empty": "주문 내역이 없습니다.",
+    "view_detail": "상세 보기",
+    "back_to_orders": "주문 목록",
+    "order_not_found": "주문을 찾을 수 없습니다",
+    "order_detail": "주문 상세",
+    "items": "상품",
+    "total": "합계",
+    "shipping_address": "배송지",
+    "shipments": "배송 정보",
+    "addresses_title": "주소록",
+    "addresses_empty": "저장된 주소가 없습니다",
+    "add_address": "주소 추가",
+    "address_form": "받는 분 정보",
+    "address_label": "라벨 (집, 회사 등)",
+    "set_default": "기본 설정",
+    "is_default": "기본",
+    "edit": "수정",
+    "delete": "삭제",
+    "confirm_delete_address": "이 주소를 삭제하시겠습니까?"
+  },
+  "footer": {
+    "rights": "모든 권리 보유."
+  },
+  "home": {
+    "title": "홈",
+    "subtitle": "엄선된 상품을 세계로.",
+    "latest": "신상품",
+    "total": "총 {count}개 상품",
+    "empty": "아직 등록된 상품이 없습니다"
+  },
+  "category": {
+    "unknown": "카테고리를 찾을 수 없습니다",
+    "fallback_desc": "이 카테고리의 엄선 상품",
+    "empty": "이 카테고리에 상품이 없습니다"
+  },
+  "pagination": {
+    "prev": "이전",
+    "next": "다음"
+  },
+  "product": {
+    "add_to_cart": "장바구니에 담기",
+    "description": "상품 설명",
+    "no_variants": "구매 가능한 옵션이 없습니다",
+    "not_found": "상품을 찾을 수 없습니다",
+    "not_found_desc": "해당 상품이 삭제되었거나 링크가 만료되었을 수 있습니다.",
+    "back_home": "홈으로 돌아가기"
+  },
+  "cart": {
+    "title": "장바구니",
+    "empty": "장바구니가 비어 있습니다.",
+    "go_shopping": "쇼핑하러 가기 →",
+    "remove": "삭제",
+    "subtotal": "소계",
+    "checkout": "결제하기"
+  },
+  "address": {
+    "country": "국가 코드",
+    "province": "도/주",
+    "city": "시",
+    "district": "구/군",
+    "street": "상세 주소",
+    "postal_code": "우편번호",
+    "contact_name": "받는 분",
+    "contact_phone": "연락처",
+    "contact_email": "이메일"
+  },
+  "payment": {
+    "title": "결제 수단",
+    "stripe": {
+      "label": "신용카드 / Stripe",
+      "desc": "Visa / Mastercard, Stripe 안전 결제"
+    },
+    "wechat": {
+      "label": "WeChat Pay",
+      "desc": "중국 본토 고객 전용"
+    }
+  },
+  "checkout": {
+    "address_title": "결제 — 배송지",
+    "address_subtitle": "배송비 계산을 위해 정확한 배송지를 입력해주세요.",
+    "shipping_address": "배송지",
+    "address_invalid": "국가, 상세 주소, 받는 분, 연락처를 모두 입력해주세요.",
+    "back_to_cart": "장바구니로",
+    "continue_to_payment": "결제 수단 선택",
+    "payment_title": "결제 — 결제 수단",
+    "payment_subtitle": "주소 확인 후 결제 수단을 선택하면 주문이 생성됩니다.",
+    "payment_required": "결제 수단을 먼저 선택해주세요.",
+    "back_to_address": "이전",
+    "place_order": "주문하기",
+    "total_note": "배송비/세금은 주문 생성 후 표시됩니다.",
+    "success_title": "주문 완료!",
+    "success_subtitle": "주문을 받았습니다. 곧 처리해드리겠습니다.",
+    "continue_shopping": "쇼핑 계속",
+    "view_orders": "내 주문 보기"
+  }
+}

@@ -14,16 +14,16 @@ class StoreMenuRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'name'      => 'required|string',
-            'type'      => 'required|integer|in:1,2,3,4',
+            'name' => 'required|string',
+            'type' => 'required|integer|in:1,2,3,4',
             'parent_id' => 'nullable|exists:menus,id',
-            'path'      => 'nullable|string',
+            'path' => 'nullable|string',
             'component' => 'nullable|string',
             'permission' => 'nullable|string',
-            'icon'      => 'nullable|string',
-            'sort'      => 'nullable|integer',
-            'visible'   => 'nullable|boolean',
-            'redirect'  => 'nullable|string',
+            'icon' => 'nullable|string',
+            'sort' => 'nullable|integer',
+            'visible' => 'nullable|boolean',
+            'redirect' => 'nullable|string',
         ];
     }
 }

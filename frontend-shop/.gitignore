@@ -1,0 +1,25 @@
+# Nuxt
+.nuxt
+.output
+.data
+.cache
+.env
+.DS_Store
+dist
+
+# 依赖
+node_modules
+*.log
+
+# Editor
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.history
+
+# Test / coverage
+coverage
+*.tsbuildinfo

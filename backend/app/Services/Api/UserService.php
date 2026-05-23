@@ -12,12 +12,12 @@ class UserService
     {
         $query = User::with(['dept', 'roles']);
 
-        if (!empty($filters['keywords'])) {
+        if (! empty($filters['keywords'])) {
             $kw = $filters['keywords'];
             $query->where(function ($q) use ($kw) {
                 $q->where('username', 'like', "%{$kw}%")
-                  ->orWhere('nickname', 'like', "%{$kw}%")
-                  ->orWhere('phone', 'like', "%{$kw}%");
+                    ->orWhere('nickname', 'like', "%{$kw}%")
+                    ->orWhere('phone', 'like', "%{$kw}%");
             });
         }
 
@@ -25,7 +25,7 @@ class UserService
             $query->where('status', $filters['status']);
         }
 
-        if (!empty($filters['dept_id'])) {
+        if (! empty($filters['dept_id'])) {
             $query->where('dept_id', $filters['dept_id']);
         }
 
@@ -37,7 +37,7 @@ class UserService
         $data['name'] = $data['nickname'];
         $user = User::create($data);
 
-        if (!empty($roleIds)) {
+        if (! empty($roleIds)) {
             $user->roles()->sync($roleIds);
         }
 

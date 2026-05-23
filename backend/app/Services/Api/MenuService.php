@@ -11,11 +11,11 @@ class MenuService
     {
         $query = Menu::orderBy('sort');
 
-        if (!empty($filters['keywords'])) {
-            $query->where('name', 'like', '%' . $filters['keywords'] . '%');
+        if (! empty($filters['keywords'])) {
+            $query->where('name', 'like', '%'.$filters['keywords'].'%');
         }
 
-        return $this->buildTree($query->get()->toArray(), 0);
+        return self::buildTree($query->get()->toArray(), 0);
     }
 
     public function create(array $data): Menu
@@ -38,18 +38,25 @@ class MenuService
         $menu->delete();
     }
 
-    private function buildTree(array $items, int $parentId): array
+    /**
+     * 把扁平的 items 列表按 parent_id 构建成嵌套树。
+     *
+     * 纯函数 (无 $this 状态，便于 Unit test)：输入 array of items + 起始 parentId，
+     * 返回嵌套结构，子节点放入 'children' 键（无子节点则不添加 key）。
+     */
+    public static function buildTree(array $items, int $parentId): array
     {
         $tree = [];
         foreach ($items as $item) {
             if ($item['parent_id'] == $parentId) {
-                $children = $this->buildTree($items, $item['id']);
+                $children = self::buildTree($items, $item['id']);
                 if ($children) {
                     $item['children'] = $children;
                 }
                 $tree[] = $item;
             }
         }
+
         return $tree;
     }
 }

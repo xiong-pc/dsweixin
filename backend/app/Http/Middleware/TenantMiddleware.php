@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,8 +13,14 @@ class TenantMiddleware
     {
         $user = $request->user();
 
-        if (!$user) {
+        if (! $user) {
             return response()->json(['code' => 401, 'msg' => __('api.unauthorized')], 401);
+        }
+
+        // 仅 admin User（auth:api 后置）需要走租户校验；
+        // customer guard 路由不会经过此中间件，但保险地做类型收窄。
+        if (! $user instanceof User) {
+            return $next($request);
         }
 
         if ($user->tenant_id && $user->tenant) {

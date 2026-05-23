@@ -14,8 +14,8 @@ class StoreDictRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'name'   => 'required|string',
-            'code'   => 'required|string|unique:dicts,code',
+            'name' => 'required|string',
+            'code' => 'required|string|unique:dicts,code',
             'status' => 'nullable|in:0,1',
             'remark' => 'nullable|string',
         ];

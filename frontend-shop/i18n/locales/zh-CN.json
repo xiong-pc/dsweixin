@@ -1,0 +1,146 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "no_image": "暂无图片",
+    "save": "保存",
+    "cancel": "取消"
+  },
+  "nav": {
+    "home": "首页",
+    "cart": "购物车",
+    "account": "我的",
+    "login": "登录",
+    "register": "注册"
+  },
+  "auth": {
+    "login_title": "登录",
+    "login_subtitle": "登录后即可查看订单与地址簿。",
+    "register_title": "注册",
+    "register_subtitle": "完成手机或邮箱验证即可创建账号。",
+    "password_mode": "密码登录",
+    "code_mode": "验证码登录",
+    "type_email": "邮箱",
+    "type_phone": "手机",
+    "username": "邮箱 / 手机号",
+    "password": "密码",
+    "email": "邮箱地址",
+    "phone": "手机号",
+    "name_optional": "昵称（可选）",
+    "code": "验证码",
+    "send_code": "发送验证码",
+    "code_resent": "重新发送",
+    "submit_login": "登录",
+    "submit_register": "注册",
+    "no_account": "还没有账号？",
+    "go_register": "立即注册",
+    "have_account": "已有账号？",
+    "go_login": "去登录",
+    "target_required": "请先填写邮箱或手机号"
+  },
+  "account": {
+    "title": "我的中心",
+    "back": "返回",
+    "orders_link": "我的订单",
+    "orders_desc": "查看订单状态、物流与售后",
+    "addresses_link": "地址簿",
+    "addresses_desc": "管理收货地址 / 默认地址",
+    "logout_link": "退出登录",
+    "logout_desc": "切换账号或注销",
+    "orders_title": "我的订单",
+    "orders_empty": "暂无订单。去逛逛？",
+    "view_detail": "查看详情",
+    "back_to_orders": "返回订单列表",
+    "order_not_found": "订单不存在或不可访问",
+    "order_detail": "订单详情",
+    "items": "商品明细",
+    "total": "合计",
+    "shipping_address": "收货地址",
+    "shipments": "物流信息",
+    "addresses_title": "地址簿",
+    "addresses_empty": "尚未添加任何地址",
+    "add_address": "新增地址",
+    "address_form": "收件人信息",
+    "address_label": "地址标签（如「家」、「公司」）",
+    "set_default": "设为默认",
+    "is_default": "默认",
+    "edit": "编辑",
+    "delete": "删除",
+    "confirm_delete_address": "确定要删除该地址吗？"
+  },
+  "footer": {
+    "rights": "保留所有权利。"
+  },
+  "home": {
+    "title": "首页",
+    "subtitle": "精选好物，全球直达。",
+    "latest": "最新商品",
+    "total": "共 {count} 件商品",
+    "empty": "暂无商品上架"
+  },
+  "category": {
+    "unknown": "类目不存在或已下线",
+    "fallback_desc": "浏览本类目下的精选商品",
+    "empty": "该类目下暂无商品"
+  },
+  "pagination": {
+    "prev": "上一页",
+    "next": "下一页"
+  },
+  "product": {
+    "add_to_cart": "加入购物车",
+    "description": "商品描述",
+    "no_variants": "该商品暂无可购买的规格",
+    "not_found": "商品不存在或已下架",
+    "not_found_desc": "您查找的商品可能已被卖家下架，或链接已失效。",
+    "back_home": "返回首页"
+  },
+  "cart": {
+    "title": "购物车",
+    "empty": "购物车空空如也，去逛逛吧。",
+    "go_shopping": "去购物 →",
+    "remove": "删除",
+    "subtotal": "小计",
+    "checkout": "去结算"
+  },
+  "address": {
+    "country": "国家代码",
+    "province": "省 / 州",
+    "city": "城市",
+    "district": "区 / 县",
+    "street": "详细地址",
+    "postal_code": "邮编",
+    "contact_name": "收件人",
+    "contact_phone": "联系电话",
+    "contact_email": "邮箱"
+  },
+  "payment": {
+    "title": "支付方式",
+    "stripe": {
+      "label": "信用卡 / Stripe",
+      "desc": "Visa / Mastercard / 海外支付，由 Stripe 安全处理"
+    },
+    "wechat": {
+      "label": "微信支付",
+      "desc": "适用于中国大陆客户"
+    }
+  },
+  "checkout": {
+    "address_title": "结算 — 收货信息",
+    "address_subtitle": "请填写完整的收货地址，我们会按区域计算运费。",
+    "shipping_address": "收货地址",
+    "address_invalid": "请填写完整的收货信息（国家、详细地址、收件人、电话）。",
+    "back_to_cart": "返回购物车",
+    "continue_to_payment": "下一步：选择支付方式",
+    "payment_title": "结算 — 选择支付方式",
+    "payment_subtitle": "确认地址后选择一种支付方式，下一步将提交订单。",
+    "payment_required": "请先选择一种支付方式。",
+    "back_to_address": "上一步",
+    "place_order": "提交订单",
+    "total_note": "运费 / 税费在订单生成后展示。",
+    "success_title": "下单成功！",
+    "success_subtitle": "我们已收到您的订单，将尽快为您处理。",
+    "continue_shopping": "继续购物",
+    "view_orders": "查看我的订单"
+  }
+}

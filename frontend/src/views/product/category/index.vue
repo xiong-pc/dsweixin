@@ -6,8 +6,12 @@
           <el-input v-model="queryParams.name" placeholder="请输入分类名称" clearable />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
-          <el-button @click="handleReset"><el-icon><Refresh /></el-icon>重置</el-button>
+          <el-button type="primary" @click="handleQuery"
+            ><el-icon><Search /></el-icon>搜索</el-button
+          >
+          <el-button @click="handleReset"
+            ><el-icon><Refresh /></el-icon>重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -44,9 +48,15 @@
         <el-table-column label="创建时间" prop="created_at" min-width="160" />
         <el-table-column label="操作" width="200" align="center" fixed="right">
           <template #default="{ row }">
-            <el-button type="primary" link v-hasPerm="['product:category:add']" @click="openDialog(undefined, row.id)">新增</el-button>
-            <el-button type="primary" link v-hasPerm="['product:category:edit']" @click="openDialog(row.id)">编辑</el-button>
-            <el-button type="danger" link v-hasPerm="['product:category:delete']" @click="handleDelete(row.id)">删除</el-button>
+            <el-button type="primary" link v-hasPerm="['product:category:add']" @click="openDialog(undefined, row.id)"
+              >新增</el-button
+            >
+            <el-button type="primary" link v-hasPerm="['product:category:edit']" @click="openDialog(row.id)"
+              >编辑</el-button
+            >
+            <el-button type="danger" link v-hasPerm="['product:category:delete']" @click="handleDelete(row.id)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -149,7 +159,9 @@ function handleReset() {
 function toggleExpandAll() {
   refreshTable.value = false;
   isExpandAll.value = !isExpandAll.value;
-  nextTick(() => { refreshTable.value = true; });
+  nextTick(() => {
+    refreshTable.value = true;
+  });
 }
 
 async function openDialog(id?: number, parentId?: number) {

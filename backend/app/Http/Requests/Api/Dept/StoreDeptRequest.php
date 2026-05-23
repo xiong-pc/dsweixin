@@ -14,10 +14,10 @@ class StoreDeptRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'name'      => 'required|string',
+            'name' => 'required|string',
             'parent_id' => 'nullable|exists:depts,id',
-            'sort'      => 'nullable|integer',
-            'status'    => 'nullable|in:0,1',
+            'sort' => 'nullable|integer',
+            'status' => 'nullable|in:0,1',
         ];
     }
 }

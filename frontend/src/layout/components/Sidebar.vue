@@ -12,12 +12,7 @@
         :unique-opened="true"
         router
       >
-        <SidebarItem
-          v-for="route in constantMenuRoutes"
-          :key="route.path"
-          :item="route"
-          :base-path="route.path"
-        />
+        <SidebarItem v-for="route in constantMenuRoutes" :key="route.path" :item="route" :base-path="route.path" />
         <SidebarItem
           v-for="route in permissionStore.addedRoutes"
           :key="route.path"
@@ -43,7 +38,5 @@ const permissionStore = usePermissionStore();
 
 const activeMenu = computed(() => route.path);
 
-const constantMenuRoutes = computed(() =>
-  constantRoutes.filter((r) => r.path === '/' && r.children?.length)
-);
+const constantMenuRoutes = computed(() => constantRoutes.filter((r) => r.path === '/' && r.children?.length));
 </script>

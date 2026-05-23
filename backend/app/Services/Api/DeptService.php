@@ -11,8 +11,8 @@ class DeptService
     {
         $query = Dept::orderBy('sort');
 
-        if (!empty($filters['keywords'])) {
-            $query->where('name', 'like', '%' . $filters['keywords'] . '%');
+        if (! empty($filters['keywords'])) {
+            $query->where('name', 'like', '%'.$filters['keywords'].'%');
         }
 
         if (isset($filters['status'])) {
@@ -53,6 +53,7 @@ class DeptService
                 $tree[] = $item;
             }
         }
+
         return $tree;
     }
 }

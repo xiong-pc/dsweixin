@@ -1,0 +1,146 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "no_image": "画像なし",
+    "save": "保存",
+    "cancel": "キャンセル"
+  },
+  "nav": {
+    "home": "ホーム",
+    "cart": "カート",
+    "account": "アカウント",
+    "login": "ログイン",
+    "register": "登録"
+  },
+  "auth": {
+    "login_title": "ログイン",
+    "login_subtitle": "ログインして注文や住所を管理できます。",
+    "register_title": "新規登録",
+    "register_subtitle": "メール・電話番号を認証してアカウントを作成します。",
+    "password_mode": "パスワード",
+    "code_mode": "認証コード",
+    "type_email": "メール",
+    "type_phone": "電話",
+    "username": "メール / 電話",
+    "password": "パスワード",
+    "email": "メールアドレス",
+    "phone": "電話番号",
+    "name_optional": "ニックネーム（任意）",
+    "code": "認証コード",
+    "send_code": "コード送信",
+    "code_resent": "再送信",
+    "submit_login": "ログイン",
+    "submit_register": "登録",
+    "no_account": "アカウントをお持ちでない場合：",
+    "go_register": "新規登録",
+    "have_account": "既にアカウントをお持ちですか？",
+    "go_login": "ログイン",
+    "target_required": "まずメール・電話番号を入力してください"
+  },
+  "account": {
+    "title": "マイページ",
+    "back": "戻る",
+    "orders_link": "注文履歴",
+    "orders_desc": "注文状況・配送・返品",
+    "addresses_link": "住所帳",
+    "addresses_desc": "お届け先・既定住所の管理",
+    "logout_link": "ログアウト",
+    "logout_desc": "アカウント切替・サインアウト",
+    "orders_title": "注文履歴",
+    "orders_empty": "注文がありません。",
+    "view_detail": "詳細を見る",
+    "back_to_orders": "注文一覧へ",
+    "order_not_found": "注文が見つかりません",
+    "order_detail": "注文詳細",
+    "items": "商品明細",
+    "total": "合計",
+    "shipping_address": "お届け先",
+    "shipments": "配送情報",
+    "addresses_title": "住所帳",
+    "addresses_empty": "登録済み住所はありません",
+    "add_address": "住所を追加",
+    "address_form": "お届け先情報",
+    "address_label": "ラベル（自宅・会社など）",
+    "set_default": "既定に設定",
+    "is_default": "既定",
+    "edit": "編集",
+    "delete": "削除",
+    "confirm_delete_address": "この住所を削除しますか？"
+  },
+  "footer": {
+    "rights": "全著作権所有。"
+  },
+  "home": {
+    "title": "ホーム",
+    "subtitle": "厳選商品を世界へお届け。",
+    "latest": "新着商品",
+    "total": "全 {count} 件",
+    "empty": "現在商品はありません"
+  },
+  "category": {
+    "unknown": "カテゴリが見つかりません",
+    "fallback_desc": "このカテゴリのおすすめ商品",
+    "empty": "このカテゴリの商品はまだありません"
+  },
+  "pagination": {
+    "prev": "前へ",
+    "next": "次へ"
+  },
+  "product": {
+    "add_to_cart": "カートに追加",
+    "description": "商品説明",
+    "no_variants": "この商品には購入可能な仕様がありません",
+    "not_found": "商品が見つかりません",
+    "not_found_desc": "お探しの商品は削除されたか、リンクが無効になっている可能性があります。",
+    "back_home": "ホームへ戻る"
+  },
+  "cart": {
+    "title": "カート",
+    "empty": "カートは空です。",
+    "go_shopping": "ショッピングへ →",
+    "remove": "削除",
+    "subtotal": "小計",
+    "checkout": "ご購入手続き"
+  },
+  "address": {
+    "country": "国コード",
+    "province": "都道府県",
+    "city": "市区",
+    "district": "町村",
+    "street": "番地・住所",
+    "postal_code": "郵便番号",
+    "contact_name": "お届け先",
+    "contact_phone": "電話番号",
+    "contact_email": "メール"
+  },
+  "payment": {
+    "title": "お支払い方法",
+    "stripe": {
+      "label": "クレジットカード / Stripe",
+      "desc": "Visa / Mastercard、Stripe による安全決済"
+    },
+    "wechat": {
+      "label": "WeChat Pay",
+      "desc": "中国本土のお客様向け"
+    }
+  },
+  "checkout": {
+    "address_title": "ご購入手続き — お届け先",
+    "address_subtitle": "送料計算のため、完全なお届け先をご入力ください。",
+    "shipping_address": "お届け先",
+    "address_invalid": "国・住所・お届け先・電話を入力してください。",
+    "back_to_cart": "カートへ戻る",
+    "continue_to_payment": "次へ：お支払い方法",
+    "payment_title": "ご購入手続き — お支払い",
+    "payment_subtitle": "住所を確認し、お支払い方法を選択して注文を確定します。",
+    "payment_required": "お支払い方法を選択してください。",
+    "back_to_address": "戻る",
+    "place_order": "注文を確定",
+    "total_note": "送料・税金は注文作成後に表示されます。",
+    "success_title": "ご注文が完了しました！",
+    "success_subtitle": "ご注文を承りました。順次処理いたします。",
+    "continue_shopping": "ショッピングを続ける",
+    "view_orders": "注文履歴を見る"
+  }
+}

@@ -1,11 +1,21 @@
-
+# 系统文件
 .DS_Store
-.mcp.json
+*.log
+
+# IDE
 .idea/
 .vscode/
-*.log
-.claude/
-docs
-CLAUDE.md
-git-commands.md
+
+# 个人 AI 配置
+.mcp.json
 .claudeignore
+
+# Windsurf 通用 skills：每人本地 npx superpowers-zh --tool windsurf 安装，不进 git
+.windsurf/skills/
+
+# .claude 目录：仅保留项目自定义 skill（gen-module），其他 superpowers-zh 装的通用 skills 不进 git
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/gen-module/
+.claude/settings.local.json

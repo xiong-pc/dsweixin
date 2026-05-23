@@ -10,10 +10,13 @@
         "laravel/framework": "^13.0",
         "laravel/passport": "^13.7",
         "laravel/tinker": "^3.0",
-        "spatie/laravel-permission": "^7.2"
+        "spatie/laravel-permission": "^7.2",
+        "stripe/stripe-php": "^20.1",
+        "yansongda/pay": "^3.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^3.9",
         "laravel/pail": "^1.2.5",
         "laravel/pint": "^1.27",
         "mockery/mockery": "^1.6",
@@ -37,17 +40,25 @@
             "composer install",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php artisan key:generate",
-            "@php artisan migrate --force",
-            "npm install",
-            "npm run build"
+            "@php artisan migrate --force"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" --names=server,queue,logs --kill-others"
         ],
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
+        ],
+        "test:coverage": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test --coverage"
+        ],
+        "stan": [
+            "phpstan analyse --memory-limit=2G"
+        ],
+        "stan:baseline": [
+            "phpstan analyse --memory-limit=2G --generate-baseline=phpstan-baseline.neon"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -80,6 +91,13 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
+        },
+        "audit": {
+            "ignore": {
+                "PKSA-wc55-9qj2-7v4h": "laravel/passport CVE 暂未释出修复版本，待官方升级后移除此忽略",
+                "PKSA-smrh-yx37-92ws": "phpseclib/phpseclib（passport 间接依赖）CVE 暂无修复版本",
+                "PKSA-zh4j-by9m-7mz8": "phpseclib/phpseclib（passport 间接依赖）CVE 暂无修复版本"
+            }
         }
     },
     "minimum-stability": "stable",

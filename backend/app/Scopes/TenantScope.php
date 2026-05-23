@@ -21,7 +21,7 @@ class TenantScope implements Scope
         try {
             if (auth()->check()) {
                 $user = auth()->user();
-                if ($user && $user->tenant_id && !$user->isSuperAdmin()) {
+                if ($user && $user->tenant_id && ! $user->isSuperAdmin()) {
                     $column = $model->getTable().'.tenant_id';
                     if ($model::includeNullTenantInScope()) {
                         $builder->where(function ($q) use ($user, $column) {

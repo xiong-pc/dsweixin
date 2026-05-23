@@ -8,11 +8,9 @@ export const hasPerm: Directive = {
     const permissions = userStore.permissions;
 
     if (value && value instanceof Array && value.length > 0) {
-      const hasPermission = permissions.some(
-        (perm) => perm === '*' || value.includes(perm)
-      );
+      const hasPermission = permissions.some((perm) => perm === '*' || value.includes(perm));
       if (!hasPermission) {
-        el.parentNode && el.parentNode.removeChild(el);
+        el.parentNode?.removeChild(el);
       }
     }
   },

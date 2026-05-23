@@ -14,9 +14,9 @@ class UpdateDictItemRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'label'  => 'sometimes|string',
-            'value'  => 'sometimes|string',
-            'sort'   => 'nullable|integer',
+            'label' => 'sometimes|string',
+            'value' => 'sometimes|string',
+            'sort' => 'nullable|integer',
             'status' => 'nullable|in:0,1',
             'remark' => 'nullable|string',
         ];

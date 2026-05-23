@@ -13,7 +13,7 @@ class StoreTenantRequest extends ApiFormRequest
 
     protected function prepareForValidation(): void
     {
-        if ($this->has('expire_time') && !$this->has('expired_at')) {
+        if ($this->has('expire_time') && ! $this->has('expired_at')) {
             $this->merge(['expired_at' => $this->input('expire_time')]);
         }
     }
@@ -21,13 +21,13 @@ class StoreTenantRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'name'          => 'required|string',
-            'code'          => 'required|string|unique:tenants,code',
-            'status'        => 'nullable|in:0,1',
-            'contact_name'  => 'nullable|string',
+            'name' => 'required|string',
+            'code' => 'required|string|unique:tenants,code',
+            'status' => 'nullable|in:0,1',
+            'contact_name' => 'nullable|string',
             'contact_phone' => 'nullable|string',
-            'expired_at'    => 'nullable|date',
-            'remark'        => 'nullable|string',
+            'expired_at' => 'nullable|date',
+            'remark' => 'nullable|string',
         ];
     }
 }

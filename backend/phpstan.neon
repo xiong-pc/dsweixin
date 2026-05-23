@@ -1,0 +1,18 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - phpstan-baseline.neon
+
+parameters:
+    # level 5 是 Laravel 项目的常见起步值
+    # level 0-2: 极宽松（找未定义变量、错误的方法调用）
+    # level 5: 中等（类型相关、phpdoc 一致性）
+    # level 8: 严格（null safety 全覆盖）
+    # 9 是 strict, 待 baseline 消化后逐级提升
+    level: 5
+
+    paths:
+        - app/
+
+    # 排除生成文件 / 框架自带 stubs
+    excludePaths:
+        - app/Console/Commands/CodeGenerator.php

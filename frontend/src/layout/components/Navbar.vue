@@ -88,7 +88,9 @@ function handleLogout() {
     margin-right: 12px;
     color: var(--el-text-color-primary);
     transition: color 0.2s;
-    &:hover { color: var(--el-color-primary); }
+    &:hover {
+      color: var(--el-color-primary);
+    }
   }
 
   .right-menu {
@@ -121,7 +123,9 @@ function handleLogout() {
       height: 36px;
       border-radius: 6px;
       transition: background 0.2s;
-      &:hover { background: var(--el-fill-color); }
+      &:hover {
+        background: var(--el-fill-color);
+      }
 
       .user-avatar {
         background: var(--el-color-primary);

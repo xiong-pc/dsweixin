@@ -1,0 +1,128 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# 并发控制：同一 PR 多次推送时取消旧的 run，节省 minutes
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend (PHP 8.4 + Laravel)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          # PHP 8.4：composer.lock 中 symfony v8.x 子依赖要求 8.4，同本地 dev 环境对齐
+          php-version: '8.4'
+          extensions: pdo_sqlite, sqlite3, mbstring, openssl, fileinfo
+          # 用 PCOV 比 Xdebug 快 10x，仅用于覆盖率收集
+          coverage: pcov
+          tools: composer:v2
+
+      - name: Install Composer dependencies
+        working-directory: backend
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Pint code style check
+        working-directory: backend
+        run: ./vendor/bin/pint --test
+
+      - name: PHPStan static analysis (larastan)
+        working-directory: backend
+        # baseline 锁定了 46 个历史错误，CI 只检测新增错误。
+        # 渐进消化 baseline：每修一个 Resource/Service 的类型问题后跑 composer stan:baseline 重新生成
+        run: ./vendor/bin/phpstan analyse --memory-limit=2G --no-progress
+
+      - name: Prepare Laravel environment
+        working-directory: backend
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          # Passport keys 用于 OAuth 测试（CryptKey 在加载 ~/storage/oauth-*.key 时检验签名）
+          php artisan passport:keys --force
+
+      - name: Run tests with coverage
+        working-directory: backend
+        # --min=30 是保守起步值（项目 130 个 Feature test 实际覆盖率应远高于此）。
+        # 首次 CI 跑出真实 baseline 后建议上调至 baseline-5%，作为护栏防止覆盖率倒退。
+        run: php artisan test --coverage --min=30
+
+  frontend:
+    name: Frontend (Node 22 + Vue 3)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          # Node 22 LTS：eslint-flat-config-utils 依赖 Object.groupBy（Node 21+）
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Prettier format check
+        working-directory: frontend
+        run: npm run format:check
+
+      - name: ESLint check
+        working-directory: frontend
+        run: npm run lint:check
+
+      - name: Type check
+        working-directory: frontend
+        run: npm run type-check
+
+      - name: Build
+        working-directory: frontend
+        run: npm run build
+
+  frontend-shop:
+    name: Frontend Shop (Nuxt 3 SSR)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          # Node 22 LTS：eslint-flat-config-utils 依赖 Object.groupBy（Node 21+）
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: frontend-shop/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend-shop
+        # postinstall 自动执行 `nuxt prepare`，生成 .nuxt/tsconfig.json + eslint.config.mjs
+        run: npm ci
+
+      - name: Prettier format check
+        working-directory: frontend-shop
+        run: npm run format:check
+
+      - name: ESLint check
+        working-directory: frontend-shop
+        run: npm run lint:check
+
+      - name: Type check
+        working-directory: frontend-shop
+        run: npm run typecheck
+
+      - name: Build (Nuxt SSR)
+        working-directory: frontend-shop
+        run: npm run build

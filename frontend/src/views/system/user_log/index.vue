@@ -30,8 +30,12 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQuery"><el-icon><Search /></el-icon>搜索</el-button>
-          <el-button @click="handleReset"><el-icon><Refresh /></el-icon>重置</el-button>
+          <el-button type="primary" @click="handleQuery"
+            ><el-icon><Search /></el-icon>搜索</el-button
+          >
+          <el-button @click="handleReset"
+            ><el-icon><Refresh /></el-icon>重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -76,14 +80,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { getUserLogList, deleteUserLog } from '@/api/userLog'
-import type { UserLogItem } from '@/types/api/userLog'
+import { ref, reactive, onMounted } from 'vue';
+import { ElMessage, ElMessageBox } from 'element-plus';
+import { getUserLogList, deleteUserLog } from '@/api/userLog';
+import type { UserLogItem } from '@/types/api/userLog';
 
-const loading = ref(false)
-const logList = ref<UserLogItem[]>([])
-const total = ref(0)
+const loading = ref(false);
+const logList = ref<UserLogItem[]>([]);
+const total = ref(0);
 
 const queryParams = reactive({
   keywords: '',
@@ -91,37 +95,37 @@ const queryParams = reactive({
   site_id: '' as number | '',
   pageNum: 1,
   pageSize: 15,
-})
+});
 
 onMounted(() => {
-  handleQuery()
-})
+  handleQuery();
+});
 
 async function handleQuery() {
-  loading.value = true
+  loading.value = true;
   try {
-    const res = await getUserLogList(queryParams)
-    logList.value = res.data.list
-    total.value = res.data.total
+    const res = await getUserLogList(queryParams);
+    logList.value = res.data.list;
+    total.value = res.data.total;
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
 
 function handleReset() {
-  queryParams.keywords = ''
-  queryParams.uid = ''
-  queryParams.site_id = ''
-  queryParams.pageNum = 1
-  handleQuery()
+  queryParams.keywords = '';
+  queryParams.uid = '';
+  queryParams.site_id = '';
+  queryParams.pageNum = 1;
+  handleQuery();
 }
 
 async function handleDelete(id: number) {
-  await ElMessageBox.confirm('确认删除该日志记录？', '提示', { type: 'warning' })
+  await ElMessageBox.confirm('确认删除该日志记录？', '提示', { type: 'warning' });
   try {
-    await deleteUserLog(id)
-    ElMessage.success('删除成功')
-    handleQuery()
+    await deleteUserLog(id);
+    ElMessage.success('删除成功');
+    handleQuery();
   } catch {
     // 错误已由 request 拦截器统一弹出
   }

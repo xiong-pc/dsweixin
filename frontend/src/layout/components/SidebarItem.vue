@@ -38,9 +38,7 @@ const props = defineProps<{
 const onlyOneChild = ref<any>({});
 
 function hasOneShowingChild(item: RouteRecordRaw): boolean {
-  const showingChildren = (item.children || []).filter(
-    (child) => !child.meta?.hidden
-  );
+  const showingChildren = (item.children || []).filter((child) => !child.meta?.hidden);
   if (showingChildren.length === 1) {
     onlyOneChild.value = showingChildren[0];
     return true;
@@ -55,9 +53,7 @@ function hasOneShowingChild(item: RouteRecordRaw): boolean {
 function resolvePath(routePath: string): string {
   if (routePath.startsWith('/')) return routePath;
   if (props.basePath.startsWith('/')) {
-    return props.basePath.endsWith('/')
-      ? props.basePath + routePath
-      : props.basePath + '/' + routePath;
+    return props.basePath.endsWith('/') ? props.basePath + routePath : props.basePath + '/' + routePath;
   }
   return '/' + props.basePath + '/' + routePath;
 }
